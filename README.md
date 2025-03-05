@@ -12,5 +12,5 @@ Kannattaa luoda varmuuskopiot ihan toiseen kansioon ennen committeja ja pulleja,
 Kun sitten myöhemmin haluatte jatkaa projektia niin github desktopin avaus, projektin valinta, OMAN BRANCHIN VALINTA ja pull origin/ fetch origin.
 
 Jotain huomattuja probleemia:
-*Jos scriptin avauksen suhteen visual studiossa häikkää niin kannattaa kattoa unity package managerista että visual studio editor on asennettu (Unity registry)
-*Jos hierarchya painaa oikealla hiirennapilla eikä löydy "2d object"-kohtaa niin package managerista unity registry, hakuun 2d ja install
+* Jos scriptin avauksen suhteen visual studiossa häikkää niin kannattaa kattoa unity package managerista että visual studio editor on asennettu (Unity registry)
+* Jos hierarchya painaa oikealla hiirennapilla eikä löydy "2d object"-kohtaa niin package managerista unity registry, hakuun 2d ja install
