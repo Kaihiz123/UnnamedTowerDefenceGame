@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerPlacementGrid : MonoBehaviour
@@ -19,6 +20,8 @@ public class TowerPlacementGrid : MonoBehaviour
     }
 
     GameObject selectedGameObject;
+    Vector3 selectedGameObjectStart;
+    Vector2 selectedGameObjectStartSnap;
 
     public float distance = 1f;
     public float minDepth = -1f;
@@ -36,10 +39,14 @@ public class TowerPlacementGrid : MonoBehaviour
             // raycast to check if a tower is beneath the cursor
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, distance, ObjectSelectLayerMask, minDepth);
 
-            if (hit.collider != null)
-            {                                
+            if (hit.collider != null || isDragging)
+            {
                 // raycast hit a tower
-                selectedGameObject = hit.collider.gameObject;
+                if (selectedGameObject == null)
+                {
+                    selectedGameObject = hit.collider.gameObject;
+                    selectedGameObjectStart = selectedGameObject.transform.position;
+                }
 
                 // snap ghost to closest grid element
                 float snapX, snapY;
@@ -61,7 +68,14 @@ public class TowerPlacementGrid : MonoBehaviour
                 }
                 Ghost.transform.position = new Vector3(snapX, snapY, 0f);
 
+                if (!isDragging)
+                {
+                    unavailableAreas.Remove(new Vector2(snapX - movement.x, snapY - movement.y));
+                    selectedGameObjectStartSnap = new Vector2(snapX, snapY);
+                }
+                
                 // show ghost
+                Ghost.GetComponent<SpriteRenderer>().color = Color.green;
                 Ghost.SetActive(true);
             }
             else
@@ -70,7 +84,7 @@ public class TowerPlacementGrid : MonoBehaviour
                 selectedGameObject = null;
             }
         }
-        else if (Input.GetMouseButton(0)) // left mouse button held down
+        else if (Input.GetMouseButton(0) || isDragging) // left mouse button held down
         {
             // if we have selected a tower previously
             if(selectedGameObject != null)
@@ -103,9 +117,19 @@ public class TowerPlacementGrid : MonoBehaviour
 
                 // move ghost to snapped position
                 Ghost.transform.position = new Vector3(snapX, snapY, 0f);
+
+                // check if area is available
+                if (isAreaAvailable(snapX - movement.x, snapY - movement.y))
+                {
+                    Ghost.GetComponent<SpriteRenderer>().color = Color.green;
+                }
+                else
+                {
+                    Ghost.GetComponent<SpriteRenderer>().color = Color.red;
+                }
             }
         }
-        else if (Input.GetMouseButtonUp(0)) // left mouse button released
+        else if (Input.GetMouseButtonUp(0) || endOfDrag) // left mouse button released
         {
             if(selectedGameObject != null)
             {
@@ -132,54 +156,66 @@ public class TowerPlacementGrid : MonoBehaviour
                     snapY = Mathf.Round((mousePosition.y - movement.y - ElementSize.y) / ElementSize.y) * ElementSize.y + ElementSize.y + movement.y;
                 }
                 selectedGameObject.transform.position = new Vector3(snapX, snapY, 0f);
+                
+                if(isAreaAvailable(snapX - movement.x, snapY - movement.y))
+                {
+                    unavailableAreas.Add(new Vector2(snapX - movement.x, snapY - movement.y));
+                }
+                else
+                {
+                    if (endOfDrag)
+                    {
+                        Destroy(selectedGameObject);
+                    }
+                    else
+                    {
+                        selectedGameObject.transform.position = selectedGameObjectStart;
+                        unavailableAreas.Add(selectedGameObjectStartSnap - new Vector2(movement.x, movement.y));
+                    }
+                    
+                }
+                
                 selectedGameObject = null;
 
                 // hide ghost
                 Ghost.SetActive(false);
+
+                endOfDrag = false;
             }
         }
-
-
     }
+
+    bool isDragging = false;
+    bool endOfDrag = false;
 
     public void NewTower(GameObject go)
     {
-
-        //MouseOperations.MouseEvent(MouseOperations.MouseEventFlags.LeftUp | MouseOperations.MouseEventFlags.LeftDown);
-        
-
-        /*
         selectedGameObject = go;
-
-        Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
-        // snap ghost to closest grid element
-        float snapX, snapY;
-        if (GridSize.x % 2 == 0)
-        {
-            snapX = Mathf.Round((mousePosition.x - movement.x - ElementSize.x / 2f) / ElementSize.x) * ElementSize.x + ElementSize.x / 2f + movement.x;
-        }
-        else
-        {
-            snapX = Mathf.Round((mousePosition.x - movement.x - ElementSize.x) / ElementSize.x) * ElementSize.x + ElementSize.x + movement.x;
-        }
-        if (GridSize.y % 2 == 0)
-        {
-            snapY = Mathf.Round((mousePosition.y - movement.y - ElementSize.y / 2f) / ElementSize.y) * ElementSize.y + ElementSize.y / 2f + movement.y;
-        }
-        else
-        {
-            snapY = Mathf.Round((mousePosition.y - movement.y - ElementSize.y) / ElementSize.y) * ElementSize.y + ElementSize.y + movement.y;
-        }
-        Ghost.transform.position = new Vector3(snapX, snapY, 0f);
-
-        // show ghost
-        Ghost.SetActive(true);
-
-        */
+        isDragging = true;
     }
 
+    public void NewTowerDragEnd()
+    {
+        isDragging = false;
+        endOfDrag = true;
+    }
 
+    public List<Vector2> unavailableAreas = new List<Vector2>();
+
+    private bool isAreaAvailable(float snapX, float snapY)
+    {
+        Vector2 snap = new Vector2(snapX, snapY);
+        float sqrTolerance = 0.1f * 0.1f;
+        foreach (Vector2 v in unavailableAreas)
+        {
+            if ((snap - v).sqrMagnitude <= sqrTolerance)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     private void OnDrawGizmos()
     {

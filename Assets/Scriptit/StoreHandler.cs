@@ -14,14 +14,18 @@ public class StoreHandler : MonoBehaviour
     public GameObject Tower5Prefab;
 
     bool isDragging = false;
+    bool newTower = false;
 
     TowerPlacementGrid tpg;
+    Camera mainCamera;
 
     private void Start()
     {
         tpg = GetComponent<TowerPlacementGrid>();
+        mainCamera = Camera.main;
     }
 
+    Vector3 previousPosition = Vector3.zero;
 
     private void Update()
     {
@@ -34,14 +38,18 @@ public class StoreHandler : MonoBehaviour
         if (Input.GetMouseButtonDown(2)) // if mouse middle button is pressed
         {
             //TODO: if we raycast and hit ui -> dont start dragging else start dragging
-            
+
+            previousPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
             isDragging = true;
         }
         else if(Input.GetMouseButton(2))// if mouse middle button is held
         {
             if (isDragging)
             {
-                Vector3 delta = Input.mousePositionDelta;
+                Vector3 currentPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                Vector3 delta = currentPosition - previousPosition;
+                previousPosition = currentPosition;
 
                 // move the grid
                 transform.position += delta;
@@ -56,37 +64,49 @@ public class StoreHandler : MonoBehaviour
         {
             isDragging = false;
         }
+
+        if (Input.GetMouseButtonUp(0) && newTower)
+        {
+            newTower = false;
+            tpg.NewTowerDragEnd();
+        }
     }
 
     public void CursorEnterStoreItem(GameObject go)
     {
-        Debug.Log("mouseEnter=" + go.name);
+        //Debug.Log("mouseEnter=" + go.name);
     }
 
     public void CursorExitStoreItem(GameObject go)
     {
-        Debug.Log("mouseExit=" + go.name);
+        //Debug.Log("mouseExit=" + go.name);
     }
 
     public void MouseButtonDownOnStoreItem(GameObject go)
     {
-        // TODO: piilotetaan store (ScreenSpaceOverlayCanvasObject)
+        // TODO: tutkitaan onko pelaajalla tarpeeksi rahaa ostaa tämä toweri
 
+        newTower = true;
+
+        //Debug.Log("MouseButtonDownOnStoreItem");
+
+        // Hide store
         ScreenSpaceOverlayCanvasObject.SetActive(false);
 
-        //TODO: luodaan prefabi cursorin sijaintiin ja kerrotaan towerPlacementGrid-scriptille että
+        // luodaan prefabi cursorin sijaintiin ja kerrotaan towerPlacementGrid-scriptille että
         //ollaan liikuttamassa toweria, ja instantioitu gameObjecti on selectedObject
 
         GameObject go1 = Instantiate(Tower1Prefab);
         go1.transform.SetParent(ObjectsOnGrid);
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0f;
         go1.transform.position = mousePosition;
         tpg.NewTower(go1);
+        
     }
 
     public void MouseButtonUpOnStoreItem(GameObject go)
     {
-
+        //Debug.Log("MouiseButtonUpOnStoreItem");
     }
 }
