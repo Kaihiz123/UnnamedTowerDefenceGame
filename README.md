@@ -11,4 +11,6 @@ Kannattaa luoda varmuuskopiot ihan toiseen kansioon ennen committeja ja pulleja,
 
 Kun sitten myöhemmin haluatte jatkaa projektia niin github desktopin avaus, projektin valinta, main-branchin valinta, pull/fetch, valitaan oma branch ja lopuksi merge main to oma branch. Tällöin käyttäjä saa viimeisimmän version mainista omaan branchiin.
 
+* Jos scriptin avauksen suhteen visual studiossa häikkää niin kannattaa kattoa unity package managerista että visual studio editor on asennettu (Unity registry)
+* Jos hierarchya painaa oikealla hiirennapilla eikä löydy "2d object"-kohtaa niin package managerista unity registry, hakuun 2d ja install
 * Jos Text Mesh Pro ei pelitä niin window -> textMeshPro -> Import TMP Essential Resources
