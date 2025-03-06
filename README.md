@@ -10,3 +10,5 @@ Kun saatte Unityn auki niin luokaa itsellenne omat Scenet Scene-folderiin (Asset
 Kannattaa luoda varmuuskopiot ihan toiseen kansioon ennen committeja ja pulleja, siltä varalta että jotain menee tosi pahasti pieleen!!! Githubiin tallennushan tapahtui siten että ensin tallennetaan kaikki Unityssa, sitten github desktopista varmistetaan että oma branch on valittuna. Tämän jälkeen "commit to [Oman branchin nimi]", jonka jälkeen "Push to origin" ja kädet ristissä toivotaan ettei ole konflikteja :D
 
 Kun sitten myöhemmin haluatte jatkaa projektia niin github desktopin avaus, projektin valinta, main-branchin valinta, pull/fetch, valitaan oma branch ja lopuksi merge main to oma branch. Tällöin käyttäjä saa viimeisimmän version mainista omaan branchiin.
+
+* Jos Text Mesh Pro ei pelitä niin window -> textMeshPro -> Import TMP Essential Resources
