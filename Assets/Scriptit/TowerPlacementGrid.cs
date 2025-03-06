@@ -23,6 +23,9 @@ public class TowerPlacementGrid : MonoBehaviour
     public float distance = 1f;
     public float minDepth = -1f;
 
+    public Vector3 movement = Vector3.zero;
+
+
     private void Update()
     {
 
@@ -34,7 +37,7 @@ public class TowerPlacementGrid : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, distance, ObjectSelectLayerMask, minDepth);
 
             if (hit.collider != null)
-            {
+            {                                
                 // raycast hit a tower
                 selectedGameObject = hit.collider.gameObject;
 
@@ -42,19 +45,19 @@ public class TowerPlacementGrid : MonoBehaviour
                 float snapX, snapY;
                 if (GridSize.x % 2 == 0)
                 {
-                    snapX = Mathf.Round((mousePosition.x - ElementSize.x / 2f) / ElementSize.x) * ElementSize.x + ElementSize.x / 2f;
+                    snapX = Mathf.Round((mousePosition.x - movement.x - ElementSize.x / 2f) / ElementSize.x) * ElementSize.x + ElementSize.x / 2f + movement.x;
                 }
                 else
                 {
-                    snapX = Mathf.Round((mousePosition.x - ElementSize.x) / ElementSize.x) * ElementSize.x + ElementSize.x;
+                    snapX = Mathf.Round((mousePosition.x - movement.x - ElementSize.x) / ElementSize.x) * ElementSize.x + ElementSize.x + movement.x;
                 }
                 if (GridSize.y % 2 == 0)
                 {
-                    snapY = Mathf.Round((mousePosition.y - ElementSize.y / 2f) / ElementSize.y) * ElementSize.y + ElementSize.y / 2f;
+                    snapY = Mathf.Round((mousePosition.y - movement.y - ElementSize.y / 2f) / ElementSize.y) * ElementSize.y + ElementSize.y / 2f + movement.y;
                 }
                 else
                 {
-                    snapY = Mathf.Round((mousePosition.y - ElementSize.y) / ElementSize.y) * ElementSize.y + ElementSize.y;
+                    snapY = Mathf.Round((mousePosition.y - movement.y - ElementSize.y) / ElementSize.y) * ElementSize.y + ElementSize.y + movement.y;
                 }
                 Ghost.transform.position = new Vector3(snapX, snapY, 0f);
 
@@ -83,19 +86,19 @@ public class TowerPlacementGrid : MonoBehaviour
                 float snapX, snapY;
                 if (GridSize.x % 2 == 0)
                 {
-                    snapX = Mathf.Round((mousePosition.x - ElementSize.x / 2f) / ElementSize.x) * ElementSize.x + ElementSize.x / 2f;
+                    snapX = Mathf.Round((mousePosition.x - movement.x - ElementSize.x / 2f) / ElementSize.x) * ElementSize.x + ElementSize.x / 2f + movement.x;
                 }
                 else
                 {
-                    snapX = Mathf.Round((mousePosition.x - ElementSize.x) / ElementSize.x) * ElementSize.x + ElementSize.x;
+                    snapX = Mathf.Round((mousePosition.x - movement.x - ElementSize.x) / ElementSize.x) * ElementSize.x + ElementSize.x + movement.x;
                 }
                 if(GridSize.y % 2 == 0)
                 {
-                    snapY = Mathf.Round((mousePosition.y - ElementSize.y / 2f) / ElementSize.y) * ElementSize.y + ElementSize.y / 2f;
+                    snapY = Mathf.Round((mousePosition.y - movement.y - ElementSize.y / 2f) / ElementSize.y) * ElementSize.y + ElementSize.y / 2f + movement.y;
                 }
                 else
                 {
-                    snapY = Mathf.Round((mousePosition.y - ElementSize.y) / ElementSize.y) * ElementSize.y + ElementSize.y;
+                    snapY = Mathf.Round((mousePosition.y - movement.y - ElementSize.y) / ElementSize.y) * ElementSize.y + ElementSize.y + movement.y;
                 }
 
                 // move ghost to snapped position
@@ -114,19 +117,19 @@ public class TowerPlacementGrid : MonoBehaviour
                 float snapX, snapY;
                 if (GridSize.x % 2 == 0)
                 {
-                    snapX = Mathf.Round((mousePosition.x - ElementSize.x / 2f) / ElementSize.x) * ElementSize.x + ElementSize.x / 2f;
+                    snapX = Mathf.Round((mousePosition.x - movement.x - ElementSize.x / 2f) / ElementSize.x) * ElementSize.x + ElementSize.x / 2f + movement.x;
                 }
                 else
                 {
-                    snapX = Mathf.Round((mousePosition.x - ElementSize.x) / ElementSize.x) * ElementSize.x + ElementSize.x;
+                    snapX = Mathf.Round((mousePosition.x - movement.x - ElementSize.x) / ElementSize.x) * ElementSize.x + ElementSize.x + movement.x;
                 }
                 if (GridSize.y % 2 == 0)
                 {
-                    snapY = Mathf.Round((mousePosition.y - ElementSize.y / 2f) / ElementSize.y) * ElementSize.y + ElementSize.y / 2f;
+                    snapY = Mathf.Round((mousePosition.y - movement.y - ElementSize.y / 2f) / ElementSize.y) * ElementSize.y + ElementSize.y / 2f + movement.y;
                 }
                 else
                 {
-                    snapY = Mathf.Round((mousePosition.y - ElementSize.y) / ElementSize.y) * ElementSize.y + ElementSize.y;
+                    snapY = Mathf.Round((mousePosition.y - movement.y - ElementSize.y) / ElementSize.y) * ElementSize.y + ElementSize.y + movement.y;
                 }
                 selectedGameObject.transform.position = new Vector3(snapX, snapY, 0f);
                 selectedGameObject = null;
@@ -139,7 +142,42 @@ public class TowerPlacementGrid : MonoBehaviour
 
     }
 
+    public void NewTower(GameObject go)
+    {
 
+        //MouseOperations.MouseEvent(MouseOperations.MouseEventFlags.LeftUp | MouseOperations.MouseEventFlags.LeftDown);
+        
+
+        /*
+        selectedGameObject = go;
+
+        Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+        // snap ghost to closest grid element
+        float snapX, snapY;
+        if (GridSize.x % 2 == 0)
+        {
+            snapX = Mathf.Round((mousePosition.x - movement.x - ElementSize.x / 2f) / ElementSize.x) * ElementSize.x + ElementSize.x / 2f + movement.x;
+        }
+        else
+        {
+            snapX = Mathf.Round((mousePosition.x - movement.x - ElementSize.x) / ElementSize.x) * ElementSize.x + ElementSize.x + movement.x;
+        }
+        if (GridSize.y % 2 == 0)
+        {
+            snapY = Mathf.Round((mousePosition.y - movement.y - ElementSize.y / 2f) / ElementSize.y) * ElementSize.y + ElementSize.y / 2f + movement.y;
+        }
+        else
+        {
+            snapY = Mathf.Round((mousePosition.y - movement.y - ElementSize.y) / ElementSize.y) * ElementSize.y + ElementSize.y + movement.y;
+        }
+        Ghost.transform.position = new Vector3(snapX, snapY, 0f);
+
+        // show ghost
+        Ghost.SetActive(true);
+
+        */
+    }
 
 
 
@@ -148,12 +186,12 @@ public class TowerPlacementGrid : MonoBehaviour
         Gizmos.color = Color.blue;
         for(int i = 1; i < GridSize.x; i++)
         {
-            Gizmos.DrawLine(new Vector3(i * ElementSize.x - GridSize.x * 0.5f * ElementSize.x, GridSize.y * -0.5f * ElementSize.y, 0f), new Vector3(i * ElementSize.x - GridSize.x * 0.5f * ElementSize.x, GridSize.y * ElementSize.y + GridSize.y * -0.5f * ElementSize.y, 0f));
+            Gizmos.DrawLine(new Vector3(i * ElementSize.x - GridSize.x * 0.5f * ElementSize.x + movement.x, GridSize.y * -0.5f * ElementSize.y + movement.y, 0f), new Vector3(i * ElementSize.x - GridSize.x * 0.5f * ElementSize.x + movement.x, GridSize.y * ElementSize.y + GridSize.y * -0.5f * ElementSize.y + movement.y, 0f));
         }
         
         for (int i = 1; i < GridSize.y; i++)
         {
-            Gizmos.DrawLine(new Vector3(GridSize.x * -0.5f * ElementSize.x, i * ElementSize.y - GridSize.y * 0.5f * ElementSize.y, 0f), new Vector3(GridSize.x * ElementSize.x + GridSize.x * -0.5f * ElementSize.x, i * ElementSize.y - GridSize.y * 0.5f * ElementSize.y, 0f));
+            Gizmos.DrawLine(new Vector3(GridSize.x * -0.5f * ElementSize.x + movement.x, i * ElementSize.y - GridSize.y * 0.5f * ElementSize.y + movement.y, 0f), new Vector3(GridSize.x * ElementSize.x + GridSize.x * -0.5f * ElementSize.x + movement.x, i * ElementSize.y - GridSize.y * 0.5f * ElementSize.y + movement.y, 0f));
         }
        
     }
