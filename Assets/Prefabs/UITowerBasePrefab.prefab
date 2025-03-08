@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.083981514, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 1, a: 0.69803923}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -94,6 +94,7 @@ MonoBehaviour:
   price: 0
   towerImageUI: {fileID: 1704987508308894001}
   towerText: {fileID: 7926350174504507936}
+  towerType: 0
 --- !u!1 &4244357839163339251
 GameObject:
   m_ObjectHideFlags: 0

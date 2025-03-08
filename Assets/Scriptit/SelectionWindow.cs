@@ -19,6 +19,9 @@ public class SelectionWindow : MonoBehaviour
 
     List<GameObject> layouts = new List<GameObject>();
 
+    public Color ownedColor;
+    public Color notOwnedColor;
+
     public void Init(TowerInfo towerInfo)
     {
         layouts.Clear();
@@ -53,11 +56,11 @@ public class SelectionWindow : MonoBehaviour
             {
                 if(currentTowerInfo.upgradeIndex >= item.upgradeIndex)
                 {
-                    item.gameObject.GetComponent<Image>().color = Color.blue;
+                    item.gameObject.GetComponent<Image>().color = ownedColor;
                 }
                 else
                 {
-                    item.gameObject.GetComponent<Image>().color = Color.red;
+                    item.gameObject.GetComponent<Image>().color = notOwnedColor;
                 }
             }
         }

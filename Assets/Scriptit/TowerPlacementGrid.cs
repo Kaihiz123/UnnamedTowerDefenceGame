@@ -29,6 +29,9 @@ public class TowerPlacementGrid : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
+
+        Ghost.transform.localScale = ElementSize;
+        SelectionIndicator.transform.localScale = ElementSize;
     }
 
     GameObject selectedGameObject; // currently selected tower
@@ -92,7 +95,9 @@ public class TowerPlacementGrid : MonoBehaviour
                 ShowSelectionWindow(false);
                 // hide selection indicator
                 SelectionIndicator.SetActive(false);
+                
             }
+
         }
         else if (Input.GetMouseButton(0) || isDraggingANewTower) // left mouse button held down
         {
@@ -117,11 +122,12 @@ public class TowerPlacementGrid : MonoBehaviour
                     {
                         // we are not selecting the tower but dragging
                         isSelecting = false;
-                        // hide the selection window
-                        ShowSelectionWindow(false);
-                        // hide selection indicator
-                        SelectionIndicator.SetActive(false);
                     }
+
+                    // hide the selection window
+                    ShowSelectionWindow(false);
+                    // hide selection indicator
+                    SelectionIndicator.SetActive(false);
                 }
 
                 // move ghost to snapped position

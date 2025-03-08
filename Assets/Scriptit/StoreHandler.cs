@@ -114,6 +114,7 @@ public class StoreHandler : MonoBehaviour
             // the towerPlacementGrid know that we are dragging the new tower
 
             GameObject newTowerObject = Instantiate(Tower1Prefab);
+            newTowerObject.transform.localScale = tpg.ElementSize;
             // Set the new tower child of ObjectsOnGrid
             newTowerObject.transform.SetParent(ObjectsOnGrid);
             // pass the tower type from storeItem to towerInfo
