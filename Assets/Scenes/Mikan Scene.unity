@@ -16575,8 +16575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8acff520d7a6b5e419d2831ae93d8322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridSize: {x: 24, y: 13}
-  ElementSize: {x: 80, y: 80}
+  GridSize: {x: 20, y: 11}
+  ElementSize: {x: 95, y: 95}
   Ghost: {fileID: 1561059559}
   SelectionIndicator: {fileID: 1708750926}
   bank: {fileID: 1070853430}
@@ -32163,7 +32163,7 @@ RectTransform:
   m_GameObject: {fileID: 1893569871}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 150, y: 150, z: 1}
+  m_LocalScale: {x: 320, y: 270, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 226366131}
@@ -32217,7 +32217,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: bf44a27449f65934db97e47937670e3a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f411d86365b9acb4497d133b6e9ad1ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
