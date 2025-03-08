@@ -15,21 +15,41 @@ public class Bank : MonoBehaviour
 
     private void Start()
     {
+        // initialize storeItemHandler
+        storeItemHandler.Init();
+        
         // get the prices of towers
         prices = storeItemHandler.GetStoreItemPrices();
         // update the bank balance to show how much money the player has
         UpdateBankBalanceText();
     }
 
-    public bool BuyTower(int index)
+    public bool BuyTower(int towerIndexInStore)
     {   
         // if the player has enough money to buy the tower
-        if(playerMoney >= prices[index])
+        if(playerMoney >= prices[towerIndexInStore])
         {
-            //TODO: players money shouldn't be reduced immediately because the player might try to place the tower on an unavailable area
-            // money should be reduced when the tower was placed successfully to the grid
+            // players money isn't be reduced immediately because the player might try to place the tower on an unavailable area
+            // money is reduced when the tower was placed successfully to the grid
 
-            newTowerIndex = index;
+            newTowerIndex = towerIndexInStore;
+            
+            return true;
+        }
+        else
+        {
+            // TODO: add sound of failure
+            return false;
+        }
+    }
+
+    public bool BuyUpgrade(int price)
+    {
+        // if the player has enough money to buy the tower
+        if (playerMoney >= price)
+        {
+            playerMoney -= price;
+            UpdateBankBalanceText();
             
             return true;
         }

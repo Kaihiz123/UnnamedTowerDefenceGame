@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TowerPlacementGrid : MonoBehaviour
 {
@@ -10,10 +12,14 @@ public class TowerPlacementGrid : MonoBehaviour
     public Vector2 ElementSize; // if Towers and Ghosts localScale == ElementSize everything fits nicely
 
     public GameObject Ghost; // the green/red box that indicates if dragged tower can be placed there
+    public GameObject SelectionIndicator; // this show which tower is selected if any
 
     Camera mainCamera;
 
     public Bank bank;
+    public StoreHandler storeHandler;
+    public SelectionWindow selectionWindow;
+    public GameObject selectionWindowCanvasObject;
 
     // these are used in the raycast to check if the mouse is above an old tower on the grid
     public LayerMask ObjectSelectLayerMask;
@@ -31,6 +37,9 @@ public class TowerPlacementGrid : MonoBehaviour
 
     public Vector3 movement = Vector3.zero; // how the grid has been moved
 
+    bool isSelecting = true; // whether we are selecting a tower or dragging a tower;
+                             // user is dragging if tower is moved outside the original snap area
+
     private void Update()
     {
 
@@ -40,7 +49,7 @@ public class TowerPlacementGrid : MonoBehaviour
             Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             // raycast to check if a tower is beneath the cursor
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, distance, ObjectSelectLayerMask, minDepth);
-
+            
             // if raycast hit an old tower on the grid or if we are starting to dragging a new tower
             if (hit.collider != null || isDraggingANewTower)
             {
@@ -61,7 +70,7 @@ public class TowerPlacementGrid : MonoBehaviour
                 if (!isDraggingANewTower)
                 {
                     // remove an area from the list so that a tower can be placed here
-                    unavailableAreas.Remove(new Vector2(snapX - movement.x, snapY - movement.y));
+                    unavailablePositions.Remove(new Vector2Int(Mathf.RoundToInt(snapX - movement.x), Mathf.RoundToInt(snapY - movement.y)));
                     // save the old snap position of the tower
                     selectedGameObjectStartSnap = new Vector2(snapX, snapY);
                 }
@@ -70,10 +79,19 @@ public class TowerPlacementGrid : MonoBehaviour
                 Ghost.GetComponent<SpriteRenderer>().color = Color.green;
                 Ghost.SetActive(true);
             }
+            else if (EventSystem.current.IsPointerOverGameObject())
+            {
+
+            }
             else
             {
                 // raycast didn't hit any tower and a new tower is not being dragged
                 selectedGameObject = null;
+
+                // close the selection window if it's open
+                ShowSelectionWindow(false);
+                // hide selection indicator
+                SelectionIndicator.SetActive(false);
             }
         }
         else if (Input.GetMouseButton(0) || isDraggingANewTower) // left mouse button held down
@@ -90,12 +108,27 @@ public class TowerPlacementGrid : MonoBehaviour
 
                 // Snap mouse position to the grid
                 GetSnapPosition(mousePosition, out float snapX, out float snapY);
-                
+
+                if (isSelecting && !isDraggingANewTower)
+                {
+                    // check if we are selecting the tower or dragging
+                    if (!CheckIfInSameArea(Mathf.RoundToInt(snapX - movement.x), Mathf.RoundToInt(snapY - movement.y), 
+                        Mathf.RoundToInt(selectedGameObjectStartSnap.x - movement.x), Mathf.RoundToInt(selectedGameObjectStartSnap.y - movement.y)))
+                    {
+                        // we are not selecting the tower but dragging
+                        isSelecting = false;
+                        // hide the selection window
+                        ShowSelectionWindow(false);
+                        // hide selection indicator
+                        SelectionIndicator.SetActive(false);
+                    }
+                }
+
                 // move ghost to snapped position
                 Ghost.transform.position = new Vector3(snapX, snapY, 0f);
 
                 // check if area is available
-                if (isAreaAvailable(snapX - movement.x, snapY - movement.y))
+                if (isAreaAvailable(Mathf.RoundToInt(snapX - movement.x), Mathf.RoundToInt(snapY - movement.y)))
                 {
                     // change the color of the ghost based on availability of the area
                     Ghost.GetComponent<SpriteRenderer>().color = Color.green;
@@ -117,46 +150,87 @@ public class TowerPlacementGrid : MonoBehaviour
 
                 // snap selected tower to closest grid element
                 GetSnapPosition(mousePosition, out float snapX, out float snapY);
-                
-                // check if the area is available
-                if(isAreaAvailable(snapX - movement.x, snapY - movement.y))
+
+                // check if we were selecting or dragging a new tower
+                if (isSelecting)
                 {
-                    // move the selected tower to position
-                    selectedGameObject.transform.position = new Vector3(snapX, snapY, 0f);
-
-                    // change this are to be occupied
-                    unavailableAreas.Add(new Vector2(snapX - movement.x, snapY - movement.y));
-
-                    if (endOfDragOfANewTower)
+                    if (isAreaAvailable(Mathf.RoundToInt(snapX - movement.x), Mathf.RoundToInt(snapY - movement.y)))
                     {
-                        // notify that the just bought tower was placed successfully to finish the transaction
-                        bank.NewTowerWasPlacedSuccessfully();
-                        endOfDragOfANewTower = false;
-                    }
-                }
-                else
-                {
-                    // area is not available
+                        if (endOfDragOfANewTower)
+                        {
+                            // notify that the just bought tower was placed successfully to finish the transaction
+                            bank.NewTowerWasPlacedSuccessfully();
+                            storeHandler.NewTowerEnd();
+                            endOfDragOfANewTower = false;
+                        }
 
-                    if (endOfDragOfANewTower) // we were dragging a new tower so we destroy it
-                    {
-                        Destroy(selectedGameObject);
-                        endOfDragOfANewTower = false;
+                        // move the selected tower to position
+                        selectedGameObject.transform.position = new Vector3(snapX, snapY, 0f);
+
+                        // change this are to be occupied
+                        unavailablePositions.Add(new Vector2Int(Mathf.RoundToInt(snapX - movement.x), Mathf.RoundToInt(snapY - movement.y)));
+
+                        // show selection window
+                        ShowSelectionWindow(true);
+                        // move the selection indicator to selectedGameObjects position
+                        SelectionIndicator.transform.position = selectedGameObject.transform.position;
+                        // show selection indicator
+                        SelectionIndicator.SetActive(true);
                     }
                     else
                     {
+                        if (endOfDragOfANewTower) // we were dragging a new tower so we destroy it
+                        {
+                            Destroy(selectedGameObject);
+                            storeHandler.NewTowerEnd();
+                            endOfDragOfANewTower = false;
+                        }
+                    }
+
+                    selectedGameObjectStartSnap = new Vector2(snapX, snapY);
+
+                }
+                else
+                {
+                    // we are dragging an old tower
+                    
+                    // check if the area is available
+                    if (isAreaAvailable(Mathf.RoundToInt(snapX - movement.x), Mathf.RoundToInt(snapY - movement.y)))
+                    {
+                        // move the selected tower to position
+                        selectedGameObject.transform.position = new Vector3(snapX, snapY, 0f);
+
+                        // change this are to be occupied
+                        unavailablePositions.Add(new Vector2Int(Mathf.RoundToInt(snapX - movement.x), Mathf.RoundToInt(snapY - movement.y)));
+                    }
+                    else
+                    {
+                        // area is not available
+
                         // we move the selected tower back where it was
                         selectedGameObject.transform.position = selectedGameObjectStart;
-                        unavailableAreas.Add(selectedGameObjectStartSnap - new Vector2(movement.x, movement.y));
-                    }                    
+                        // this position is now unavailable
+                        unavailablePositions.Add(new Vector2Int(Mathf.RoundToInt(selectedGameObjectStartSnap.x - movement.x), Mathf.RoundToInt(selectedGameObjectStartSnap.y - movement.y)));
+                    }
+
+                    // show the selection window
+                    ShowSelectionWindow(true);
+                    // move the selection indicator to selectedGameObjects position
+                    SelectionIndicator.transform.position = selectedGameObject.transform.position;
+                    // show selection indicator
+                    SelectionIndicator.SetActive(true);
                 }
-                
+
+                DebugCheck(selectedGameObject.name);
+
                 // no tower is no longer selected
                 selectedGameObject = null;
 
                 // hide ghost
                 Ghost.SetActive(false);
 
+                // reset to default
+                isSelecting = true;
             }
         }
     }
@@ -189,6 +263,11 @@ public class TowerPlacementGrid : MonoBehaviour
     {
         selectedGameObject = go;
         isDraggingANewTower = true;
+
+        // hide selection window
+        ShowSelectionWindow(false);
+        // hide selection indicator
+        SelectionIndicator.SetActive(false);
     }
 
     // this is called when we stopped dragging a new tower
@@ -199,24 +278,59 @@ public class TowerPlacementGrid : MonoBehaviour
     }
 
     // save the placements of the towers and other areas where towers cannot be placed
-    public List<Vector2> unavailableAreas = new List<Vector2>();
+    public List<Vector2Int> unavailablePositions = new List<Vector2Int>();
 
-    // check if a tower can be placed in the element
-    private bool isAreaAvailable(float snapX, float snapY)
+    private bool isAreaAvailable(int snapX, int snapY)
     {
-        Vector2 snap = new Vector2(snapX, snapY);
-        float sqrTolerance = 0.1f * 0.1f;
-        foreach (Vector2 v in unavailableAreas)
+        foreach (Vector2Int unavailablePosition in unavailablePositions)
         {
-            // Due to the floating number accuracy error the coordinates might shift a little so we use tolerance around the actual place.
-            // Square magnitude is used instead of distance because it's more high-performant but does the same thing in this case
-            if ((snap - v).sqrMagnitude <= sqrTolerance)
+            if (CheckIfInSameArea(snapX, snapY, unavailablePosition.x, unavailablePosition.y))
             {
                 return false;
             }
         }
 
         return true;
+    }
+
+    private bool CheckIfInSameArea(int snapX, int snapY, int areaX, int areaY)
+    {
+        return (snapX == areaX && snapY == areaY);
+    }
+
+    private void ShowSelectionWindow(bool show)
+    {
+        if (show)
+        {
+            selectionWindow.Init(selectedGameObject.GetComponent<TowerInfo>());
+            selectionWindowCanvasObject.SetActive(show);
+        }
+        else
+        {
+            selectionWindow.CloseSelectionWindow();
+            selectionWindowCanvasObject.SetActive(show);
+        }
+    }
+
+    public void SelectedTowerWasSold(TowerInfo towerInfo)
+    {
+        unavailablePositions.Remove(new Vector2Int(Mathf.RoundToInt(selectedGameObjectStartSnap.x - movement.x), Mathf.RoundToInt(selectedGameObjectStartSnap.y - movement.y)));
+        Destroy(towerInfo.gameObject);
+        selectedGameObject = null;
+        // hide the selection window
+        ShowSelectionWindow(false);
+        // hide the selection indicator
+        SelectionIndicator.SetActive(false);
+    }
+
+    private void DebugCheck(string selectedName)
+    {
+        int towerCount = transform.GetChild(0).childCount - 2;
+        if(towerCount != unavailablePositions.Count)
+        {
+            Debug.Log("towerCount != unavailableAreaCount, selectedName=" + selectedName);
+        }
+
     }
 
     // this is used in unity editor to show grid if gizmos are active

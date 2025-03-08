@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class StoreHandler : MonoBehaviour
 {
+    //TODO: hide/show animation of the store window (translate left/right)
+    
     // Store layout
     public GameObject ScreenSpaceOverlayCanvasObject;
     // Visual grid on top of the background
@@ -95,7 +97,7 @@ public class StoreHandler : MonoBehaviour
         // TODO: stop indicating that the storeItem is no longer above the storeItem
     }
 
-    public void MouseButtonDownOnStoreItem(GameObject go, int index)
+    public void MouseButtonDownOnStoreItem(GameObject pressedStoreItemObject, int index)
     {
         // Left mouse button was pressed down above a certain storeItem
         
@@ -105,23 +107,31 @@ public class StoreHandler : MonoBehaviour
             // just to know that we are creating a new tower
             newTower = true;
 
-            // Hide store
+            // Hide store 
             ScreenSpaceOverlayCanvasObject.SetActive(false);
 
             // Create a prefab of the tower into cursors position ja let
             // the towerPlacementGrid know that we are dragging the new tower
 
-            GameObject go1 = Instantiate(Tower1Prefab);
+            GameObject newTowerObject = Instantiate(Tower1Prefab);
             // Set the new tower child of ObjectsOnGrid
-            go1.transform.SetParent(ObjectsOnGrid);
+            newTowerObject.transform.SetParent(ObjectsOnGrid);
+            // pass the tower type from storeItem to towerInfo
+            TowerInfo towerInfo = newTowerObject.GetComponent<TowerInfo>();
+            towerInfo.towerType = pressedStoreItemObject.GetComponent<StoreItem>().towerType;
             Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0f;
             // Set the position of the new tower into cursor position
-            go1.transform.position = mousePosition;
+            newTowerObject.transform.position = mousePosition;
             // Notify the towerPlacementGrid of the new tower
-            tpg.NewTower(go1);
+            tpg.NewTower(newTowerObject);
         }
-        
+    }
+
+    public void NewTowerEnd()
+    {
+        // Show store
+        ScreenSpaceOverlayCanvasObject.SetActive(true);
     }
 
     public void MouseButtonUpOnStoreItem(GameObject go)

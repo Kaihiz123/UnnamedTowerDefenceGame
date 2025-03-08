@@ -8,9 +8,9 @@ public class StoreItemHandler : MonoBehaviour
 
     StoreItem[] storeItems; // items that are available in the store
 
-    private void Awake()
+    public void Init()
     {
-        storeItems = GetComponentsInChildren<StoreItem>();
+        storeItems = GetComponentsInChildren<StoreItem>(true);
         foreach(StoreItem storeItem in storeItems)
         {
             // initialize storeItems so that they are ready

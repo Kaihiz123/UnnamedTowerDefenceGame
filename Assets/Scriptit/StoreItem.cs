@@ -9,12 +9,13 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
     public int price;
     public Image towerImageUI;
     public TMPro.TextMeshProUGUI towerText;
+    public TowerInfo.TowerType towerType;
 
     public void Init()
     {
         if(storeHandler == null)
         {
-            storeHandler = GetComponentInParent<StoreItemHandler>().storeHandler;
+            storeHandler = GetComponentInParent<StoreItemHandler>(true).storeHandler;
         }
 
         // the index of the storeItem in the store
