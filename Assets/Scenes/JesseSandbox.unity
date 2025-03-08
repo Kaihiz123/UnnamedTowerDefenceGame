@@ -185,25 +185,37 @@ MonoBehaviour:
   tankEnemy: {fileID: 1401652412983515288, guid: 292f598deed4ffa4691de7a7f5d80729, type: 3}
   waves:
   - enemies:
-    - enemyType: 0
-      spawnDelay: 1
-    - enemyType: 0
-      spawnDelay: 1
-    - enemyType: 0
-      spawnDelay: 1
     - enemyType: 2
-      spawnDelay: 1
+      spawnDelay: 0
+      count: 1
+    - enemyType: 1
+      spawnDelay: 0.5
+      count: 5
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+    - enemyType: 1
+      spawnDelay: 0.5
+      count: 5
+    - enemyType: 2
+      spawnDelay: 0.5
+      count: 1
   - enemies:
-    - enemyType: 1
+    - enemyType: 0
       spawnDelay: 1
+      count: 5
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+    - enemyType: 3
+      spawnDelay: 0.5
+      count: 1
     - enemyType: 1
-      spawnDelay: 1
-    - enemyType: 1
-      spawnDelay: 1
-    - enemyType: 1
-      spawnDelay: 1
-    - enemyType: 1
-      spawnDelay: 1
+      spawnDelay: 0.5
+      count: 5
+    - enemyType: 2
+      spawnDelay: 0.5
+      count: 1
 --- !u!4 &296085247
 Transform:
   m_ObjectHideFlags: 0

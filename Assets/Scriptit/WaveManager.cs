@@ -12,7 +12,8 @@ public class WaveManager : MonoBehaviour
     {
         [InspectorName("Basic Enemy")] BasicEnemy,
         [InspectorName("Fast Enemy")] FastEnemy,
-        [InspectorName("Tank Enemy")] TankEnemy
+        [InspectorName("Tank Enemy")] TankEnemy,
+        [InspectorName("Delay")] Delay
     }
 
     // Represents a single enemy spawn configuration
@@ -22,6 +23,8 @@ public class WaveManager : MonoBehaviour
         public EnemyType enemyType;
         // Delay before spawning the next enemy in seconds
         public float spawnDelay;
+        // Number of this enemy type to spawn consecutively
+        public int count = 1;
     }
 
     // Represents a complete wave of enemies
@@ -50,6 +53,8 @@ public class WaveManager : MonoBehaviour
                 return fastEnemy;
             case EnemyType.TankEnemy:
                 return tankEnemy;
+            case EnemyType.Delay:
+                return null;
             default:
                 return basicEnemy;
         }
@@ -73,18 +78,39 @@ public class WaveManager : MonoBehaviour
             for (int spawnIndex = 0; spawnIndex < currentWave.enemies.Count; spawnIndex++)
             {
                 EnemySpawn spawn = currentWave.enemies[spawnIndex];
-                GameObject enemyToSpawn = GetEnemyPrefab(spawn.enemyType);
                 
-                Debug.Log("Wave " + (waveIndex + 1) + " - Spawning " + spawn.enemyType);
-                Instantiate(enemyToSpawn, spawnPoint.position, spawnPoint.rotation);
-                yield return new WaitForSeconds(spawn.spawnDelay);
-            }
+                // Spawn the specified count of this enemy type
+                for (int i = 0; i < spawn.count; i++)
+                {
+                    // Wait first
+                    if (i > 0 || spawnIndex > 0)
+                    {
+                        yield return new WaitForSeconds(spawn.spawnDelay);
+                    }
 
-            // Wait for a short duration before starting the next wave
+                    Debug.Log("Wave " + (waveIndex + 1) + " - " + 
+                              (spawn.enemyType == EnemyType.Delay ? "Delayed by " + spawn.spawnDelay + " Seconds" : 
+                               "Spawning " + spawn.enemyType + " (" + (i + 1) + "/" + spawn.count + ")"));
+                              
+                    SpawnEnemy(spawn.enemyType, spawnPoint.position, spawnPoint.rotation);
+                }
+            }
+            // Wait for a short duration before starting the next wave (debug/testing purposes)
             Debug.Log("Wave " + (waveIndex + 1) + " completed! Waiting 5 seconds before next wave.");
             yield return new WaitForSeconds(5f);
         }
         
         Debug.Log("All waves completed!");
     }
+
+    // Separated enemy spawning method
+    private void SpawnEnemy(EnemyType enemyType, Vector3 position, Quaternion rotation)
+    {
+        if (enemyType != EnemyType.Delay)
+        {
+            GameObject enemyToSpawn = GetEnemyPrefab(enemyType);
+            Instantiate(enemyToSpawn, position, rotation);
+        }
+    }
+
 }
