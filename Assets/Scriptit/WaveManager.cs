@@ -91,9 +91,9 @@ public class WaveManager : MonoBehaviour
         for (int waveIndex = startWaveIndex; waveIndex < waves.Count; waveIndex++)
         {
             // Wait for player to trigger wave
-            nextWaveButton.gameObject.SetActive(true);
+            nextWaveButton.gameObject.SetActive(true); // change depending on UI needs
             yield return new WaitUntil(() => nextWaveTriggered);
-            nextWaveButton.gameObject.SetActive(false);
+            nextWaveButton.gameObject.SetActive(false); // change depending on UI needs
             nextWaveTriggered = false;
             
             debugCurrentWave = waveIndex + 1; // update current wave for inspector
@@ -121,6 +121,7 @@ public class WaveManager : MonoBehaviour
                     SpawnEnemy(spawn.enemyType, spawnPoint.position, spawnPoint.rotation);
                 }
             }
+            // Let other systems know the wave is over here so they can do their things
             Debug.Log("Wave " + (waveIndex + 1) + " completed!");
         }
         
