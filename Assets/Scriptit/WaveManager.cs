@@ -1,9 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour
 {
+    [Header("UI")]
+    [SerializeField] private Button nextWaveButton;
+    public bool nextWaveTriggered = false; // public for testing
+    public int debugCurrentWave = 0; // show current wave in inspector for debugging
+
+    [Header("Debug Settings")]
+    [SerializeField] private bool debugMode = false;
+    [SerializeField] private int startFromWave = 1;
+
     [Header("Spawn Settings")] 
     [SerializeField] private Transform spawnPoint;
 
@@ -68,9 +78,25 @@ public class WaveManager : MonoBehaviour
     // Main spawning coroutine that handles wave progression
     public IEnumerator Spawning()
     {
-        // Loop through each wave
-        for (int waveIndex = 0; waveIndex < waves.Count; waveIndex++)
+        // Start from the specified wave in debug mode
+        int startWaveIndex = debugMode ? Mathf.Clamp(startFromWave -1, 0, waves.Count - 1) : 0;
+
+        /* TODO: Calculate how much money player should have earned by this wave and pass to money system
+        if (debugMode && startWaveIndex > 0)
         {
+        }
+        */
+        
+        // Loop through each wave
+        for (int waveIndex = startWaveIndex; waveIndex < waves.Count; waveIndex++)
+        {
+            // Wait for player to trigger wave
+            nextWaveButton.gameObject.SetActive(true);
+            yield return new WaitUntil(() => nextWaveTriggered);
+            nextWaveButton.gameObject.SetActive(false);
+            nextWaveTriggered = false;
+            
+            debugCurrentWave = waveIndex + 1; // update current wave for inspector
             Debug.Log("Starting Wave " + (waveIndex + 1));
             Wave currentWave = waves[waveIndex];
             
@@ -95,12 +121,16 @@ public class WaveManager : MonoBehaviour
                     SpawnEnemy(spawn.enemyType, spawnPoint.position, spawnPoint.rotation);
                 }
             }
-            // Wait for a short duration before starting the next wave (debug/testing purposes)
-            Debug.Log("Wave " + (waveIndex + 1) + " completed! Waiting 5 seconds before next wave.");
-            yield return new WaitForSeconds(5f);
+            Debug.Log("Wave " + (waveIndex + 1) + " completed!");
         }
         
         Debug.Log("All waves completed!");
+    }
+
+    // Call this to trigger the next wave
+    public void TriggerNextWave()
+    {
+        nextWaveTriggered = true;
     }
 
     // Separated enemy spawning method
@@ -112,5 +142,4 @@ public class WaveManager : MonoBehaviour
             Instantiate(enemyToSpawn, position, rotation);
         }
     }
-
 }
