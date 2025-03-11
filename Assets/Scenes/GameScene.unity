@@ -11487,6 +11487,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1985216541}
     - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
+      propertyPath: enemyParent
+      value: 
+      objectReference: {fileID: 1553599862}
+    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: startFromWave
       value: 1
       objectReference: {fileID: 0}
@@ -11494,6 +11498,10 @@ PrefabInstance:
       propertyPath: nextWaveButton
       value: 
       objectReference: {fileID: 1590941521}
+    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
+      propertyPath: waypointsParent
+      value: 
+      objectReference: {fileID: 1735434989}
     - target: {fileID: 4282547272630411687, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: m_Name
       value: WaveManager
@@ -16946,6 +16954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8acff520d7a6b5e419d2831ae93d8322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   GridSize: {x: 21, y: 13}
   ElementSize: {x: 1, y: 1}
   Ghost: {fileID: 990617967}
@@ -16973,6 +16982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726935a25ac724646b465d5a99e036ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnableMovingTheGrid: 1
   ScreenSpaceOverlayCanvasObject: {fileID: 927863052}
   WorldSpaceCanvasObject: {fileID: 977151634}
   ObjectsOnGrid: {fileID: 1553599862}
@@ -22833,6 +22843,7 @@ Transform:
   m_Children:
   - {fileID: 990617968}
   - {fileID: 1081257423}
+  - {fileID: 1985216540}
   m_Father: {fileID: 1163977124}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1553720757
@@ -26377,6 +26388,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733327194}
   m_CullTransparentMesh: 1
+--- !u!1 &1735434989 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1120078786247813480, guid: 48c2d83f1ca8bbb43bb0630d29e7fdd8, type: 3}
+  m_PrefabInstance: {fileID: 1985216539}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1738858834
 GameObject:
   m_ObjectHideFlags: 0
@@ -31034,11 +31050,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1553599862}
     m_Modifications:
     - target: {fileID: 1120078786247813480, guid: 48c2d83f1ca8bbb43bb0630d29e7fdd8, type: 3}
       propertyPath: m_Name
-      value: Waypoints
+      value: EnemyWaypoints
       objectReference: {fileID: 0}
     - target: {fileID: 1408790702578498616, guid: 48c2d83f1ca8bbb43bb0630d29e7fdd8, type: 3}
       propertyPath: m_LocalScale.x
@@ -31066,15 +31082,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1408790702578498616, guid: 48c2d83f1ca8bbb43bb0630d29e7fdd8, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1408790702578498616, guid: 48c2d83f1ca8bbb43bb0630d29e7fdd8, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1408790702578498616, guid: 48c2d83f1ca8bbb43bb0630d29e7fdd8, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1408790702578498616, guid: 48c2d83f1ca8bbb43bb0630d29e7fdd8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -33248,4 +33264,3 @@ SceneRoots:
   - {fileID: 651840057}
   - {fileID: 1685386090}
   - {fileID: 771689152}
-  - {fileID: 1985216539}

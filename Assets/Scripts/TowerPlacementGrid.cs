@@ -7,6 +7,8 @@ public class TowerPlacementGrid : MonoBehaviour
 {
     // This scripts idea is to be able to place tower on a grid
 
+    public bool debug;
+
     public Vector2 GridSize; 
     
     public Vector2 ElementSize; // if Towers and Ghosts localScale == ElementSize everything fits nicely
@@ -227,8 +229,11 @@ public class TowerPlacementGrid : MonoBehaviour
                     SelectionIndicator.SetActive(true);
                 }
 
-                DebugCheck(selectedGameObject.name);
-
+                if (debug)
+                {
+                    DebugCheck(selectedGameObject.name);
+                }
+                
                 // no tower is no longer selected
                 selectedGameObject = null;
 

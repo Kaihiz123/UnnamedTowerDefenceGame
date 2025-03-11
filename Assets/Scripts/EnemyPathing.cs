@@ -2,25 +2,28 @@ using UnityEngine;
 
 public class EnemyPathing : MonoBehaviour
 {
-    [SerializeField] private string waypointsParentName = "Waypoints";
     private Transform[] waypoints;
     private int currentWaypointIndex = 0;
     private float moveSpeed;
-    
+
+    [Header("References")]
+    [SerializeField] private Transform spriteTransform; // Reference to child sprite
+
     // Simple bool to check if path is complete
     public bool HasReachedEnd { get; private set; } = false;
 
-    void Awake()
+    public void Initialize(float speed, GameObject waypointsParent)
     {
-        // Find waypoints parent by name
-        GameObject waypointsParent = GameObject.Find(waypointsParentName);
+        moveSpeed = speed;
+        currentWaypointIndex = 1;
+        HasReachedEnd = false;
         
         if (waypointsParent != null)
         {
             // Get all child transforms as waypoints
             int childCount = waypointsParent.transform.childCount;
             waypoints = new Transform[childCount];
-            
+
             for (int i = 0; i < childCount; i++)
             {
                 waypoints[i] = waypointsParent.transform.GetChild(i);
@@ -28,15 +31,11 @@ public class EnemyPathing : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Waypoints parent not found: " + waypointsParentName);
+            Debug.LogWarning("Waypoints parent not found: " + waypointsParent.name);
+            return;
         }
-    }
 
-    public void Initialize(float speed)
-    {
-        moveSpeed = speed;
-        currentWaypointIndex = 1;
-        HasReachedEnd = false;
+        RotateSprite();
     }
 
     void Update()
@@ -62,6 +61,16 @@ public class EnemyPathing : MonoBehaviour
 
             // Move to next waypoint
             currentWaypointIndex++;
+
+            RotateSprite();
         }
+    }
+
+    // Rotate sprite based on movement direction
+    private void RotateSprite()
+    {
+        Vector3 moveDirection = (waypoints[currentWaypointIndex].position - waypoints[currentWaypointIndex - 1].position).normalized;
+        float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg; //hyi vittu
+        spriteTransform.rotation = Quaternion.Euler(0f, 0f, angle - 90f); //-90 if facing up by default
     }
 }

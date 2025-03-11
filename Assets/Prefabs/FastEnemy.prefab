@@ -65,7 +65,6 @@ MonoBehaviour:
   currentHealth: 1
   moveSpeed: 6
   damageToPlayer: 1
-  spriteTransform: {fileID: 5827796655822067643}
 --- !u!114 &7354604336324591425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypointsParentName: Waypoints
+  spriteTransform: {fileID: 5827796655822067643}
 --- !u!58 &8466461136271037377
 CircleCollider2D:
   m_ObjectHideFlags: 0
