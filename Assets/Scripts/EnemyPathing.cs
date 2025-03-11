@@ -35,7 +35,7 @@ public class EnemyPathing : MonoBehaviour
     public void Initialize(float speed)
     {
         moveSpeed = speed;
-        currentWaypointIndex = 0;
+        currentWaypointIndex = 1;
         HasReachedEnd = false;
     }
 
@@ -48,7 +48,9 @@ public class EnemyPathing : MonoBehaviour
         Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
         transform.Translate(direction * moveSpeed * Time.deltaTime);
 
-        if (Vector2.Distance(transform.position, targetPosition) < 0.1f)
+        float enemyDistanceFromPreviousTarget = Vector2.Distance(transform.position, waypoints[currentWaypointIndex - 1].position);
+        float distanceBetweenPreviousAndCurrentTarget = Vector2.Distance(waypoints[currentWaypointIndex - 1].position, waypoints[currentWaypointIndex].position);
+        if (enemyDistanceFromPreviousTarget > distanceBetweenPreviousAndCurrentTarget)
         {
             // Check if this was the last waypoint
             if (currentWaypointIndex == waypoints.Length - 1)
