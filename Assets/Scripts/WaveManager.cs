@@ -17,6 +17,9 @@ public class WaveManager : MonoBehaviour
     [Header("Spawn Settings")] 
     [SerializeField] private Transform spawnPoint;
 
+    [SerializeField] private Transform enemyParent;
+    [SerializeField] private GameObject waypointsParent;
+
     // Defines the different types of enemies that can be spawned
     public enum EnemyType
     {
@@ -140,7 +143,9 @@ public class WaveManager : MonoBehaviour
         if (enemyType != EnemyType.Delay)
         {
             GameObject enemyToSpawn = GetEnemyPrefab(enemyType);
-            Instantiate(enemyToSpawn, position, rotation);
+            GameObject newEnemy = Instantiate(enemyToSpawn, position, rotation);
+            newEnemy.transform.SetParent(enemyParent);
+            newEnemy.GetComponent<EnemyScript>().Initialize(waypointsParent);
         }
     }
 }

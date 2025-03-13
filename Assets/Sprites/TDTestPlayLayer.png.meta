@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: cacc4bfbe3db870478739e5ce48045b4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3396430854388753812
+    second: TDTestPlayLayer_0
+  - first:
+      213: 8635848356898417062
+    second: TDTestPlayLayer_1
+  - first:
+      213: 4549865067925306014
+    second: TDTestPlayLayer_2
+  - first:
+      213: -5042652507616924480
+    second: TDTestPlayLayer_3
+  - first:
+      213: 7144434459784200481
+    second: TDTestPlayLayer_4
+  - first:
+      213: -1414454695397822764
+    second: TDTestPlayLayer_5
+  - first:
+      213: -2639999084098706667
+    second: TDTestPlayLayer_6
+  - first:
+      213: -8937881844508701867
+    second: TDTestPlayLayer_7
+  - first:
+      213: 4457180687582078669
+    second: TDTestPlayLayer_8
+  - first:
+      213: -4403281248201823941
+    second: TDTestPlayLayer_9
+  - first:
+      213: -2913353571052448133
+    second: TDTestPlayLayer_10
+  - first:
+      213: -2410150029182805756
+    second: TDTestPlayLayer_11
+  - first:
+      213: -7150780611334505648
+    second: TDTestPlayLayer_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TDTestPlayLayer_0
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 208
+        width: 98
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6a5bfb02247dd0d0800000000000000
+      internalID: -3396430854388753812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TDTestPlayLayer_1
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 66
+        width: 69
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a9221f6352b8d770800000000000000
+      internalID: 8635848356898417062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TDTestPlayLayer_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 69
+        width: 34
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9a75ad4c2e542f30800000000000000
+      internalID: 4549865067925306014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TDTestPlayLayer_3
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 152
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cca2cde246e40ab0800000000000000
+      internalID: -5042652507616924480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TDTestPlayLayer_4
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 49
+        width: 55
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1214f70d941262360800000000000000
+      internalID: 7144434459784200481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TDTestPlayLayer_5
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 136
+        width: 14
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4deede9d2f8de5ce0800000000000000
+      internalID: -1414454695397822764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TDTestPlayLayer_6
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 104
+        width: 113
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 513a0f002d6dc5bd0800000000000000
+      internalID: -2639999084098706667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TDTestPlayLayer_7
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 98
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55b45ad31d346f380800000000000000
+      internalID: -8937881844508701867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TDTestPlayLayer_8
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 94
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc6af0f58361bdd30800000000000000
+      internalID: 4457180687582078669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TDTestPlayLayer_9
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 79
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b39aacac80764e2c0800000000000000
+      internalID: -4403281248201823941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TDTestPlayLayer_10
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 73
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b769d4cdc50b197d0800000000000000
+      internalID: -2913353571052448133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TDTestPlayLayer_11
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 1
+        width: 58
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4095927615d6d8ed0800000000000000
+      internalID: -2410150029182805756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TDTestPlayLayer_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 95
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05bf7a2abe253cc90800000000000000
+      internalID: -7150780611334505648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TDTestPlayLayer_0: -3396430854388753812
+      TDTestPlayLayer_1: 8635848356898417062
+      TDTestPlayLayer_10: -2913353571052448133
+      TDTestPlayLayer_11: -2410150029182805756
+      TDTestPlayLayer_12: -7150780611334505648
+      TDTestPlayLayer_2: 4549865067925306014
+      TDTestPlayLayer_3: -5042652507616924480
+      TDTestPlayLayer_4: 7144434459784200481
+      TDTestPlayLayer_5: -1414454695397822764
+      TDTestPlayLayer_6: -2639999084098706667
+      TDTestPlayLayer_7: -8937881844508701867
+      TDTestPlayLayer_8: 4457180687582078669
+      TDTestPlayLayer_9: -4403281248201823941
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

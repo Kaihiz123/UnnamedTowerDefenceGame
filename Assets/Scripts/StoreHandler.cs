@@ -3,7 +3,9 @@ using UnityEngine;
 public class StoreHandler : MonoBehaviour
 {
     //TODO: hide/show animation of the store window (translate left/right)
-    
+
+    public bool EnableMovingTheGrid;
+
     // Store layout
     public GameObject ScreenSpaceOverlayCanvasObject;
     // Visual grid on top of the background
@@ -43,38 +45,41 @@ public class StoreHandler : MonoBehaviour
             ScreenSpaceOverlayCanvasObject.SetActive(!ScreenSpaceOverlayCanvasObject.activeInHierarchy);
         }
 
-        // middle mouse button is used to move the grid
-        if (Input.GetMouseButtonDown(2)) // if mouse middle button is pressed
+        if (EnableMovingTheGrid)
         {
-            // save the current position of the mouse (this is used to calculate delta)
-            previousPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
-            isDragging = true;
-        }
-        else if(Input.GetMouseButton(2))// if mouse middle button is held
-        {
-            if (isDragging)
+            // middle mouse button is used to move the grid
+            if (Input.GetMouseButtonDown(2)) // if mouse middle button is pressed
             {
-                // convert mouses position on screen to game world position
-                Vector3 currentPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-                // how the mouse has been moved between frames
-                Vector3 delta = currentPosition - previousPosition;
-                // save the current position of the mouse
-                previousPosition = currentPosition;
+                // save the current position of the mouse (this is used to calculate delta)
+                previousPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
-                // move the grid
-                transform.position += delta;
-                // move the canvas with visible grid
-                WorldSpaceCanvasObject.transform.position += delta;
-
-                // notify how the grid has been moved
-                tpg.movement += delta;
+                isDragging = true;
             }
-        }
-        else if (Input.GetMouseButtonUp(2)) // if mouse middle button is released
-        {
-            // we are no longer dragging the grid
-            isDragging = false;
+            else if (Input.GetMouseButton(2))// if mouse middle button is held
+            {
+                if (isDragging)
+                {
+                    // convert mouses position on screen to game world position
+                    Vector3 currentPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                    // how the mouse has been moved between frames
+                    Vector3 delta = currentPosition - previousPosition;
+                    // save the current position of the mouse
+                    previousPosition = currentPosition;
+
+                    // move the grid
+                    transform.position += delta;
+                    // move the canvas with visible grid
+                    WorldSpaceCanvasObject.transform.position += delta;
+
+                    // notify how the grid has been moved
+                    tpg.movement += delta;
+                }
+            }
+            else if (Input.GetMouseButtonUp(2)) // if mouse middle button is released
+            {
+                // we are no longer dragging the grid
+                isDragging = false;
+            }
         }
 
         // if a tower was bought from the store and left button of the mouse was released
@@ -100,7 +105,7 @@ public class StoreHandler : MonoBehaviour
     public void MouseButtonDownOnStoreItem(GameObject pressedStoreItemObject, int index)
     {
         // Left mouse button was pressed down above a certain storeItem
-        
+
         // Does the player have enough money
         if (bank.BuyTower(index))
         {
