@@ -1,0 +1,102 @@
+using UnityEngine;
+using System.Collections.Generic;
+
+public class TowerShooting : MonoBehaviour
+{
+    public GameObject projectilePrefab; // The object that gets fired
+    public int projectileAttackDamage; // Damage per shot
+    public int projectileSpeed; // Speed of the projectile
+    public Transform towerTurret;
+
+    public float towerEnemyDetectAreaSize; // Detection radius
+    public Transform towerProjectileSpawnLocation;
+    private Transform enemyDetectArea;
+    private Transform debug_EnemyDetectAreaVisual;
+    private CircleCollider2D enemyDetectCollider;
+    private List<GameObject> enemiesInRange = new List<GameObject>();
+
+    [Header("Projectiles per second")]
+    public float towerFireRate; // Shots per second
+    private float shootInterval; // Time between shots
+    private float shootTimer = 0f; // Timer to track shooting
+
+    void Start()
+    {
+        shootInterval = 1f / towerFireRate; // Calculate time between shots
+
+        // Find the child object named "EnemyDetectArea"
+        enemyDetectArea = transform.Find("TowerEnemyDetectArea");
+        if (enemyDetectArea != null)
+        {
+            // Get the CircleCollider2D from the child object
+            enemyDetectCollider = enemyDetectArea.GetComponent<CircleCollider2D>();
+            if (enemyDetectCollider != null)
+            {
+                enemyDetectCollider.radius = towerEnemyDetectAreaSize; // Set detection range
+                enemyDetectCollider.isTrigger = true;
+            }
+        }
+        else
+        {
+            Debug.LogError("EnemyDetectArea child object not found!");
+        }
+        debug_EnemyDetectAreaVisual = transform.Find("DEBUG_EnemyDetectAreaVisual");
+        debug_EnemyDetectAreaVisual.localScale = new Vector2(towerEnemyDetectAreaSize * 2f, towerEnemyDetectAreaSize * 2f);
+    }
+
+    void Update()
+    {
+        if (enemiesInRange.Count > 0)
+        {
+            // Find the closest enemy from the list
+            GameObject closestEnemy = enemiesInRange[0];
+            foreach (GameObject enemy in enemiesInRange)
+            {
+                if (enemy != null)
+                {
+                    if (Vector2.Distance(transform.position, enemy.transform.position) < Vector2.Distance(transform.position, closestEnemy.transform.position))
+                    {
+                        closestEnemy = enemy;
+                    }
+                }
+            }
+
+            // Rotate to look at the enemy (for 2D, using transform.up)
+            towerTurret.transform.up = closestEnemy.transform.position - transform.position;
+
+            // Check if enough time has passed to shoot
+            shootTimer += Time.deltaTime;
+            if (shootTimer >= shootInterval)
+            {
+                SpawnProjectile();
+                shootTimer = 0f;
+            }
+        }
+    }
+
+    void SpawnProjectile()
+    {
+        if (projectilePrefab != null)
+        {
+            GameObject projectile = Instantiate(projectilePrefab, towerProjectileSpawnLocation.position, towerTurret.transform.rotation); // Create the projectile
+            
+            // Assign attack damage if the projectile has a script with an attackDamage variable
+            Projectile projectileScript = projectile.GetComponent<Projectile>();
+            if (projectileScript != null)
+            {
+                projectileScript.projectileAttackDamage = projectileAttackDamage;
+                projectileScript.projectileSpeed = projectileSpeed;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Projectile prefab not assigned!");
+        }
+    }
+
+    public void UpdateEnemies(List<GameObject> updatedEnemies)
+    {
+        enemiesInRange = updatedEnemies;
+    }
+
+}
