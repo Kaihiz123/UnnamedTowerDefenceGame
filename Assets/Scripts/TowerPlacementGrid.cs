@@ -7,6 +7,9 @@ public class TowerPlacementGrid : MonoBehaviour
 {
     // This scripts idea is to be able to place tower on a grid
 
+    public bool debug;
+    public bool hidePlaceHoldersOfTheUnavailableAreas;
+
     public Vector2 GridSize; 
     
     public Vector2 ElementSize; // if Towers and Ghosts localScale == ElementSize everything fits nicely
@@ -26,13 +29,12 @@ public class TowerPlacementGrid : MonoBehaviour
     public float distance = 1f; 
     public float minDepth = -1f;
 
-    private void Start()
-    {
-        mainCamera = Camera.main;
+    // save the placements of the towers and other areas where towers cannot be placed
+    public List<Vector2Int> unavailablePositions = new List<Vector2Int>();
+    public Transform UnavailableAreasParent;
 
-        Ghost.transform.localScale = ElementSize;
-        SelectionIndicator.transform.localScale = ElementSize;
-    }
+    bool isDraggingANewTower = false; // if we are dragging a new tower from the store
+    bool endOfDragOfANewTower = false; // we stopped dragging a new tower
 
     GameObject selectedGameObject; // currently selected tower
     Vector3 selectedGameObjectStart; // selected tower start position
@@ -42,6 +44,27 @@ public class TowerPlacementGrid : MonoBehaviour
 
     bool isSelecting = true; // whether we are selecting a tower or dragging a tower;
                              // user is dragging if tower is moved outside the original snap area
+
+    private void Start()
+    {
+        mainCamera = Camera.main;
+
+        Ghost.transform.localScale = ElementSize;
+        SelectionIndicator.transform.localScale = ElementSize;
+
+        // add unavailable areas to unavailablePositions
+        foreach(Transform t in UnavailableAreasParent)
+        {
+            unavailablePositions.Add(new Vector2Int(Mathf.RoundToInt(t.position.x), Mathf.RoundToInt(t.position.y)));
+        }
+
+        // deactivate all the placeholders of the unavailable areas
+        if (hidePlaceHoldersOfTheUnavailableAreas)
+        {
+            UnavailableAreasParent.gameObject.SetActive(false);
+        }
+        
+    }
 
     private void Update()
     {
@@ -227,8 +250,11 @@ public class TowerPlacementGrid : MonoBehaviour
                     SelectionIndicator.SetActive(true);
                 }
 
-                DebugCheck(selectedGameObject.name);
-
+                if (debug)
+                {
+                    DebugCheck(selectedGameObject.name);
+                }
+                
                 // no tower is no longer selected
                 selectedGameObject = null;
 
@@ -261,9 +287,6 @@ public class TowerPlacementGrid : MonoBehaviour
         }
     }
 
-    bool isDraggingANewTower = false; // if we are dragging a new tower from the store
-    bool endOfDragOfANewTower = false; // we stopped dragging a new tower
-
     // this is called when player successfully buys a new tower from the store
     public void NewTower(GameObject go)
     {
@@ -283,8 +306,7 @@ public class TowerPlacementGrid : MonoBehaviour
         endOfDragOfANewTower = true;
     }
 
-    // save the placements of the towers and other areas where towers cannot be placed
-    public List<Vector2Int> unavailablePositions = new List<Vector2Int>();
+    
 
     private bool isAreaAvailable(int snapX, int snapY)
     {

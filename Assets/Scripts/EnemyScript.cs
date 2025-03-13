@@ -9,24 +9,17 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private int damageToPlayer = 1;
 
-    [Header("References")]
-    [SerializeField] private Transform spriteTransform; // Reference to child sprite
-
     private EnemyPathing pathing;
-    private Vector3 previousPosition;
 
-    void Start()
+    public void Initialize(GameObject waypointsParent)
     {
         pathing = GetComponent<EnemyPathing>();
-        pathing.Initialize(moveSpeed);
+        pathing.Initialize(moveSpeed, waypointsParent);
         currentHealth = maxHealth;
-        previousPosition = transform.position;
     }
         
     void Update()
     {
-        RotateSprite();
-
         // Check if enemy has reached the end
         if (pathing.HasReachedEnd)
         {
@@ -37,17 +30,6 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    // Rotate sprite based on movement direction
-    private void RotateSprite()
-    {
-        Vector3 moveDirection = (transform.position - previousPosition).normalized;
-        if (moveDirection != Vector3.zero)
-        {
-            float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg; //hyi vittu
-            spriteTransform.rotation = Quaternion.Euler(0, 0, angle -90); //-90 if facing up by default
-        }
-        previousPosition = transform.position;
-    }
 
     // Call this method with damage argument when enemy takes damage
     public void TakeDamage(int damage)
