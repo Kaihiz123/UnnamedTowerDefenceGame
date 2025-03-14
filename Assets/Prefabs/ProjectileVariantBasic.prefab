@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2811010643359271066, guid: beb069d41c0b6ce92a33bc6bee748f4b, type: 3}
       propertyPath: m_Size.x
-      value: 0.16
+      value: 0.14
       objectReference: {fileID: 0}
     - target: {fileID: 2811010643359271066, guid: beb069d41c0b6ce92a33bc6bee748f4b, type: 3}
       propertyPath: m_Size.y
@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6089980472827680049, guid: beb069d41c0b6ce92a33bc6bee748f4b, type: 3}
       propertyPath: m_Name
-      value: Projectile Variant
+      value: ProjectileVariantBasic
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

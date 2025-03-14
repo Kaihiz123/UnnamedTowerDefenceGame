@@ -13,10 +13,10 @@ public class EnemyScript : MonoBehaviour
     public GameObject explosionPrefab;
     private float hitTimer = 0f;
     public float hitTime;
-    public AudioClip soundExplosion;
-    AudioSource audioSource;
 
     private EnemyPathing pathing;
+    public AudioClip soundHit;
+    AudioSource audioSource;
 
     public void Initialize(GameObject waypointsParent)
     {
@@ -55,6 +55,7 @@ public class EnemyScript : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        audioSource.PlayOneShot(soundHit);
 
         enemySprite.transform.localScale = new Vector3(1.1f, 1.1f, 1.0f);
         enemySpriteHit.SetActive(true);
@@ -69,24 +70,12 @@ public class EnemyScript : MonoBehaviour
     // Handle enemy death
     private void Die()
     {
-        // Disable all components except AudioSource
-        foreach (Component comp in GetComponentsInChildren<Component>())
-        {
-            if (!(comp is Transform) && !(comp is AudioSource))
-                ((Behaviour)comp).enabled = false;
-        }
-
-        // Play explosion sound
-        audioSource.PlayOneShot(soundExplosion);
-
         // Instantiate explosion effect
         Instantiate(explosionPrefab, transform.position, transform.rotation);
 
         Debug.Log("Enemy dead");
 
         // Destroy enemy after sound plays
-        Destroy(gameObject, soundExplosion.length);
+        Destroy(gameObject);
     }
-
-
 }

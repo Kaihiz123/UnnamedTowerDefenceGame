@@ -19,9 +19,12 @@ public class TowerShooting : MonoBehaviour
     public float towerFireRate; // Shots per second
     private float shootInterval; // Time between shots
     private float shootTimer = 0f; // Timer to track shooting
+    public AudioClip soundShoot;
+    AudioSource audioSource;
 
     void Start()
     {
+        audioSource = GetComponentInChildren<AudioSource>();
         shootInterval = 1f / towerFireRate; // Calculate time between shots
 
         // Find the child object named "EnemyDetectArea"
@@ -41,7 +44,7 @@ public class TowerShooting : MonoBehaviour
             Debug.LogError("EnemyDetectArea child object not found!");
         }
         debug_EnemyDetectAreaVisual = transform.Find("DEBUG_EnemyDetectAreaVisual");
-        debug_EnemyDetectAreaVisual.localScale = new Vector2(towerEnemyDetectAreaSize * 2f, towerEnemyDetectAreaSize * 2f);
+        debug_EnemyDetectAreaVisual.localScale = new Vector2(towerEnemyDetectAreaSize / 10f, towerEnemyDetectAreaSize / 10f);
     }
 
     void Update()
@@ -69,6 +72,7 @@ public class TowerShooting : MonoBehaviour
             if (shootTimer >= shootInterval)
             {
                 SpawnProjectile();
+                audioSource.PlayOneShot(soundShoot);
                 shootTimer = 0f;
             }
         }

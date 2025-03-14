@@ -58,18 +58,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2811010643359271066, guid: beb069d41c0b6ce92a33bc6bee748f4b, type: 3}
       propertyPath: m_Size.x
-      value: 0.64
+      value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 2811010643359271066, guid: beb069d41c0b6ce92a33bc6bee748f4b, type: 3}
       propertyPath: m_Size.y
       value: 1.1
       objectReference: {fileID: 0}
+    - target: {fileID: 3591522753672542088, guid: beb069d41c0b6ce92a33bc6bee748f4b, type: 3}
+      propertyPath: m_TagString
+      value: ProjectileAoE
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423244656627534835, guid: beb069d41c0b6ce92a33bc6bee748f4b, type: 3}
+      propertyPath: aoEEffectPrefab
+      value: 
+      objectReference: {fileID: 33793741376937611, guid: 885e526d9c3b3a85da73ea96257f3ce6, type: 3}
+    - target: {fileID: 5423244656627534835, guid: beb069d41c0b6ce92a33bc6bee748f4b, type: 3}
+      propertyPath: explosionPrefab
+      value: 
+      objectReference: {fileID: 5912056139778002667, guid: 384c26ddf50024dd092fbf8d19d7c891, type: 3}
     - target: {fileID: 6089980472827680049, guid: beb069d41c0b6ce92a33bc6bee748f4b, type: 3}
       propertyPath: m_Name
       value: ProjectileVariantAoE
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4251217668057623206, guid: beb069d41c0b6ce92a33bc6bee748f4b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb069d41c0b6ce92a33bc6bee748f4b, type: 3}

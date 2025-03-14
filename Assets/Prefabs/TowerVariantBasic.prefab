@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7951047333866985243, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
       propertyPath: towerEnemyDetectAreaSize
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8626489032988856576, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
       propertyPath: m_LocalPosition.x

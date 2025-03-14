@@ -119,7 +119,7 @@ MonoBehaviour:
   enemySpriteHit: {fileID: 4498986619522959443}
   explosionPrefab: {fileID: 5912056139778002667, guid: 384c26ddf50024dd092fbf8d19d7c891, type: 3}
   hitTime: 0.1
-  soundExplosion: {fileID: 8300000, guid: 757ae69d986d0478ea48712b44d411c6, type: 3}
+  soundHit: {fileID: 8300000, guid: d8fb6df35546d43ca9f6b05074dbd3b2, type: 3}
 --- !u!82 &6250107239134137814
 AudioSource:
   m_ObjectHideFlags: 0
@@ -132,8 +132,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.33
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -32,10 +32,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.176
       objectReference: {fileID: 0}
+    - target: {fileID: 3433664820441945681, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6570267394369877764, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
       propertyPath: m_Name
       value: TowerVariantSniper
       objectReference: {fileID: 0}
+    - target: {fileID: 7951047333866985243, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
+      propertyPath: soundShoot
+      value: 
+      objectReference: {fileID: 8300000, guid: d2a9dc7ccede04457b315d1f05daa6b4, type: 3}
     - target: {fileID: 7951047333866985243, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
       propertyPath: towerFireRate
       value: 1
@@ -50,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 9077351848981866243, guid: 7d74dfddc422f44ef80c7a504b2b356c, type: 3}
     - target: {fileID: 7951047333866985243, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
       propertyPath: projectileAttackDamage
-      value: 22
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7951047333866985243, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
       propertyPath: towerEnemyDetectAreaSize
