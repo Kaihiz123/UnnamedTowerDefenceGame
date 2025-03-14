@@ -4,10 +4,10 @@ using UnityEngine.Rendering;
 public class EnemyScript : MonoBehaviour
 {
     [Header("Enemy Stats")]
-    [SerializeField] private int maxHealth = 100;
-    public int currentHealth = 100; // public for debugging
+    [SerializeField] private float maxHealth = 100;
+    public float currentHealth = 100; // public for debugging
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private int damageToPlayer = 1;
+    [SerializeField] private float damageToPlayer = 1;
     public GameObject enemySprite;
     public GameObject enemySpriteHit;
     public GameObject explosionPrefab;
@@ -52,7 +52,7 @@ public class EnemyScript : MonoBehaviour
 
 
     // Call this method with damage argument when enemy takes damage
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         audioSource.PlayOneShot(soundHit);

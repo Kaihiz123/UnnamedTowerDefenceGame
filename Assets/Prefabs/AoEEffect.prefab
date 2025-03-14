@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2857949353332179843}
   - component: {fileID: 6553234763380755037}
   - component: {fileID: 3976066642190418147}
+  - component: {fileID: 1596877938500037807}
   - component: {fileID: 8578679330100385091}
   m_Layer: 0
   m_Name: AoEEffect
@@ -97,7 +98,23 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.01
+--- !u!114 &1596877938500037807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33793741376937611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26fde26074586423ea6148e144955abb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  note: '- The Radius in above collider has no effect.
+
+    - Go to the ProjectileVariantAoE
+    object that instantiated this object'
 --- !u!114 &8578679330100385091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +128,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aoEAttackDamage: 0
+  aoECollider: {fileID: 3976066642190418147}
+  aoEAttackRangeRadius: 0
   explosionPrefab: {fileID: 5912056139778002667, guid: 384c26ddf50024dd092fbf8d19d7c891, type: 3}
+  DEBUGAoEAttackRangeCircleSprite: {fileID: 2417946038390359190}
+  theDEBUGAoEAttackRangeCircleSprite: {fileID: 7998699053286580240}
 --- !u!1 &7998699053286580240
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +160,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.06, y: 0.06, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2857949353332179843}

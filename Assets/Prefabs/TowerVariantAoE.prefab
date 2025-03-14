@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 8659524077177282749, guid: 53d685ac8175f426998d53f74823dddc, type: 3}
     - target: {fileID: 7951047333866985243, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
       propertyPath: projectileAttackDamage
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7951047333866985243, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
       propertyPath: towerEnemyDetectAreaSize
@@ -109,8 +109,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6570267394369877764, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
-      insertIndex: -1
+      insertIndex: 3
       addedObject: {fileID: 960852262693553437}
+    - targetCorrespondingSourceObject: {fileID: 6570267394369877764, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7474237353632014881}
   m_SourcePrefab: {fileID: 100100000, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
 --- !u!1 &5169314093374454344 stripped
 GameObject:
@@ -124,7 +127,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5169314093374454344}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -163,3 +166,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7474237353632014881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5169314093374454344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a29c6dd3aa0c2f03b3601cba7d1a735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileAoEAttackRangeRadius: 2.5

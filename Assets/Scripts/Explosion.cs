@@ -4,6 +4,7 @@ public class Explosion : MonoBehaviour
 {
     public AudioClip soundExplosion;
     AudioSource audioSource;
+    public ParticleSystem theParticleSystem;
 
     void Start()
     {

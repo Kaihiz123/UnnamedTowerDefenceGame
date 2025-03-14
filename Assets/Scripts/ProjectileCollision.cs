@@ -33,11 +33,22 @@ public class ProjectileCollision : MonoBehaviour
             // Instantiate explosion effect
             GameObject explosionInstance = Instantiate(explosionPrefab, transform.position, transform.rotation);
             GameObject aoEEffectInstance = Instantiate(aoEEffectPrefab, transform.position, transform.rotation);
-            explosionInstance.transform.localScale = new Vector3(2f,2f,2f);
+            Explosion explosionScript = explosionInstance.GetComponent<Explosion>();
+            if (explosionScript != null && explosionScript.theParticleSystem != null)
+            {
+                // Modify the Start Lifetime of the Particle System
+                var theParticleSystem = explosionScript.theParticleSystem.main;
+                theParticleSystem.startLifetime = parentProjectile.projectileAoEAttackRangeRadius / 2f;
+            }
+            else
+            {
+                Debug.LogError("Explosion script or Particle System is missing on the instantiated object!");
+            }
             AoEEffect aoEEffectScript = aoEEffectInstance.GetComponent<AoEEffect>();
             if (aoEEffectScript != null)
             {
                 aoEEffectScript.aoEAttackDamage = parentProjectile.projectileAttackDamage;
+                aoEEffectScript.aoEAttackRangeRadius = parentProjectile.projectileAoEAttackRangeRadius; 
             }
         }
     }

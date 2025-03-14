@@ -3,9 +3,11 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [HideInInspector]
-    public int projectileSpeed;
+    public float projectileSpeed;
     [HideInInspector]
-    public int projectileAttackDamage;
+    public float projectileAttackDamage;
+    [HideInInspector]
+    public float projectileAoEAttackRangeRadius;
     public float projectileLifetime; // Time before self-destruction
 
     void Start()

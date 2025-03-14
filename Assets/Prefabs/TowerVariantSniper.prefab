@@ -117,7 +117,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6570267394369877764, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
-      insertIndex: -1
+      insertIndex: 3
       addedObject: {fileID: 2418912892524530359}
   m_SourcePrefab: {fileID: 100100000, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
 --- !u!1 &5334527113026916477 stripped
@@ -132,7 +132,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5334527113026916477}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}

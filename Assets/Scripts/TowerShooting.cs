@@ -4,14 +4,15 @@ using System.Collections.Generic;
 public class TowerShooting : MonoBehaviour
 {
     public GameObject projectilePrefab; // The object that gets fired
-    public int projectileAttackDamage; // Damage per shot
-    public int projectileSpeed; // Speed of the projectile
+    public float projectileAttackDamage; // Damage per shot
+    public float projectileSpeed; // Speed of the projectile
     public Transform towerTurret;
 
     public float towerEnemyDetectAreaSize; // Detection radius
     public Transform towerProjectileSpawnLocation;
     private Transform enemyDetectArea;
     private Transform debug_EnemyDetectAreaVisual;
+    [SerializeField] private GameObject theDebug_EnemyDetectAreaVisual;
     private CircleCollider2D enemyDetectCollider;
     private List<GameObject> enemiesInRange = new List<GameObject>();
 
@@ -22,8 +23,11 @@ public class TowerShooting : MonoBehaviour
     public AudioClip soundShoot;
     AudioSource audioSource;
 
+    private TowerShootingAoE towerShootingAoEScript;
+
     void Start()
     {
+        towerShootingAoEScript = GetComponent<TowerShootingAoE>();
         audioSource = GetComponentInChildren<AudioSource>();
         shootInterval = 1f / towerFireRate; // Calculate time between shots
 
@@ -44,11 +48,22 @@ public class TowerShooting : MonoBehaviour
             Debug.LogError("EnemyDetectArea child object not found!");
         }
         debug_EnemyDetectAreaVisual = transform.Find("DEBUG_EnemyDetectAreaVisual");
-        debug_EnemyDetectAreaVisual.localScale = new Vector2(towerEnemyDetectAreaSize / 10f, towerEnemyDetectAreaSize / 10f);
+        debug_EnemyDetectAreaVisual.localScale = new Vector2(towerEnemyDetectAreaSize / 50f, towerEnemyDetectAreaSize / 50f);
+        
     }
 
     void Update()
     {
+        if (SettingsManager.Instance.DebugON == true)
+        {
+            theDebug_EnemyDetectAreaVisual.SetActive(true);
+        }
+        else
+        {
+            theDebug_EnemyDetectAreaVisual.SetActive(false);
+        }
+
+
         if (enemiesInRange.Count > 0)
         {
             // Find the closest enemy from the list
@@ -90,6 +105,15 @@ public class TowerShooting : MonoBehaviour
             {
                 projectileScript.projectileAttackDamage = projectileAttackDamage;
                 projectileScript.projectileSpeed = projectileSpeed;
+
+                if (towerShootingAoEScript != null)
+                {
+                    projectileScript.projectileAoEAttackRangeRadius = towerShootingAoEScript.projectileAoEAttackRangeRadius;
+                }
+                else
+                {
+                    return;
+                }
             }
         }
         else
