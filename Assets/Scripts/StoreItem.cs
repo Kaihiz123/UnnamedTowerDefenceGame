@@ -31,7 +31,7 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
         }
 
         // name of the tower that is shown on the storeItem
-        towerText.text = "Tower" + (index + 1);
+        towerText.text = towerType.ToString();
     }
 
     public void OnPointerDown(PointerEventData eventData)

@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class TowerInfo : MonoBehaviour
 {   
+    
     public enum TowerType
     {
-        TowerType1 = 0,
-        TowerType2 = 1,
-        TowerType3 = 2
+        Basic = 0,
+        Sniper = 1,
+        AOE = 2
     }
 
     public TowerType towerType;
