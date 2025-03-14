@@ -1,32 +1,43 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenuScript : MonoBehaviour
+public class PauseMenuScript : MonoBehaviour, IConfirmation
 {
-    public GameObject PausePanel;
+    public GameObject PauseWindow;
+
+    public ConfirmationWindow confirmationWindow;
 
     private void Start()
     {
         // close the pause menu if it's showing at the beginning
-        if (PausePanel.activeInHierarchy)
+        if (PauseWindow.activeInHierarchy)
         {
-            PausePanel.SetActive(false);
+            PauseWindow.SetActive(false);
         }
     }
 
     private void Update()
     {
+
+#if UNITY_EDITOR
         if (Input.GetKeyUp(KeyCode.P))
         {
             Pause();
         }
+#else
+        if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.P))
+        {
+            Pause();
+        }
+#endif
+
     }
 
     private void Pause()
     {
-        PausePanel.SetActive(!PausePanel.activeInHierarchy);
+        PauseWindow.SetActive(!PauseWindow.activeInHierarchy);
 
-        if (PausePanel.activeInHierarchy)
+        if (PauseWindow.activeInHierarchy)
         {
             Time.timeScale = 0f;
         }
@@ -48,11 +59,37 @@ public class PauseMenuScript : MonoBehaviour
 
     public void ExitToMainMenuPressed()
     {
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        confirmationWindow.Init(this, "ExitToMainMenu", "You are about to exit to main menu, are You sure?");
+        confirmationWindow.gameObject.SetActive(true);
     }
 
     public void ExitToWindowsPressed()
     {
-        Debug.Log("ExitToWindows");
+        confirmationWindow.Init(this, "ExitToWindows" , "You are about to exit to Windows, are You sure?");
+        confirmationWindow.gameObject.SetActive(true);
+    }
+
+    public void ConfirmationSucceeded(string whoAddressed)
+    {
+        if (whoAddressed.Equals("ExitToWindows"))
+        {
+#if UNITY_EDITOR
+            Debug.Log("ExitButtonClicked, real exiting is blocked in editor");
+            confirmationWindow.gameObject.SetActive(false);
+# else
+            Application.Quit();
+#endif
+        }
+        else if (whoAddressed.Equals("ExitToMainMenu"))
+        {
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        }
+    }
+
+    public void ConfirmationCanceled(string whoAddressed)
+    {
+        // whoever addressed we cancel
+        Debug.Log("Exiting cancelled");
+        confirmationWindow.gameObject.SetActive(false);
     }
 }

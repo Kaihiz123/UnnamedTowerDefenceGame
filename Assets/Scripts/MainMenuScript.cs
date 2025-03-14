@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuScript : MonoBehaviour
+public class MainMenuScript : MonoBehaviour, IConfirmation
 {
+
+    public ConfirmationWindow confirmationWindow;
 
     public List<GameObject> panels = new List<GameObject>();
 
@@ -40,11 +42,6 @@ public class MainMenuScript : MonoBehaviour
         Debug.Log("ResetToDefaultButtonClicked");
     }
 
-    public void SaveButtonClicked()
-    {
-        Debug.Log("SaveButtonClicked");
-    }
-
     public void PlayButtonClicked()
     {
         Debug.Log("PlayButtonClicked");
@@ -54,6 +51,29 @@ public class MainMenuScript : MonoBehaviour
 
     public void ExitButtonClicked()
     {
-        Debug.Log("ExitButtonClicked");
+        confirmationWindow.Init(this, "ExitButton", "You are about to exit to Windows, are You sure?");
+        confirmationWindow.gameObject.SetActive(true);
+    }
+
+    public void ConfirmationSucceeded(string whoAddressed)
+    {
+        if (whoAddressed.Equals("ExitButton"))
+        {
+#if UNITY_EDITOR
+            Debug.Log("ExitButtonClicked, real exiting is blocked in editor");
+            confirmationWindow.gameObject.SetActive(false);
+# else
+            Application.Quit();
+#endif
+        }
+    }
+
+    public void ConfirmationCanceled(string whoAddressed)
+    {
+        if (whoAddressed.Equals("ExitButton"))
+        {
+            Debug.Log("Exiting cancelled");
+            confirmationWindow.gameObject.SetActive(false);
+        }
     }
 }
