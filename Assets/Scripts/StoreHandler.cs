@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StoreHandler : MonoBehaviour
@@ -14,11 +15,7 @@ public class StoreHandler : MonoBehaviour
     public Transform ObjectsOnGrid; // Object that has all the bought towers and the ghost
 
     // different towers that are instantiated when player buys a new tower
-    public GameObject Tower1Prefab;
-    public GameObject Tower2Prefab;
-    public GameObject Tower3Prefab;
-    public GameObject Tower4Prefab;
-    public GameObject Tower5Prefab;
+    public List<GameObject> towerPrefabs = new List<GameObject>();
 
     // script that handles money
     public Bank bank;
@@ -118,7 +115,7 @@ public class StoreHandler : MonoBehaviour
             // Create a prefab of the tower into cursors position ja let
             // the towerPlacementGrid know that we are dragging the new tower
 
-            GameObject newTowerObject = Instantiate(Tower1Prefab);
+            GameObject newTowerObject = Instantiate(towerPrefabs[index]);
             newTowerObject.transform.localScale = tpg.ElementSize;
             // Set the new tower child of ObjectsOnGrid
             newTowerObject.transform.SetParent(ObjectsOnGrid);

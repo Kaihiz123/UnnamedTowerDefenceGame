@@ -30,6 +30,8 @@ public class SelectionWindow : MonoBehaviour
         layouts.Add(TowerType3Layout);
 
         currentTowerInfo = towerInfo;
+
+        towerNameText.text = "dsf";
         towerNameText.text = towerInfo.towerType.ToString();
 
         layouts[(int) towerInfo.towerType].SetActive(true);
