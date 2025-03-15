@@ -61,9 +61,17 @@ PrefabInstance:
       value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 7951047333866985243, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
+      propertyPath: stickyTargeting
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951047333866985243, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
       propertyPath: projectilePrefab
       value: 
       objectReference: {fileID: 9077351848981866243, guid: 7d74dfddc422f44ef80c7a504b2b356c, type: 3}
+    - target: {fileID: 7951047333866985243, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
+      propertyPath: targetingStrategy
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7951047333866985243, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
       propertyPath: projectileAttackDamage
       value: 11

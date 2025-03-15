@@ -1,12 +1,22 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+public enum TargetingStrategy
+{
+    Closest,    // Target the closest enemy
+    Strongest,  // Target the enemy with the most health
+}
+
 public class TowerShooting : MonoBehaviour
 {
     public GameObject projectilePrefab; // The object that gets fired
     public float projectileAttackDamage; // Damage per shot
     public float projectileSpeed; // Speed of the projectile
     public Transform towerTurret;
+    
+    [Header("Targeting")]
+    public TargetingStrategy targetingStrategy = TargetingStrategy.Closest;
+    public bool stickyTargeting = false; // When true, keeps targeting the same enemy until it's out of range or dead
 
     public float towerEnemyDetectAreaSize; // Detection radius
     public Transform towerProjectileSpawnLocation;
@@ -15,6 +25,7 @@ public class TowerShooting : MonoBehaviour
     [SerializeField] private GameObject theDebug_EnemyDetectAreaVisual;
     private CircleCollider2D enemyDetectCollider;
     private List<GameObject> enemiesInRange = new List<GameObject>();
+    private GameObject currentTarget; // Track the current target for sticky targeting
 
     [Header("Projectiles per second")]
     public float towerFireRate; // Shots per second
@@ -63,34 +74,111 @@ public class TowerShooting : MonoBehaviour
             theDebug_EnemyDetectAreaVisual.SetActive(false);
         }
 
-
         if (enemiesInRange.Count > 0)
         {
-            // Find the closest enemy from the list
-            GameObject closestEnemy = enemiesInRange[0];
-            foreach (GameObject enemy in enemiesInRange)
+            // Get target based on targeting strategy
+            GameObject targetEnemy = GetTargetEnemy();
+            
+            if (targetEnemy != null)
             {
-                if (enemy != null)
+                // Rotate to look at the enemy (for 2D, using transform.up)
+                towerTurret.transform.up = targetEnemy.transform.position - transform.position;
+
+                // Check if enough time has passed to shoot
+                shootTimer += Time.deltaTime;
+                if (shootTimer >= shootInterval)
                 {
-                    if (Vector2.Distance(transform.position, enemy.transform.position) < Vector2.Distance(transform.position, closestEnemy.transform.position))
-                    {
-                        closestEnemy = enemy;
-                    }
+                    SpawnProjectile();
+                    audioSource.PlayOneShot(soundShoot);
+                    shootTimer = 0f;
                 }
             }
+        }
+        else
+        {
+            // Clear current target when no enemies are in range
+            currentTarget = null;
+        }
+    }
 
-            // Rotate to look at the enemy (for 2D, using transform.up)
-            towerTurret.transform.up = closestEnemy.transform.position - transform.position;
-
-            // Check if enough time has passed to shoot
-            shootTimer += Time.deltaTime;
-            if (shootTimer >= shootInterval)
+    GameObject GetTargetEnemy()
+    {   
+        if (enemiesInRange.Count == 0)
+            return null;
+            
+        // Check if we have a target and sticky targeting is enabled
+        if (stickyTargeting && currentTarget != null)
+        {
+            // Check if the current target is still valid
+            if (enemiesInRange.Contains(currentTarget))
             {
-                SpawnProjectile();
-                audioSource.PlayOneShot(soundShoot);
-                shootTimer = 0f;
+                return currentTarget;
             }
         }
+        
+        // Else get a new target based on the selected targeting strategy
+        GameObject newTarget;
+        switch (targetingStrategy)
+        {
+            case TargetingStrategy.Closest:
+                newTarget = GetClosestEnemy();
+                break;
+            case TargetingStrategy.Strongest:
+                newTarget = GetStrongestEnemy();
+                break;
+            default:
+                newTarget = GetClosestEnemy(); // Default to closest
+                break;
+        }
+        
+        // Update the current target
+        currentTarget = newTarget;
+        return newTarget;
+    }
+    
+    GameObject GetClosestEnemy()
+    {
+        // Old closest enemy code reused as is
+        GameObject closestEnemy = enemiesInRange[0];
+        foreach (GameObject enemy in enemiesInRange)
+        {
+            if (enemy != null)
+            {
+                if (Vector2.Distance(transform.position, enemy.transform.position) < Vector2.Distance(transform.position, closestEnemy.transform.position))
+                {
+                    closestEnemy = enemy;
+                }
+            }
+        }
+        return closestEnemy;
+    }
+
+    GameObject GetStrongestEnemy()
+    {
+        GameObject strongestEnemy = enemiesInRange[0];
+        float highestHealth = 0f;
+        
+        // Get the health of the first enemy
+        EnemyScript firstEnemyScript = strongestEnemy.GetComponent<EnemyScript>();
+        if (firstEnemyScript != null)
+        {
+            highestHealth = firstEnemyScript.currentHealth;
+        }
+        
+        // Loop through all enemies to find the one with highest health
+        foreach (GameObject enemy in enemiesInRange)
+        {
+            if (enemy != null)
+            {
+                EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
+                if (enemyScript != null && enemyScript.currentHealth > highestHealth)
+                {
+                    highestHealth = enemyScript.currentHealth;
+                    strongestEnemy = enemy;
+                }
+            }
+        }
+        return strongestEnemy;
     }
 
     void SpawnProjectile()
@@ -126,5 +214,4 @@ public class TowerShooting : MonoBehaviour
     {
         enemiesInRange = updatedEnemies;
     }
-
 }
