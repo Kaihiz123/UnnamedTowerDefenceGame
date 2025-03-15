@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingsSlider : MonoBehaviour
+public class MenuSettingsItemSlider : MonoBehaviour
 {
 
     ISettings settings;

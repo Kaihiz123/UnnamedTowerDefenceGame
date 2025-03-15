@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SettingsDropdown : MonoBehaviour
+public class MenuSettingsItemDropdown : MonoBehaviour
 {
     ISettings settings;
     TMPro.TMP_Dropdown dropdown;

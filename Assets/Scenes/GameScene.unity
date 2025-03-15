@@ -17046,7 +17046,7 @@ MonoBehaviour:
   selectionWindowCanvasObject: {fileID: 1672004240}
   ObjectSelectLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 160
   distance: 1
   minDepth: -1
   unavailablePositions: []

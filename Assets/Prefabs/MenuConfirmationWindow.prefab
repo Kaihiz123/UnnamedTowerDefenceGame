@@ -564,7 +564,7 @@ GameObject:
   - component: {fileID: 1085476829039174711}
   - component: {fileID: 9222552920819594385}
   m_Layer: 5
-  m_Name: ConfirmationWindow
+  m_Name: MenuConfirmationWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

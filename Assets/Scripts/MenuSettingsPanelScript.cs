@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
-public class SettingsScript : MonoBehaviour, ISettings
+public class MenuSettingsPanelScript : MonoBehaviour, ISettings
 {
-    public List<Button> tabButtons = new List<Button>();
+    public List<Toggle> toggles = new List<Toggle>();
     public List<GameObject> panels = new List<GameObject>();
 
-    int selectedIndex = 0;
+    public ToggleGroup SettingsToggleGroup;
 
-    private void OnEnable()
+    private void Start()
     {
-        tabButtons[selectedIndex].Select();
-        SettingsTabChanged(panels[selectedIndex]);
+        SettingsTabChanged(panels[0]);
     }
 
     public void SettingsTabChanged(GameObject go)
@@ -21,7 +21,6 @@ public class SettingsScript : MonoBehaviour, ISettings
         {
             panel.SetActive(panel == go);
         }
-        selectedIndex = panels.IndexOf(go);
     }
 
     public void ValueChanged(ISettings.Type type, int value)
@@ -38,5 +37,10 @@ public class SettingsScript : MonoBehaviour, ISettings
                 Debug.Log("Type mismatch: " + type.ToString());
                 break;
         }
+    }
+
+    public void ResetToDefaultButtonClicked()
+    {
+        Debug.Log("ResetToDefaultButtonClicked");
     }
 }

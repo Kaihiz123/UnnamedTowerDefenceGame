@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingsCheckBox : MonoBehaviour
+public class MenuSettingsItemCheckBox : MonoBehaviour
 {
     ISettings settings;
     public ISettings.Type type;
