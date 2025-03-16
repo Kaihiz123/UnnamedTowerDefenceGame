@@ -25,7 +25,7 @@ public class StoreItemHandler : MonoBehaviour
         foreach(StoreItem storeItem in storeItems)
         {
             // change the color of the tower in the store based on if the player has enough money to by them
-            if(bank.playerMoney >= storeItem.price)
+            if(bank.GetPlayerMoney() >= storeItem.price)
             {
                 storeItem.PlayerCanAfford();
             }
