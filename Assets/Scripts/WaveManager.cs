@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour
 {
+    // References
+    [SerializeField] private Bank bank;
+
+    //
+
     [Header("UI")]
     [SerializeField] private Button nextWaveButton;
     public bool nextWaveTriggered = false; // public for testing
@@ -46,6 +51,8 @@ public class WaveManager : MonoBehaviour
     [System.Serializable]
     public class Wave
     {
+        public int waveReward = 0;
+        public int enemyScaling = 1;
         public List<EnemySpawn> enemies = new List<EnemySpawn>();
     }
 
@@ -77,6 +84,18 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
+        // if bank reference is not set, find it in the scene
+        if (bank == null)
+        {
+            bank = FindFirstObjectByType<Bank>();
+        }
+
+        // if enemies parent is not set, find it in the scene by name
+        if (enemyParent == null)
+        {
+            enemyParent = GameObject.Find("EnemiesParent").transform;
+        }
+
         StartCoroutine(Spawning());
     }
 
@@ -86,11 +105,23 @@ public class WaveManager : MonoBehaviour
         // Start from the specified wave in debug mode
         int startWaveIndex = debugMode ? Mathf.Clamp(startFromWave -1, 0, waves.Count - 1) : 0;
 
-        /* TODO: Calculate how much money player should have earned by this wave and pass to money system
+        // Calculate bank balance for skipped waves if debug mode is enabled
         if (debugMode && startWaveIndex > 0)
         {
+            int accumulatedMoney = 0;
+            for (int i = 0; i < startWaveIndex; i++)
+            {
+                accumulatedMoney += waves[i].waveReward;
+            }
+            
+            // Add the accumulated money to the player's bank
+            if (accumulatedMoney > 0)
+            {
+                bank.IncreasePlayerMoney(accumulatedMoney);
+                bank.UpdateBankBalanceText();
+                Debug.Log($"Debug mode: Added {accumulatedMoney} money for skipped waves (1-{startWaveIndex})");
+            }
         }
-        */
         
         // Loop through each wave
         for (int waveIndex = startWaveIndex; waveIndex < waves.Count; waveIndex++)
@@ -126,8 +157,14 @@ public class WaveManager : MonoBehaviour
                     SpawnEnemy(spawn.enemyType, spawnPoint.position, spawnPoint.rotation);
                 }
             }
-            // Let other systems know the wave is over here so they can do their things
-            Debug.Log("Wave " + (waveIndex + 1) + " completed!");
+
+            // Wait until all the children are dead
+            yield return new WaitUntil(() => enemyParent.childCount == 0);
+
+            // Lets do unspeakable things to other systems now that the wave is over
+            bank.IncreasePlayerMoney(currentWave.waveReward);
+            bank.UpdateBankBalanceText();
+            Debug.Log("Wave " + (waveIndex + 1) + " completed!" + " Money earned: " + currentWave.waveReward);
         }
         
         Debug.Log("All waves completed!");

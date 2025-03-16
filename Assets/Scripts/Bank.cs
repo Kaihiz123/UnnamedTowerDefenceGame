@@ -71,7 +71,7 @@ public class Bank : MonoBehaviour
         UpdateBankBalanceText();
     }
 
-    private void UpdateBankBalanceText()
+    public void UpdateBankBalanceText()
     {
         // change the text above the store
         bankBalanceText.text = "" + playerMoney;
