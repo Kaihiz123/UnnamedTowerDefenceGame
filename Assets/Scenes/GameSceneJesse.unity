@@ -421,12 +421,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: startFromWave
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: waypointsParent
       value: 
       objectReference: {fileID: 1735434989}
+    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
+      propertyPath: debugCurrentWave
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: nextWaveTriggered
       value: 0
@@ -446,6 +450,22 @@ PrefabInstance:
     - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: waves.Array.data[2].waveReward
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
+      propertyPath: waves.Array.data[0].enemyScaling
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
+      propertyPath: waves.Array.data[2].enemyScaling
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
+      propertyPath: waves.Array.data[0].enemies.Array.data[0].enemyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
+      propertyPath: waves.Array.data[1].enemies.Array.data[0].enemyType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4282547272630411687, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: m_Name

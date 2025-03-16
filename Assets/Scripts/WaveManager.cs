@@ -5,27 +5,21 @@ using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour
 {
-    // References
-    [SerializeField] private Bank bank;
-
-    //
-
     [Header("UI")]
     [SerializeField] private Button nextWaveButton;
-    public bool nextWaveTriggered = false; // public for testing
-    public int debugCurrentWave = 0; // show current wave in inspector for debugging
+    [SerializeField] private bool nextWaveTriggered = false; // visible for testing
+    [SerializeField] private int helperCurrentWave = 0;
 
     [Header("Debug Settings")]
     [SerializeField] private bool debugMode = false;
     [SerializeField] private int startFromWave = 1;
-
     [Header("Spawn Settings")] 
+    
     [SerializeField] private Transform spawnPoint;
-
     [SerializeField] private Transform enemyParent;
     [SerializeField] private GameObject waypointsParent;
-
     [SerializeField] private PlayerHealthSystem playerHealthSystem;
+    [SerializeField] private Bank bank;
 
     // Defines the different types of enemies that can be spawned
     public enum EnemyType
@@ -52,7 +46,7 @@ public class WaveManager : MonoBehaviour
     public class Wave
     {
         public int waveReward = 0;
-        public int enemyScaling = 1;
+        public float enemyScaling = 1f;
         public List<EnemySpawn> enemies = new List<EnemySpawn>();
     }
 
@@ -118,7 +112,6 @@ public class WaveManager : MonoBehaviour
             if (accumulatedMoney > 0)
             {
                 bank.IncreasePlayerMoney(accumulatedMoney);
-                bank.UpdateBankBalanceText();
                 Debug.Log($"Debug mode: Added {accumulatedMoney} money for skipped waves (1-{startWaveIndex})");
             }
         }
@@ -132,9 +125,9 @@ public class WaveManager : MonoBehaviour
             nextWaveButton.gameObject.SetActive(false); // change depending on UI needs
             nextWaveTriggered = false;
             
-            debugCurrentWave = waveIndex + 1; // update current wave for inspector
-            Debug.Log("Starting Wave " + (waveIndex + 1));
+            helperCurrentWave = waveIndex + 1; // update current wave for inspector
             Wave currentWave = waves[waveIndex];
+            Debug.Log("Starting Wave " + (waveIndex + 1) + " Enemy Scaling: " + currentWave.enemyScaling);
             
             // Spawn each enemy in the current wave
             for (int spawnIndex = 0; spawnIndex < currentWave.enemies.Count; spawnIndex++)
@@ -163,7 +156,6 @@ public class WaveManager : MonoBehaviour
 
             // Lets do unspeakable things to other systems now that the wave is over
             bank.IncreasePlayerMoney(currentWave.waveReward);
-            bank.UpdateBankBalanceText();
             Debug.Log("Wave " + (waveIndex + 1) + " completed!" + " Money earned: " + currentWave.waveReward);
         }
         
@@ -184,7 +176,8 @@ public class WaveManager : MonoBehaviour
             GameObject enemyToSpawn = GetEnemyPrefab(enemyType);
             GameObject newEnemy = Instantiate(enemyToSpawn, position, rotation);
             newEnemy.transform.SetParent(enemyParent);
-            newEnemy.GetComponent<EnemyScript>().Initialize(waypointsParent, playerHealthSystem);
+            float enemyScaling = waves[helperCurrentWave - 1].enemyScaling;
+            newEnemy.GetComponent<EnemyScript>().Initialize(waypointsParent, playerHealthSystem, enemyScaling);
         }
     }
 }
