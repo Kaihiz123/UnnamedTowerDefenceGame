@@ -35,7 +35,6 @@ public class SelectionWindow : MonoBehaviour
         towerNameText.text = towerInfo.towerType.ToString();
 
         layouts[(int) towerInfo.towerType].SetActive(true);
-
         UpdateUpgradeStatus();
     }
 
@@ -49,8 +48,8 @@ public class SelectionWindow : MonoBehaviour
 
     private void UpdateUpgradeStatus()
     {
-        // käytetään towerInfo.upgradeIndexia tutkimaan minkä värisiä upgradet ovat layoutissa
-        // sininen on omistama, vihreä on rahat riittää, punainen on ettei rahat riitä
+        // kï¿½ytetï¿½ï¿½n towerInfo.upgradeIndexia tutkimaan minkï¿½ vï¿½risiï¿½ upgradet ovat layoutissa
+        // sininen on omistama, vihreï¿½ on rahat riittï¿½ï¿½, punainen on ettei rahat riitï¿½
         SelectionWindowItem[] items = GetComponentsInChildren<SelectionWindowItem>();
         foreach(SelectionWindowItem item in items)
         {
@@ -74,6 +73,7 @@ public class SelectionWindow : MonoBehaviour
         if (bank.BuyUpgrade(price))
         {
             currentTowerInfo.upgradeIndex = upgradeNumber;
+            currentTowerInfo.gameObject.GetComponent<TowerUpgrading>().RunWhenTowerUpgrades();
             UpdateUpgradeStatus();
         }
     }

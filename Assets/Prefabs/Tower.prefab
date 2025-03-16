@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 6754062138696394463}
   - component: {fileID: -2874997192531373935}
   - component: {fileID: 7951047333866985243}
+  - component: {fileID: 1228698285868340969}
   m_Layer: 6
   m_Name: Tower
   m_TagString: Tower
@@ -540,11 +541,28 @@ MonoBehaviour:
   projectileAttackDamage: 5
   projectileSpeed: 6
   towerTurret: {fileID: 5688288642791811160}
+  targetingStrategy: 0
+  stickyTargeting: 0
   towerEnemyDetectAreaSize: 3
   towerProjectileSpawnLocation: {fileID: 1948269261408145454}
   theDebug_EnemyDetectAreaVisual: {fileID: 8217958910954327456}
   towerFireRate: 5
   soundShoot: {fileID: 8300000, guid: 574467b3b50854e29ae1a522a03ca0b8, type: 3}
+--- !u!114 &1228698285868340969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6570267394369877764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5310187e1d6d8fd2aa3e87c46dcbdeb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerInfo: {fileID: 0}
+  upgradeIndex: 0
+  towerType: 0
 --- !u!1 &6574879902739869873
 GameObject:
   m_ObjectHideFlags: 0
