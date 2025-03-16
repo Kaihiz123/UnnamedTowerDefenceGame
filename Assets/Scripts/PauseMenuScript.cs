@@ -7,6 +7,8 @@ public class PauseMenuScript : MonoBehaviour, IConfirmation
 
     public ConfirmationWindow confirmationWindow;
 
+    public GameObject settingsPanel;
+
     private void Start()
     {
         // close the pause menu if it's showing at the beginning
@@ -54,7 +56,12 @@ public class PauseMenuScript : MonoBehaviour, IConfirmation
 
     public void SettingsButtonPressed()
     {
-        Debug.Log("SettingsButton");
+        settingsPanel.SetActive(true);
+    }
+
+    public void BackButtonPressed()
+    {
+        settingsPanel.SetActive(false);
     }
 
     public void ExitToMainMenuPressed()
