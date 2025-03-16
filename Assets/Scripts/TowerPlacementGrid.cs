@@ -236,6 +236,9 @@ public class TowerPlacementGrid : MonoBehaviour
 
                 // reset bought object
                 boughtGameObject = null;
+
+                // update tower's attack, range, firerate, etc. values to match the upgrade index
+                selectedGameObject.GetComponent<TowerUpgrading>().RunWhenTowerUpgrades();
             }
             else if (raycastedGameObject != null)
             {

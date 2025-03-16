@@ -29,7 +29,7 @@ public class TowerShooting : MonoBehaviour
 
     [Header("Projectiles per second")]
     public float towerFireRate; // Shots per second
-    private float shootInterval; // Time between shots
+    public float shootInterval; // Time between shots
     private float shootTimer = 0f; // Timer to track shooting
     public AudioClip soundShoot;
     AudioSource audioSource;
@@ -40,8 +40,12 @@ public class TowerShooting : MonoBehaviour
     {
         towerShootingAoEScript = GetComponent<TowerShootingAoE>();
         audioSource = GetComponentInChildren<AudioSource>();
-        shootInterval = 1f / towerFireRate; // Calculate time between shots
+        UpdateFireRate();
+        UpdateDebugCircleRadius();
+    }
 
+    public void UpdateDebugCircleRadius()
+    {
         // Find the child object named "EnemyDetectArea"
         enemyDetectArea = transform.Find("TowerEnemyDetectArea");
         if (enemyDetectArea != null)
@@ -60,7 +64,11 @@ public class TowerShooting : MonoBehaviour
         }
         debug_EnemyDetectAreaVisual = transform.Find("DEBUG_EnemyDetectAreaVisual");
         debug_EnemyDetectAreaVisual.localScale = new Vector2(towerEnemyDetectAreaSize / 50f, towerEnemyDetectAreaSize / 50f);
-        
+    }  
+
+    public void UpdateFireRate()
+    {
+        shootInterval = 1f / towerFireRate; // Calculate time between shots
     }
 
     void Update()
