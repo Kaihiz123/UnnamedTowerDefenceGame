@@ -20,6 +20,8 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private Transform enemyParent;
     [SerializeField] private GameObject waypointsParent;
 
+    [SerializeField] private PlayerHealthSystem playerHealthSystem;
+
     // Defines the different types of enemies that can be spawned
     public enum EnemyType
     {
@@ -145,7 +147,7 @@ public class WaveManager : MonoBehaviour
             GameObject enemyToSpawn = GetEnemyPrefab(enemyType);
             GameObject newEnemy = Instantiate(enemyToSpawn, position, rotation);
             newEnemy.transform.SetParent(enemyParent);
-            newEnemy.GetComponent<EnemyScript>().Initialize(waypointsParent);
+            newEnemy.GetComponent<EnemyScript>().Initialize(waypointsParent, playerHealthSystem);
         }
     }
 }

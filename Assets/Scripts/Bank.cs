@@ -4,7 +4,7 @@ using UnityEngine;
 public class Bank : MonoBehaviour
 {
     // how much money the player has
-    public int playerMoney;
+    [SerializeField] private int playerMoney;
 
     public StoreItemHandler storeItemHandler;
 
@@ -77,4 +77,13 @@ public class Bank : MonoBehaviour
         bankBalanceText.text = "" + playerMoney;
     }
 
+    public void IncreasePlayerMoney(int money)
+    {
+        playerMoney += money;
+    }
+
+    public int GetPlayerMoney()
+    {
+        return playerMoney;
+    }
 }

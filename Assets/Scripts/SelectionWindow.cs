@@ -85,6 +85,11 @@ public class SelectionWindow : MonoBehaviour
         tpg.SelectedTowerWasSold(currentTowerInfo);
     }
 
+    public void MouseButtonDown(GameObject go)
+    {
+
+    }
+
     public void MouseButtonUp(GameObject go, int upgradeIndex, int price)
     {
         // confirm that mouse button was pressed down and up on the same button

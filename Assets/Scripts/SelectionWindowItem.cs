@@ -24,7 +24,7 @@ public class SelectionWindowItem : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //selectionWindow.MouseButtonDown(gameObject);
+        selectionWindow.MouseButtonDown(gameObject);
     }
 
     public void OnPointerUp(PointerEventData eventData)

@@ -21,7 +21,6 @@ public class StoreHandler : MonoBehaviour
     public Bank bank;
 
     bool isDragging = false; // if tower is being dragged
-    bool newTower = false; // if tower is new (just bought)
 
     TowerPlacementGrid tpg;
     Camera mainCamera;
@@ -30,17 +29,13 @@ public class StoreHandler : MonoBehaviour
     {
         tpg = GetComponent<TowerPlacementGrid>();
         mainCamera = Camera.main;
+        ScreenSpaceOverlayCanvasObject.SetActive(true);
     }
 
     Vector3 previousPosition = Vector3.zero;
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Tab))
-        {
-            // show if hidden, hide if visible
-            ScreenSpaceOverlayCanvasObject.SetActive(!ScreenSpaceOverlayCanvasObject.activeInHierarchy);
-        }
 
         if (EnableMovingTheGrid)
         {
@@ -79,14 +74,6 @@ public class StoreHandler : MonoBehaviour
             }
         }
 
-        // if a tower was bought from the store and left button of the mouse was released
-        if (Input.GetMouseButtonUp(0) && newTower)
-        {
-            // the tower is no longer new
-            newTower = false;
-            // notify that dragging of the new tower ends
-            tpg.NewTowerDragEnd();
-        }
     }
 
     public void CursorEnterStoreItem(GameObject go)
@@ -96,7 +83,7 @@ public class StoreHandler : MonoBehaviour
 
     public void CursorExitStoreItem(GameObject go)
     {
-        // TODO: stop indicating that the storeItem is no longer above the storeItem
+        // TODO: stop indicating that the cursor is no longer above the storeItem
     }
 
     public void MouseButtonDownOnStoreItem(GameObject pressedStoreItemObject, int index)
@@ -106,11 +93,9 @@ public class StoreHandler : MonoBehaviour
         // Does the player have enough money
         if (bank.BuyTower(index))
         {
-            // just to know that we are creating a new tower
-            newTower = true;
 
             // Hide store 
-            ScreenSpaceOverlayCanvasObject.SetActive(false);
+            //ScreenSpaceOverlayCanvasObject.SetActive(false);
 
             // Create a prefab of the tower into cursors position ja let
             // the towerPlacementGrid know that we are dragging the new tower
@@ -129,12 +114,6 @@ public class StoreHandler : MonoBehaviour
             // Notify the towerPlacementGrid of the new tower
             tpg.NewTower(newTowerObject);
         }
-    }
-
-    public void NewTowerEnd()
-    {
-        // Show store
-        ScreenSpaceOverlayCanvasObject.SetActive(true);
     }
 
     public void MouseButtonUpOnStoreItem(GameObject go)
