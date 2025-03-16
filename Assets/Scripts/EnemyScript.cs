@@ -7,7 +7,7 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private float maxHealth = 100;
     public float currentHealth = 100; // public for debugging
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float damageToPlayer = 1;
+    [SerializeField] private int damageToPlayer = 1;
     public GameObject enemySprite;
     public GameObject enemySpriteHit;
     public GameObject explosionPrefab;
@@ -18,11 +18,14 @@ public class EnemyScript : MonoBehaviour
     public AudioClip soundHit;
     AudioSource audioSource;
 
-    public void Initialize(GameObject waypointsParent)
+    PlayerHealthSystem playerHealthSystem;
+
+    public void Initialize(GameObject waypointsParent, PlayerHealthSystem playerHealthSystem)
     {
         pathing = GetComponent<EnemyPathing>();
         pathing.Initialize(moveSpeed, waypointsParent);
         currentHealth = maxHealth;
+        this.playerHealthSystem = playerHealthSystem;
     }
 
     void Start()
@@ -37,7 +40,9 @@ public class EnemyScript : MonoBehaviour
         {
             // Placeholder for applying damage to player
             Debug.Log($"Enemy reached the end! Player takes {damageToPlayer} damage.");
-            
+
+            playerHealthSystem.PlayerTookDamage(damageToPlayer);
+
             Destroy(gameObject);
         }
 
