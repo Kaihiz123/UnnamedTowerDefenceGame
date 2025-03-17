@@ -80,6 +80,7 @@ public class Bank : MonoBehaviour
     public void IncreasePlayerMoney(int money)
     {
         playerMoney += money;
+        UpdateBankBalanceText();
     }
 
     public int GetPlayerMoney()
