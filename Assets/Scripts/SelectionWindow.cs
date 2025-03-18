@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using static TowerInfo;
 
 public class SelectionWindow : MonoBehaviour
 {
@@ -31,7 +32,6 @@ public class SelectionWindow : MonoBehaviour
 
         currentTowerInfo = towerInfo;
 
-        towerNameText.text = "dsf";
         towerNameText.text = towerInfo.towerType.ToString();
 
         layouts[(int) towerInfo.towerType].SetActive(true);
@@ -48,8 +48,8 @@ public class SelectionWindow : MonoBehaviour
 
     private void UpdateUpgradeStatus()
     {
-        // k�ytet��n towerInfo.upgradeIndexia tutkimaan mink� v�risi� upgradet ovat layoutissa
-        // sininen on omistama, vihre� on rahat riitt��, punainen on ettei rahat riit�
+        // change the color of the upgrade buttons based on the level player has upgraded the selected tower.
+        // blue button color indicates ownership and yellow indicates that it has not been purchased
         SelectionWindowItem[] items = GetComponentsInChildren<SelectionWindowItem>();
         foreach(SelectionWindowItem item in items)
         {
@@ -78,9 +78,10 @@ public class SelectionWindow : MonoBehaviour
         }
     }
 
-    private void SellButtonPressed()
+    private void SellButtonPressed(int moneyBack)
     {
-        //TODO: give money back from selling a tower
+        // give money back from selling a tower
+        bank.IncreasePlayerMoney(moneyBack);
 
         tpg.SelectedTowerWasSold(currentTowerInfo);
     }
@@ -90,14 +91,24 @@ public class SelectionWindow : MonoBehaviour
 
     }
 
-    public void MouseButtonUp(GameObject go, int upgradeIndex, int price)
+    public void MouseButtonUp(GameObject go, int upgradeIndex, int price, TowerTypeUpgradeDataSO towerUpgrades)
     {
         // confirm that mouse button was pressed down and up on the same button
         if(hoverOverButton == go)
         {
+            // -1 -> we are selling the tower
+            // >0 -> we are upgrading (when tower is bought it is upgraded to first level)
             if (upgradeIndex == -1)
             {
-                SellButtonPressed();
+                // give player only half the money back
+                int moneyBack = 0;
+                for(int i = 0; i <= currentTowerInfo.upgradeIndex; i++)
+                {
+                    moneyBack += towerUpgrades.towerType[(int)currentTowerInfo.towerType].upgradeLevels[i].upgradeCost;
+                }
+                moneyBack /= 2;
+
+                SellButtonPressed(moneyBack);
             }
             else
             {

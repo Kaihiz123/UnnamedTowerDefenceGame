@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1228698285868340969, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
+      propertyPath: towerUpgrades
+      value: 
+      objectReference: {fileID: 11400000, guid: 6b858f9579402cb4882600a8f0a6eb13, type: 2}
     - target: {fileID: 6570267394369877764, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
       propertyPath: m_Name
       value: TowerVariantBasic

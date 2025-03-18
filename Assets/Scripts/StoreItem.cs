@@ -5,8 +5,6 @@ using UnityEngine.UI;
 public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
 {
     public StoreHandler storeHandler;
-    public int index;
-    public int price;
     public Image towerImageUI;
     public TMPro.TextMeshProUGUI towerText;
     public TowerInfo.TowerType towerType;
@@ -21,15 +19,6 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
             storeHandler = GetComponentInParent<StoreItemHandler>(true).storeHandler;
         }
 
-        // the index of the storeItem in the store
-        index = transform.parent.GetSiblingIndex();
-
-        // debug (if no price is given to storeItem)
-        if(price == 0)
-        {
-            price = 100 * index + 100;
-        }
-
         // name of the tower that is shown on the storeItem
         towerText.text = towerType.ToString();
     }
@@ -37,7 +26,7 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
     public void OnPointerDown(PointerEventData eventData)
     {
         // Left button of the mouse was pressed down
-        storeHandler.MouseButtonDownOnStoreItem(gameObject, index);
+        storeHandler.MouseButtonDownOnStoreItem(gameObject, (int) towerType);
     }
 
     public void OnPointerUp(PointerEventData eventData)

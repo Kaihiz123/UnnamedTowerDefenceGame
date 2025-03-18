@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -11,9 +12,16 @@ public class UpgradeLevelData
     public float aoeRadius;
 }
 
+[System.Serializable]
+public class TowerUpgradeData
+{
+    public TowerInfo.TowerType Type;
+    [Header("Upgrade Levels")]
+    public UpgradeLevelData[] upgradeLevels = new UpgradeLevelData[3];
+}
+
 [CreateAssetMenu(fileName = "TowerTypeUpgradeData", menuName = "Tower Type Upgrade Data")]
 public class TowerTypeUpgradeDataSO : ScriptableObject
 {
-    [Header("Upgrade Levels")]
-    public UpgradeLevelData[] upgradeLevels = new UpgradeLevelData[3];
+    public List<TowerUpgradeData> towerType = new List<TowerUpgradeData>();
 }

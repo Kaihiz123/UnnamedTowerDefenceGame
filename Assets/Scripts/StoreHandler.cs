@@ -25,6 +25,9 @@ public class StoreHandler : MonoBehaviour
     TowerPlacementGrid tpg;
     Camera mainCamera;
 
+    [Header("Tower Type Upgrades")]
+    public TowerTypeUpgradeDataSO towerUpgrades;
+
     private void Start()
     {
         tpg = GetComponent<TowerPlacementGrid>();
@@ -90,10 +93,12 @@ public class StoreHandler : MonoBehaviour
     {
         // Left mouse button was pressed down above a certain storeItem
 
-        // Does the player have enough money
-        if (bank.BuyTower(index))
-        {
+        // cost of the tower
+        int cost = towerUpgrades.towerType[index].upgradeLevels[0].upgradeCost;
 
+        // Does the player have enough money
+        if (bank.BuyTower(cost))
+        {
             // Hide store 
             //ScreenSpaceOverlayCanvasObject.SetActive(false);
 
