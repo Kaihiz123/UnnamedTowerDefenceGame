@@ -20,10 +20,11 @@ public class EnemyScript : MonoBehaviour
 
     PlayerHealthSystem playerHealthSystem;
 
-    public void Initialize(GameObject waypointsParent, PlayerHealthSystem playerHealthSystem)
+    public void Initialize(GameObject waypointsParent, PlayerHealthSystem playerHealthSystem, float enemyScaling)
     {
         pathing = GetComponent<EnemyPathing>();
         pathing.Initialize(moveSpeed, waypointsParent);
+        maxHealth *= enemyScaling;
         currentHealth = maxHealth;
         this.playerHealthSystem = playerHealthSystem;
     }
