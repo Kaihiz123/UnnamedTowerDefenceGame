@@ -215,6 +215,9 @@ public class TowerPlacementGrid : MonoBehaviour
 
                     // notify the bank that the transaction was successful (money is removed from bank)
                     bank.NewTowerWasPlacedSuccessfully();
+
+                    // update tower's attack, range, firerate, etc. values to match the upgrade index
+                    selectedGameObject.GetComponent<TowerUpgrading>().RunWhenTowerUpgrades();
                 }
                 else
                 {
@@ -236,9 +239,6 @@ public class TowerPlacementGrid : MonoBehaviour
 
                 // reset bought object
                 boughtGameObject = null;
-
-                // update tower's attack, range, firerate, etc. values to match the upgrade index
-                selectedGameObject.GetComponent<TowerUpgrading>().RunWhenTowerUpgrades();
             }
             else if (raycastedGameObject != null)
             {

@@ -547,6 +547,7 @@ MonoBehaviour:
   towerProjectileSpawnLocation: {fileID: 1948269261408145454}
   theDebug_EnemyDetectAreaVisual: {fileID: 8217958910954327456}
   towerFireRate: 5
+  shootInterval: 0
   soundShoot: {fileID: 8300000, guid: 574467b3b50854e29ae1a522a03ca0b8, type: 3}
 --- !u!114 &1228698285868340969
 MonoBehaviour:
@@ -560,9 +561,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5310187e1d6d8fd2aa3e87c46dcbdeb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerInfo: {fileID: 0}
-  upgradeIndex: 0
-  towerType: 0
+  basicTowerUpgrades: {fileID: 11400000, guid: aeff8a87c5a7945428e55700ca2b2abf, type: 2}
+  sniperTowerUpgrades: {fileID: 11400000, guid: 4b99ff0012b5d994089d71c8535b82a7, type: 2}
+  aoeTowerUpgrades: {fileID: 11400000, guid: 6b858f9579402cb4882600a8f0a6eb13, type: 2}
 --- !u!1 &6574879902739869873
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,9 @@ public class StoreItemHandler : MonoBehaviour
     public StoreHandler storeHandler;
     public Bank bank;
 
+    [Header("Tower Type Upgrades")]
+    public TowerTypeUpgradeDataSO towerUpgrades;
+
     StoreItem[] storeItems; // items that are available in the store
 
     public void Init()
@@ -24,8 +27,11 @@ public class StoreItemHandler : MonoBehaviour
     {
         foreach(StoreItem storeItem in storeItems)
         {
+            // get the cost of the storeItem (tower) which is the first upgrade cost
+            int towerCost = towerUpgrades.towerType[(int)storeItem.towerType].upgradeLevels[0].upgradeCost;
+
             // change the color of the tower in the store based on if the player has enough money to by them
-            if(bank.GetPlayerMoney() >= storeItem.price)
+            if (bank.GetPlayerMoney() >= towerCost)
             {
                 storeItem.PlayerCanAfford();
             }
@@ -34,16 +40,5 @@ public class StoreItemHandler : MonoBehaviour
                 storeItem.PlayerCannotAfford();
             }
         }
-    }
-
-    // return list of the prices of the StoreItems where the order matters
-    public List<int> GetStoreItemPrices()
-    {
-        List<int> prices = new List<int>();
-        foreach(StoreItem storeItem in storeItems)
-        {
-            prices.Add(storeItem.price);
-        }
-        return prices;
     }
 }
