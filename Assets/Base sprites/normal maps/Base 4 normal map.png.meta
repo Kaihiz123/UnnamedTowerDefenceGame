@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 70a201af480dd8144a5787ee26240c12
+guid: 63f18b93bcfcd3b428be8bf290aa8f51
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9186852097521015995
-    second: base 3_0
+      213: 1603549691131211290
+    second: Base 4 normal map_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
-    sRGBTexture: 1
+    sRGBTexture: 0
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
@@ -51,13 +51,13 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 1
+  alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: 8
+  textureType: 1
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: base 3_0
+      name: Base 4 normal map_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 139
-        height: 51
+        height: 34
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 543253bf0beb18080800000000000000
-      internalID: -9186852097521015995
+      spriteID: a1e2097b2f3f04610800000000000000
+      internalID: 1603549691131211290
       vertices: []
       indices: 
       edges: []
@@ -151,21 +151,16 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5d0c6a2931892b741afd196ae4d5ec7c
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-    secondaryTextures:
-    - texture: {fileID: 2800000, guid: 44f48d5d0ac8aec4da79b83e102dd344, type: 3}
-      name: _Normal
-    - texture: {fileID: 2800000, guid: 09bcc3300e901f74c9ab91807fba3a22, type: 3}
-      name: _Mask
+    secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      base 3_0: -9186852097521015995
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
