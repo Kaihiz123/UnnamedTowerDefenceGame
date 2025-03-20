@@ -89,7 +89,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b15b183cb823b744695f311d7d0a50bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 5
+  itemText: {fileID: 5466794905102947637}
+  itemName: '*Difficulty'
+  options:
+  - Easy
+  - Normal
+  - Hard
 --- !u!1 &691603826647489160
 GameObject:
   m_ObjectHideFlags: 0

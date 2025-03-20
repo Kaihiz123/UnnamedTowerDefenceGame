@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 7243513730505525346}
   - component: {fileID: 5443633184659460175}
   - component: {fileID: 7421540445235052115}
-  - component: {fileID: 5921330464655985933}
+  - component: {fileID: 6490264179786254468}
   m_Layer: 5
   m_Name: SettingsItemPicture
   m_TagString: Untagged
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5921330464655985933
+--- !u!114 &6490264179786254468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -297,10 +297,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3205136876585363074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc2117b9402dc8e41bb23b1a4ead3f3b, type: 3}
+  m_Script: {fileID: 11500000, guid: d091e413643503041b8f419911381b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  itemText: {fileID: 8637688456504586364}
+  itemName: Title
+  descriptionText: {fileID: 4749489008212544588}
+  description: Description
+  image: {fileID: 4677733445146397302}
+  sprite: {fileID: 21300000, guid: 5720cbb8b9edd22408cbb56b37690a3c, type: 3}
 --- !u!1 &5563579828109651699
 GameObject:
   m_ObjectHideFlags: 0

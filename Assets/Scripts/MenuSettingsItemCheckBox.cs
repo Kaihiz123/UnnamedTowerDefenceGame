@@ -7,10 +7,15 @@ public class MenuSettingsItemCheckBox : MonoBehaviour
     public ISettings.Type type;
     Toggle toggle;
 
+    public TMPro.TextMeshProUGUI itemText;
+    public string itemName;
+
     private void Awake()
     {
         settings = GetComponentInParent<ISettings>();
         toggle = GetComponentInChildren<Toggle>();
+
+        itemText.text = itemName;
 
         //TODO: change to current value
     }
