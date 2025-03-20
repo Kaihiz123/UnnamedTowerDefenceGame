@@ -5,6 +5,7 @@ public class ProjectileCollision : MonoBehaviour
     private Projectile parentProjectile;
     public GameObject explosionPrefab;
     public GameObject aoEEffectPrefab;
+    [SerializeField] private GameObject sparkEffectPrefab;
 
     void Start()
     {
@@ -21,6 +22,12 @@ public class ProjectileCollision : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(parentProjectile.projectileAttackDamage); // Apply damage to enemy
+            }
+
+            // Hit spark particles
+            if (sparkEffectPrefab != null)
+            {                                                
+                Instantiate(sparkEffectPrefab, transform.position, Quaternion.Euler(0, 0, 180) * parentProjectile.transform.rotation);
             }
 
             // Destroy the parent projectile on impact
