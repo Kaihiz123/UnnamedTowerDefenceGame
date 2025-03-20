@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 public class EnemyScript : MonoBehaviour
 {
     [Header("Enemy Stats")]
-    [SerializeField] private float maxHealth = 100;
+    public float maxHealth = 100;
     public float currentHealth = 100; // public for debugging
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private int damageToPlayer = 1;
