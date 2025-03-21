@@ -13,6 +13,8 @@ public class PlayerHealthSystem : MonoBehaviour
 
     private void Start()
     {
+        playerHealth = PlayerPrefs.GetInt(ISettings.Type.STARTHEALTH.ToString(), 10);
+        maxPlayerHealth = PlayerPrefs.GetInt(ISettings.Type.MAXHEALTH.ToString(), 10);
         UpdatePlayerHealthText();
     }
 

@@ -49,7 +49,7 @@ public class EnemyPathing : MonoBehaviour
 
         float enemyDistanceFromPreviousTarget = Vector2.Distance(transform.position, waypoints[currentWaypointIndex - 1].position);
         float distanceBetweenPreviousAndCurrentTarget = Vector2.Distance(waypoints[currentWaypointIndex - 1].position, waypoints[currentWaypointIndex].position);
-        if (enemyDistanceFromPreviousTarget > distanceBetweenPreviousAndCurrentTarget)
+        if (enemyDistanceFromPreviousTarget >= distanceBetweenPreviousAndCurrentTarget - 0.02f)
         {
             // Check if this was the last waypoint
             if (currentWaypointIndex == waypoints.Length - 1)

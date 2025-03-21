@@ -14,6 +14,9 @@ public class Bank : MonoBehaviour
 
     private void Start()
     {
+        // initialize player money
+        playerMoney = PlayerPrefs.GetInt(ISettings.Type.STARTMONEY.ToString(), 4000);
+
         // initialize storeItemHandler
         storeItemHandler.Init();
         
