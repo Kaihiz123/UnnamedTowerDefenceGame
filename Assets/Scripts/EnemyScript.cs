@@ -16,7 +16,6 @@ public class EnemyScript : MonoBehaviour
 
     private EnemyPathing pathing;
     public AudioClip soundHit;
-    AudioSource audioSource;
 
     PlayerHealthSystem playerHealthSystem;
 
@@ -27,11 +26,6 @@ public class EnemyScript : MonoBehaviour
         maxHealth *= enemyScaling;
         currentHealth = maxHealth;
         this.playerHealthSystem = playerHealthSystem;
-    }
-
-    void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -61,7 +55,7 @@ public class EnemyScript : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        audioSource.PlayOneShot(soundHit);
+        AudioManager.Instance.PlaySoundEffect(soundHit);
 
         enemySprite.transform.localScale = new Vector3(1.1f, 1.1f, 1.0f);
         enemySpriteHit.SetActive(true);

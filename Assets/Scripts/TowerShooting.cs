@@ -32,14 +32,12 @@ public class TowerShooting : MonoBehaviour
     public float shootInterval; // Time between shots
     private float shootTimer = 0f; // Timer to track shooting
     public AudioClip soundShoot;
-    AudioSource audioSource;
 
     private TowerShootingAoE towerShootingAoEScript;
 
     void Start()
     {
         towerShootingAoEScript = GetComponent<TowerShootingAoE>();
-        audioSource = GetComponentInChildren<AudioSource>();
         UpdateFireRate();
         UpdateDebugCircleRadius();
     }
@@ -97,7 +95,7 @@ public class TowerShooting : MonoBehaviour
                 if (shootTimer >= shootInterval)
                 {
                     SpawnProjectile();
-                    audioSource.PlayOneShot(soundShoot);
+                    AudioManager.Instance.PlaySoundEffect(soundShoot);
                     shootTimer = 0f;
                 }
             }
