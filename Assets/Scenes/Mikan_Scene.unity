@@ -2270,7 +2270,7 @@ MonoBehaviour:
   - {fileID: 5334527113026916477, guid: 5d9ef71d292eb4fdd970f9db4a8c7f17, type: 3}
   - {fileID: 5169314093374454344, guid: 6ccaa039ddc21448eab17a70b5d04224, type: 3}
   bank: {fileID: 927863053}
-  towerPlacementGrid: {fileID: 0}
+  towerPlacementGrid: {fileID: 1163977122}
   towerUpgrades: {fileID: 11400000, guid: 6b858f9579402cb4882600a8f0a6eb13, type: 2}
 --- !u!1 &935251066
 GameObject:
