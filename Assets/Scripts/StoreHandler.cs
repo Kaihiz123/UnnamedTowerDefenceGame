@@ -22,7 +22,7 @@ public class StoreHandler : MonoBehaviour
 
     bool isDragging = false; // if tower is being dragged
 
-    TowerPlacementGrid tpg;
+    public TowerPlacementGrid towerPlacementGrid;
     Camera mainCamera;
 
     [Header("Tower Type Upgrades")]
@@ -30,7 +30,6 @@ public class StoreHandler : MonoBehaviour
 
     private void Start()
     {
-        tpg = GetComponent<TowerPlacementGrid>();
         mainCamera = Camera.main;
         ScreenSpaceOverlayCanvasObject.SetActive(true);
     }
@@ -62,12 +61,12 @@ public class StoreHandler : MonoBehaviour
                     previousPosition = currentPosition;
 
                     // move the grid
-                    transform.position += delta;
+                    towerPlacementGrid.transform.position += delta;
                     // move the canvas with visible grid
                     WorldSpaceCanvasObject.transform.position += delta;
 
                     // notify how the grid has been moved
-                    tpg.movement += delta;
+                    towerPlacementGrid.movement += delta;
                 }
             }
             else if (Input.GetMouseButtonUp(2)) // if mouse middle button is released
@@ -106,7 +105,7 @@ public class StoreHandler : MonoBehaviour
             // the towerPlacementGrid know that we are dragging the new tower
 
             GameObject newTowerObject = Instantiate(towerPrefabs[index]);
-            newTowerObject.transform.localScale = tpg.ElementSize;
+            newTowerObject.transform.localScale = towerPlacementGrid.ElementSize;
             // Set the new tower child of ObjectsOnGrid
             newTowerObject.transform.SetParent(ObjectsOnGrid);
             // pass the tower type from storeItem to towerInfo
@@ -117,7 +116,7 @@ public class StoreHandler : MonoBehaviour
             // Set the position of the new tower into cursor position
             newTowerObject.transform.position = mousePosition;
             // Notify the towerPlacementGrid of the new tower
-            tpg.NewTower(newTowerObject);
+            towerPlacementGrid.NewTower(newTowerObject);
         }
     }
 
