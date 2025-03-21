@@ -2538,10 +2538,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2506717681034980517, guid: bb0c0c633198c08479e1c19ab4700cc4, type: 3}
-      propertyPath: playerMoney
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2506717681034980517, guid: bb0c0c633198c08479e1c19ab4700cc4, type: 3}
       propertyPath: bankBalanceText
       value: 
       objectReference: {fileID: 714254944}

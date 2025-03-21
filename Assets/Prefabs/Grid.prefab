@@ -662,6 +662,7 @@ MonoBehaviour:
   - {fileID: 5334527113026916477, guid: 5d9ef71d292eb4fdd970f9db4a8c7f17, type: 3}
   - {fileID: 5169314093374454344, guid: 6ccaa039ddc21448eab17a70b5d04224, type: 3}
   bank: {fileID: 2506717681034980517}
+  towerUpgrades: {fileID: 0}
 --- !u!114 &5667451153566279232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -704,7 +705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53c0446886c8aad47acabf98e8062c10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMoney: 10000
+  playerMoney: 400
   storeItemHandler: {fileID: 0}
   bankBalanceText: {fileID: 0}
 --- !u!1 &7983124250311674358
