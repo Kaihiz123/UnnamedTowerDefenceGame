@@ -5,6 +5,7 @@ public interface ISettings
     public enum Type
     {
         // actual settings
+        MASTERVOLUME,
         MUSICVOLUME,
         SOUNDEFFECTVOLUME,
 
