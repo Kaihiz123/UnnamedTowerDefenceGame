@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 75
   currentHealth: 75
-  moveSpeed: 3
+  moveSpeed: 3.5
   damageToPlayer: 11
   enemySprite: {fileID: 9021140399679092866}
   enemySpriteHit: {fileID: 4498986619522959443}

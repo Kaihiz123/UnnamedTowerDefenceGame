@@ -21,6 +21,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7951047333866985243, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
+      propertyPath: stickyTargeting
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951047333866985243, guid: 257cef58d7c510544a7e8ba2793a38ab, type: 3}
       propertyPath: projectileAttackDamage
       value: 3
       objectReference: {fileID: 0}
