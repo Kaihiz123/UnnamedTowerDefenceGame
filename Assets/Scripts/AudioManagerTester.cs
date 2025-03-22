@@ -45,19 +45,19 @@ public class AudioManagerTester : MonoBehaviour
     {
         if(currentMaster != MasterVolumeValue) 
         {
-            AudioManager.Instance.SetMasterVolume(MasterVolumeValue);
+            AudioManager.Instance.SetVolume(ISettings.Type.MASTERVOLUME, MasterVolumeValue);
             currentMaster = MasterVolumeValue;
         }
 
         if (currentMusic != MusicVolumeValue)
         {
-            AudioManager.Instance.SetMusicVolume(MusicVolumeValue);
+            AudioManager.Instance.SetVolume(ISettings.Type.MUSICVOLUME, MusicVolumeValue);
             currentMusic = MusicVolumeValue;
         }
 
         if (currentSoundEffect != SoundEffectVolumeValue)
         {
-            AudioManager.Instance.SetSoundEffectVolume(SoundEffectVolumeValue);
+            AudioManager.Instance.SetVolume(ISettings.Type.SOUNDEFFECTVOLUME, SoundEffectVolumeValue);
             currentSoundEffect = SoundEffectVolumeValue;
         }
 

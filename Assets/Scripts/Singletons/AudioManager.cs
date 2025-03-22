@@ -34,38 +34,19 @@ public class AudioManager: MonoBehaviour
         float musicVolume = PlayerPrefs.GetFloat(ISettings.Type.MUSICVOLUME.ToString(), 0);
         float soundEffectVolume = PlayerPrefs.GetFloat(ISettings.Type.SOUNDEFFECTVOLUME.ToString(), 0);
 
-        SetMasterVolume(masterVolume);
-        SetMusicVolume(musicVolume);
-        SetSoundEffectVolume(soundEffectVolume);
+        SetVolume(ISettings.Type.MASTERVOLUME, masterVolume);
+        SetVolume(ISettings.Type.MUSICVOLUME, musicVolume);
+        SetVolume(ISettings.Type.SOUNDEFFECTVOLUME, soundEffectVolume);
 
         CreateAudioSourceObjectPool();
     }
 
-    public void SetMasterVolume(float volume) // volume = 0f...1f
+    public void SetVolume(ISettings.Type type, float volume) // volume = 0f...1f
     {
         // Log10 is used to convert linear 0...1 -> non linear -80dB...20dB
         // Log10(0) -> sets volume high so we prevent it by using Mathf.Max where -80 is the quietest
         float convertedVolume = Mathf.Max(Mathf.Log10(volume) * 20f, -80f);
-
-        audioMixer.SetFloat(ISettings.Type.MASTERVOLUME.ToString(), convertedVolume);
-        PlayerPrefs.SetFloat(ISettings.Type.MASTERVOLUME.ToString(), volume);
-        PlayerPrefs.Save();
-    }
-
-    public void SetMusicVolume(float volume) // volume = 0f...1f
-    {
-        float convertedVolume = Mathf.Max(Mathf.Log10(volume) * 20f, -80f);
-        audioMixer.SetFloat(ISettings.Type.MUSICVOLUME.ToString(), convertedVolume);
-        PlayerPrefs.SetFloat(ISettings.Type.MUSICVOLUME.ToString(), volume);
-        PlayerPrefs.Save();
-    }
-
-    public void SetSoundEffectVolume(float volume) // volume = 0f...1f
-    {
-        float convertedVolume = Mathf.Max(Mathf.Log10(volume) * 20f, -80f);
-        audioMixer.SetFloat(ISettings.Type.SOUNDEFFECTVOLUME.ToString(), convertedVolume);
-        PlayerPrefs.SetFloat(ISettings.Type.SOUNDEFFECTVOLUME.ToString(), volume);
-        PlayerPrefs.Save();
+        audioMixer.SetFloat(type.ToString(), convertedVolume);
     }
 
     public void PlayMusic(AudioClip clip)
