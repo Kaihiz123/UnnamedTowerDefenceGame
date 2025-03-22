@@ -114,7 +114,7 @@ MonoBehaviour:
   maxHealth: 300
   currentHealth: 300
   moveSpeed: 1
-  damageToPlayer: 1
+  damageToPlayer: 11
   enemySprite: {fileID: 9021140399679092866}
   enemySpriteHit: {fileID: 3857803098980055368}
   explosionPrefab: {fileID: 5912056139778002667, guid: 384c26ddf50024dd092fbf8d19d7c891, type: 3}
