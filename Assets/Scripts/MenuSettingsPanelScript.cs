@@ -23,18 +23,25 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
         }
     }
 
-    public void ValueChanged(ISettings.Type type, int value)
+    public void ValueChanged<T>(ISettings.Type type, T value) where T : struct
     {
-        // if value == bool -> 1 == true, 0 == false
-        // if value == int -> value == index or valueNumber
-
-        switch (type)
+        switch (value)
         {
-            case ISettings.Type.MUSICVOLUME:
-                Debug.Log("value=" + value);
+            case float floatValue:
+                PlayerPrefs.SetFloat(type.ToString(), floatValue);
+                PlayerPrefs.Save();
+                break;
+            case int intValue:
+                PlayerPrefs.SetInt(type.ToString(), intValue);
+                PlayerPrefs.Save();
+                break;
+            case bool boolValue:
+                // PlayerPrefs doesn't support bool values so we convert it to integer and have to remember to convert it back when needed
+                PlayerPrefs.SetInt(type.ToString(), (boolValue ? 1 : 0));
+                PlayerPrefs.Save();
                 break;
             default:
-                Debug.Log("Type mismatch: " + type.ToString());
+                Debug.Log("Unsupported type: " + typeof(T));
                 break;
         }
     }
@@ -43,4 +50,5 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
     {
         Debug.Log("ResetToDefaultButtonClicked");
     }
+
 }

@@ -14,8 +14,9 @@ public class MenuSettingsItemSlider : MonoBehaviour
     public TMPro.TextMeshProUGUI itemText;
     public string itemName;
 
-    public int minValue = 0;
-    public int maxValue = 100;
+    public float minValue;
+    public float maxValue;
+    public bool isInteger;
     public string unit = "";
 
     Slider slider;
@@ -25,20 +26,38 @@ public class MenuSettingsItemSlider : MonoBehaviour
         settings = GetComponentInParent<ISettings>();
         slider = GetComponentInChildren<Slider>();
 
-        slider.minValue = minValue;
-        slider.maxValue = maxValue;
-
         itemText.text = itemName;
 
-        //TODO: change to current value
-
+        if (isInteger)
+        {
+            slider.wholeNumbers = true;
+            slider.minValue = minValue;
+            slider.maxValue = maxValue;
+            slider.value = PlayerPrefs.GetInt(type.ToString(), 0);
+        }
+        else
+        {
+            slider.wholeNumbers = false;
+            slider.minValue = 0f;
+            slider.maxValue = 1f;
+            slider.value = PlayerPrefs.GetFloat(type.ToString(), 0f);
+        }
+        
         SliderValueChanged();
     }
 
     public void SliderValueChanged()
     {
-        int roundedValue = Mathf.RoundToInt(slider.value);
-        SliderValueText.text = roundedValue + unit;
-        settings.ValueChanged(type, roundedValue);
+        if(isInteger)
+        {
+            SliderValueText.text = Mathf.RoundToInt(slider.value) + unit;
+            settings.ValueChanged(type, Mathf.RoundToInt(slider.value));
+        }
+        else
+        {
+            SliderValueText.text = Mathf.RoundToInt((slider.value * maxValue) - minValue) + unit;
+            AudioManager.Instance.SetVolume(type, slider.value);
+            settings.ValueChanged(type, slider.value);
+        }
     }
 }

@@ -17,5 +17,5 @@ public interface ISettings
         BREATHERBETWEENWAVES
     }
 
-    public void ValueChanged(Type type, int value);
+    public void ValueChanged<T>(Type type, T newValue) where T : struct;
 }

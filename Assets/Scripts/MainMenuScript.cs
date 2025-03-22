@@ -20,6 +20,16 @@ public class MainMenuScript : MonoBehaviour, IConfirmation
 
     GameObject currentPanel = null;
 
+    public AudioClip mainMenuMusicAudioClip;
+
+    private void Start()
+    {
+        if(mainMenuMusicAudioClip != null)
+        {
+            AudioManager.Instance.PlayMusic(mainMenuMusicAudioClip);
+        }
+    }
+
     // this is called from unity button in the left panel in the main menu
     public void ShowPanel(GameObject go)
     {
