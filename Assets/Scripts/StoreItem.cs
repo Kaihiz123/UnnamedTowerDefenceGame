@@ -9,8 +9,8 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
     public TMPro.TextMeshProUGUI towerText;
     public TowerInfo.TowerType towerType;
 
-    float hoverOverAlpha = 1f;
-    float defaultAlpha = 0.7f;
+    float hoverOverAlpha = 0.5f;
+    float defaultAlpha = 1f;
 
     public void Init()
     {
@@ -62,12 +62,14 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
     public void PlayerCanAfford()
     {
         // change color to blue
-        towerImageUI.color = new Color(0f, 0f, 1f, defaultAlpha);
+        towerImageUI.color = new Color(1f, 1f, 1f, defaultAlpha);
+        towerText.color = new Color(1f, 1f, 0.5f, 1f);
     }
 
     public void PlayerCannotAfford()
     {
         // change color to red
-        towerImageUI.color = new Color(1f, 0f, 0f, defaultAlpha);
+        towerImageUI.color = new Color(0.33f, 0.33f, 0.33f, hoverOverAlpha);
+        towerText.color = new Color(0.6f, 0.6f, 0.6f, 1f);
     }
 }

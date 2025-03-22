@@ -1390,8 +1390,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3659796666525727726, guid: aa215b77abe4d204086e1dd9f5fd9154, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1903194234}
   m_SourcePrefab: {fileID: 100100000, guid: aa215b77abe4d204086e1dd9f5fd9154, type: 3}
+--- !u!1 &1903194233 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3659796666525727726, guid: aa215b77abe4d204086e1dd9f5fd9154, type: 3}
+  m_PrefabInstance: {fileID: 1903194232}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1903194234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903194233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26fde26074586423ea6148e144955abb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  note: "Niin taisin unohtaa mainita tosta AudioManagerista ett\xE4 kun tulevaisuudessa
+    halutaan soittaa \xE4\xE4niefekti tai soittaa musiikkia niin AudioManager.Instance.PlaySoundEffect()
+    ja .PlayMusic()/.StopMusic() olis ne tavat miten pit\xE4is ne hoitaa\nargumenttina
+    pit\xE4isi antaa audioClip siit\xE4 \xE4\xE4nest\xE4/musiikista"
 --- !u!1 &1966691045
 GameObject:
   m_ObjectHideFlags: 0
