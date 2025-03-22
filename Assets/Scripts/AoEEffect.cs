@@ -12,11 +12,10 @@ public class AoEEffect : MonoBehaviour
     [SerializeField] private GameObject theDEBUGAoEAttackRangeCircleSprite;
 
     void Start()
-    {
-        // Destroy the parent projectile on impact after [float] seconds
-        Destroy(gameObject, 1.0f);   
+    { 
         aoECollider.radius = aoEAttackRangeRadius;
         DEBUGAoEAttackRangeCircleSprite.localScale = new Vector3(aoEAttackRangeRadius * 0.02f, aoEAttackRangeRadius * 0.02f, 1f);
+        Destroy(gameObject, Time.deltaTime);  
     }
 
     void Update()
@@ -33,15 +32,19 @@ public class AoEEffect : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if the collided objects are with tag "Enemy"
+        // Check if the collided object has the "Enemy" tag
         if (other.gameObject.CompareTag("Enemy"))
         {
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
             if (enemy != null)
             {
                 enemy.TakeDamage(aoEAttackDamage); // Apply damage to enemy
-                Instantiate(explosionPrefab, enemy.transform);
+
+                // Instantiate explosionPrefab at enemy's position, with no parent
+                GameObject explosion = Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);
+                explosion.transform.SetParent(null); // Ensure it's unparented (at scene root)
             }
         }
     }
+
 }
