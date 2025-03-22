@@ -80,6 +80,9 @@ public class TowerShooting : MonoBehaviour
             theDebug_EnemyDetectAreaVisual.SetActive(false);
         }
 
+        // Clean up destroyed enemies
+        enemiesInRange.RemoveAll(enemy => enemy == null);
+
         if (enemiesInRange.Count > 0)
         {
             // Get target based on targeting strategy
@@ -144,7 +147,14 @@ public class TowerShooting : MonoBehaviour
     
     GameObject GetClosestEnemy()
     {
-        // Old closest enemy code reused as is
+        if (enemiesInRange.Count == 0)
+            return null;
+            
+        // Filter out any null references
+        enemiesInRange.RemoveAll(enemy => enemy == null);
+        if (enemiesInRange.Count == 0)
+            return null;
+            
         GameObject closestEnemy = enemiesInRange[0];
         foreach (GameObject enemy in enemiesInRange)
         {
@@ -161,6 +171,14 @@ public class TowerShooting : MonoBehaviour
 
     GameObject GetStrongestEnemy()
     {
+        if (enemiesInRange.Count == 0)
+            return null;
+            
+        // Filter out any null references
+        enemiesInRange.RemoveAll(enemy => enemy == null);
+        if (enemiesInRange.Count == 0)
+            return null;
+            
         GameObject strongestEnemy = enemiesInRange[0];
         float highestHealth = 0f;
         

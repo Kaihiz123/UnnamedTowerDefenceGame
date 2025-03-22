@@ -326,28 +326,87 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextWaveButton: {fileID: 1060625713205744055}
   nextWaveTriggered: 0
-  debugCurrentWave: 0
+  helperCurrentWave: 0
   debugMode: 0
-  startFromWave: 1
+  startFromWave: 2
   spawnPoint: {fileID: 0}
   enemyParent: {fileID: 0}
   waypointsParent: {fileID: 0}
+  playerHealthSystem: {fileID: 0}
+  bank: {fileID: 0}
   basicEnemy: {fileID: 1401652412983515288, guid: b02be7594cead5e4baed89952494b068, type: 3}
   fastEnemy: {fileID: 1401652412983515288, guid: 4d3ede04a195b8441bdcce93e1749489, type: 3}
   tankEnemy: {fileID: 1401652412983515288, guid: 6637d77568c7e094eb3f24d69491438f, type: 3}
   waves:
-  - enemies:
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 1
+      spawnDelay: 0.8
+      count: 3
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 7
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
     - enemyType: 0
       spawnDelay: 0.8
       count: 5
-  - enemies:
     - enemyType: 1
       spawnDelay: 0.8
-      count: 5
-  - enemies:
-    - enemyType: 2
+      count: 3
+    - enemyType: 0
       spawnDelay: 0.8
       count: 5
+    - enemyType: 1
+      spawnDelay: 0.8
+      count: 3
+  - waveReward: 200
+    enemyScaling: 1
+    enemies:
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 5
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 5
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 5
+  - waveReward: 200
+    enemyScaling: 1
+    enemies:
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 5
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 5
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 5
+    - enemyType: 1
+      spawnDelay: 0.8
+      count: 10
 --- !u!1 &4554839958374596897
 GameObject:
   m_ObjectHideFlags: 0

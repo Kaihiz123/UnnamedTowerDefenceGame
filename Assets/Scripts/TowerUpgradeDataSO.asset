@@ -27,7 +27,7 @@ MonoBehaviour:
       projectileSpeed: 12
       fireRate: 5
       aoeRadius: 0
-    - upgradeCost: 400
+    - upgradeCost: 200
       range: 3
       attackDamage: 12
       projectileSpeed: 12
@@ -39,19 +39,19 @@ MonoBehaviour:
       range: 4.5
       attackDamage: 99
       projectileSpeed: 30
-      fireRate: 0.4
+      fireRate: 0.5
       aoeRadius: 0
-    - upgradeCost: 400
+    - upgradeCost: 200
       range: 5
       attackDamage: 149
       projectileSpeed: 30
       fireRate: 0.5
       aoeRadius: 0
-    - upgradeCost: 800
+    - upgradeCost: 400
       range: 5.5
-      attackDamage: 199
+      attackDamage: 299
       projectileSpeed: 30
-      fireRate: 0.6
+      fireRate: 0.5
       aoeRadius: 0
   - Type: 2
     upgradeLevels:
@@ -60,16 +60,16 @@ MonoBehaviour:
       attackDamage: 12
       projectileSpeed: 12
       fireRate: 1.5
-      aoeRadius: 1.5
+      aoeRadius: 2
     - upgradeCost: 300
       range: 2.5
       attackDamage: 20
       projectileSpeed: 12
       fireRate: 1.5
-      aoeRadius: 1.5
+      aoeRadius: 2
     - upgradeCost: 600
       range: 2.5
       attackDamage: 35
       projectileSpeed: 12
       fireRate: 1.5
-      aoeRadius: 1.5
+      aoeRadius: 2
