@@ -407,6 +407,75 @@ MonoBehaviour:
     - enemyType: 1
       spawnDelay: 0.8
       count: 10
+  - waveReward: 200
+    enemyScaling: 2
+    enemies:
+    - enemyType: 1
+      spawnDelay: 0.8
+      count: 3
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 7
+  - waveReward: 200
+    enemyScaling: 2
+    enemies:
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 5
+    - enemyType: 1
+      spawnDelay: 0.8
+      count: 3
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 5
+    - enemyType: 1
+      spawnDelay: 0.8
+      count: 3
+  - waveReward: 200
+    enemyScaling: 2
+    enemies:
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 5
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 5
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 5
+  - waveReward: 200
+    enemyScaling: 2
+    enemies:
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 5
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 5
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 5
+    - enemyType: 1
+      spawnDelay: 0.8
+      count: 10
 --- !u!1 &4554839958374596897
 GameObject:
   m_ObjectHideFlags: 0
