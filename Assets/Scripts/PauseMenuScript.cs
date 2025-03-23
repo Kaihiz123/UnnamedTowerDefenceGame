@@ -89,6 +89,7 @@ public class PauseMenuScript : MonoBehaviour, IConfirmation
         }
         else if (whoAddressed.Equals("ExitToMainMenu"))
         {
+            Time.timeScale = 1f;
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         }
     }

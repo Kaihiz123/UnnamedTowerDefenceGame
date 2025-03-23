@@ -12,10 +12,22 @@ public class Bank : MonoBehaviour
 
     public TMPro.TextMeshProUGUI bankBalanceText;
 
-    private void Start()
+    public bool debug;
+    public int playerStartMoneyIfDebugIsOn = 100;
+
+    private void Awake()
     {
         // initialize player money
-        playerMoney = PlayerPrefs.GetInt(ISettings.Type.STARTMONEY.ToString(), 400);
+
+        if (debug)
+        {
+            playerMoney = playerStartMoneyIfDebugIsOn;
+        }
+        else
+        {
+            playerMoney = PlayerPrefs.GetInt(ISettings.Type.STARTMONEY.ToString(), 4000);
+        }
+        
 
         // initialize storeItemHandler
         storeItemHandler.Init();
