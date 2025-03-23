@@ -16,60 +16,60 @@ MonoBehaviour:
   - Type: 0
     upgradeLevels:
     - upgradeCost: 100
-      range: 4
-      attackDamage: 5
-      projectileSpeed: 10
+      range: 3
+      attackDamage: 4
+      projectileSpeed: 18
+      fireRate: 5
+      aoeRadius: 0
+    - upgradeCost: 100
+      range: 3
+      attackDamage: 7
+      projectileSpeed: 18
       fireRate: 5
       aoeRadius: 0
     - upgradeCost: 200
-      range: 4
-      attackDamage: 10
-      projectileSpeed: 10
+      range: 3
+      attackDamage: 12
+      projectileSpeed: 18
       fireRate: 5
-      aoeRadius: 0
-    - upgradeCost: 400
-      range: 4
-      attackDamage: 15
-      projectileSpeed: 10
-      fireRate: 6
       aoeRadius: 0
   - Type: 1
     upgradeLevels:
     - upgradeCost: 200
-      range: 5
+      range: 4.5
       attackDamage: 99
-      projectileSpeed: 20
-      fireRate: 0.4
-      aoeRadius: 0
-    - upgradeCost: 400
-      range: 6
-      attackDamage: 149
-      projectileSpeed: 20
+      projectileSpeed: 30
       fireRate: 0.5
       aoeRadius: 0
-    - upgradeCost: 800
-      range: 7
-      attackDamage: 199
-      projectileSpeed: 20
-      fireRate: 0.6
+    - upgradeCost: 200
+      range: 5
+      attackDamage: 149
+      projectileSpeed: 30
+      fireRate: 0.5
+      aoeRadius: 0
+    - upgradeCost: 400
+      range: 5.5
+      attackDamage: 299
+      projectileSpeed: 30
+      fireRate: 0.5
       aoeRadius: 0
   - Type: 2
     upgradeLevels:
     - upgradeCost: 300
-      range: 3
-      attackDamage: 5
-      projectileSpeed: 10
-      fireRate: 2
+      range: 2.5
+      attackDamage: 12
+      projectileSpeed: 12
+      fireRate: 1.5
+      aoeRadius: 2
+    - upgradeCost: 300
+      range: 2.5
+      attackDamage: 20
+      projectileSpeed: 12
+      fireRate: 1.5
       aoeRadius: 2
     - upgradeCost: 600
-      range: 3
-      attackDamage: 10
-      projectileSpeed: 10
-      fireRate: 2
+      range: 2.5
+      attackDamage: 35
+      projectileSpeed: 12
+      fireRate: 1.5
       aoeRadius: 2
-    - upgradeCost: 900
-      range: 3
-      attackDamage: 15
-      projectileSpeed: 10
-      fireRate: 2
-      aoeRadius: 2.5
