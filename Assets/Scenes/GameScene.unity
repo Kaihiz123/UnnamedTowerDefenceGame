@@ -2424,6 +2424,10 @@ PrefabInstance:
       propertyPath: debug
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2368359474494329223, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: playerStartMoneyIfDebugIsOn
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 2985604469048714795, guid: da36261be3da19147bae95ad778e3bda, type: 3}
       propertyPath: m_Value
       value: 1
