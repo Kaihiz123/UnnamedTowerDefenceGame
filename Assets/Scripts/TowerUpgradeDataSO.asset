@@ -18,19 +18,19 @@ MonoBehaviour:
     - upgradeCost: 100
       range: 3
       attackDamage: 4
-      projectileSpeed: 12
+      projectileSpeed: 18
       fireRate: 5
       aoeRadius: 0
     - upgradeCost: 100
       range: 3
       attackDamage: 7
-      projectileSpeed: 12
+      projectileSpeed: 18
       fireRate: 5
       aoeRadius: 0
     - upgradeCost: 200
       range: 3
       attackDamage: 12
-      projectileSpeed: 12
+      projectileSpeed: 18
       fireRate: 5
       aoeRadius: 0
   - Type: 1

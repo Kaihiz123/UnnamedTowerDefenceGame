@@ -327,7 +327,7 @@ MonoBehaviour:
   nextWaveButton: {fileID: 1060625713205744055}
   nextWaveTriggered: 0
   helperCurrentWave: 0
-  debugMode: 0
+  debugMode: 1
   startFromWave: 2
   spawnPoint: {fileID: 0}
   enemyParent: {fileID: 0}

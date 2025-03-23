@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d24b11bbdcaf58e45b3bf0330f261333
+guid: 18498dc2bd2f7e3479cc719830d87707
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7773361011315261182
-    second: TowerBaseCannEmissive_0
+      213: 4344071595317516133
+    second: Projectile1_sprite_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TowerBaseCannEmissive_0
+      name: Projectile1_sprite_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 20
+        height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 201cea168597f1490800000000000000
-      internalID: -7773361011315261182
+      spriteID: 567d3cd991e394c30800000000000000
+      internalID: 4344071595317516133
       vertices: []
       indices: 
       edges: []
@@ -151,17 +151,21 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d6603e60a34fa724ba68f261ce636fa1
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-    secondaryTextures: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: 8272923a8842035409c3afcbb01f526e, type: 3}
+      name: _Emission
+    - texture: {fileID: 2800000, guid: 8272923a8842035409c3afcbb01f526e, type: 3}
+      name: _Mask
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      TowerBaseCannEmissive_0: -7773361011315261182
+      Projectile1_sprite_0: 4344071595317516133
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
