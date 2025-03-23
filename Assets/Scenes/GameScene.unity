@@ -564,18 +564,6 @@ PrefabInstance:
       propertyPath: playerHealthSystem
       value: 
       objectReference: {fileID: 927863054}
-    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
-      propertyPath: waves.Array.data[0].waveReward
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
-      propertyPath: waves.Array.data[1].waveReward
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
-      propertyPath: waves.Array.data[2].waveReward
-      value: 200
-      objectReference: {fileID: 0}
     - target: {fileID: 4050248802025651013, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: m_fontSize
       value: 40
@@ -2418,7 +2406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 405823759029996213, guid: da36261be3da19147bae95ad778e3bda, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.00012207031
       objectReference: {fileID: 0}
     - target: {fileID: 467175185323921978, guid: da36261be3da19147bae95ad778e3bda, type: 3}
       propertyPath: ObjectsOnGrid
