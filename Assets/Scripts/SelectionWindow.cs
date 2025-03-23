@@ -3,6 +3,7 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using static TowerInfo;
+using System;
 
 public class SelectionWindow : MonoBehaviour
 {
@@ -17,6 +18,17 @@ public class SelectionWindow : MonoBehaviour
     public GameObject TowerType1Layout;
     public GameObject TowerType2Layout;
     public GameObject TowerType3Layout;
+
+    
+    public List<UpgradeButtonTextContainer> texts = new List<UpgradeButtonTextContainer>();
+    [Serializable]
+    public class UpgradeButtonTextContainer
+    {
+        public List<TMPro.TextMeshProUGUI> texts = new List<TextMeshProUGUI>();
+    }
+
+    [Header("Tower Type Upgrades")]
+    public TowerTypeUpgradeDataSO towerUpgrades;
 
     List<GameObject> layouts = new List<GameObject>();
 
@@ -34,8 +46,14 @@ public class SelectionWindow : MonoBehaviour
 
         towerNameText.text = towerInfo.towerType.ToString();
 
-        layouts[(int) towerInfo.towerType].SetActive(true);
+        //texts[(int)towerInfo.towerType].texts[0].text = "" + towerUpgrades.towerType[(int)currentTowerInfo.towerType].upgradeLevels[0].upgradeCost;
+        //texts[(int)towerInfo.towerType].texts[1].text = "" + towerUpgrades.towerType[(int)currentTowerInfo.towerType].upgradeLevels[1].upgradeCost;
+        //texts[(int)towerInfo.towerType].texts[2].text = "" + towerUpgrades.towerType[(int)currentTowerInfo.towerType].upgradeLevels[2].upgradeCost;
+        //texts[(int)towerInfo.towerType].texts[3].text = "" + towerUpgrades.towerType[(int)currentTowerInfo.towerType].upgradeLevels[2].upgradeCost;
+
+        //layouts[(int) towerInfo.towerType].SetActive(true);
         UpdateUpgradeStatus();
+        layouts[(int)towerInfo.towerType].SetActive(true);
     }
 
     public void CloseSelectionWindow()
@@ -48,9 +66,22 @@ public class SelectionWindow : MonoBehaviour
 
     private void UpdateUpgradeStatus()
     {
+        texts[(int)currentTowerInfo.towerType].texts[0].text = "" + towerUpgrades.towerType[(int)currentTowerInfo.towerType].upgradeLevels[0].upgradeCost;
+        texts[(int)currentTowerInfo.towerType].texts[1].text = "" + towerUpgrades.towerType[(int)currentTowerInfo.towerType].upgradeLevels[1].upgradeCost;
+        texts[(int)currentTowerInfo.towerType].texts[2].text = "" + towerUpgrades.towerType[(int)currentTowerInfo.towerType].upgradeLevels[2].upgradeCost;
+
+        int moneyBack = 0;
+        for (int i = 0; i <= currentTowerInfo.upgradeIndex; i++)
+        {
+            moneyBack += towerUpgrades.towerType[(int)currentTowerInfo.towerType].upgradeLevels[i].upgradeCost;
+        }
+        moneyBack /= 2;
+
+        texts[(int)currentTowerInfo.towerType].texts[3].text = "" + moneyBack;
+
         // change the color of the upgrade buttons based on the level player has upgraded the selected tower.
         // blue button color indicates ownership and yellow indicates that it has not been purchased
-        SelectionWindowItem[] items = GetComponentsInChildren<SelectionWindowItem>();
+        SelectionWindowItem[] items = GetComponentsInChildren<SelectionWindowItem>(true);
         foreach(SelectionWindowItem item in items)
         {
             if (item.gameObject.name.Contains("Upgrade"))
