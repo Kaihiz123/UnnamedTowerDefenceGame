@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public enum TargetingStrategy
 {
@@ -34,6 +35,8 @@ public class TowerShooting : MonoBehaviour
     public AudioClip soundShoot;
 
     private TowerShootingAoE towerShootingAoEScript;
+
+    bool isShootingEnabled = true;
 
     void Start()
     {
@@ -80,33 +83,36 @@ public class TowerShooting : MonoBehaviour
             theDebug_EnemyDetectAreaVisual.SetActive(false);
         }
 
-        // Clean up destroyed enemies
-        enemiesInRange.RemoveAll(enemy => enemy == null);
-
-        if (enemiesInRange.Count > 0)
+        if (isShootingEnabled)
         {
-            // Get target based on targeting strategy
-            GameObject targetEnemy = GetTargetEnemy();
-            
-            if (targetEnemy != null)
-            {
-                // Rotate to look at the enemy (for 2D, using transform.up)
-                towerTurret.transform.up = targetEnemy.transform.position - transform.position;
+            // Clean up destroyed enemies
+            enemiesInRange.RemoveAll(enemy => enemy == null);
 
-                // Check if enough time has passed to shoot
-                shootTimer += Time.deltaTime;
-                if (shootTimer >= shootInterval)
+            if (enemiesInRange.Count > 0)
+            {
+                // Get target based on targeting strategy
+                GameObject targetEnemy = GetTargetEnemy();
+
+                if (targetEnemy != null)
                 {
-                    SpawnProjectile();
-                    AudioManager.Instance.PlaySoundEffect(soundShoot);
-                    shootTimer = 0f;
+                    // Rotate to look at the enemy (for 2D, using transform.up)
+                    towerTurret.transform.up = targetEnemy.transform.position - transform.position;
+
+                    // Check if enough time has passed to shoot
+                    shootTimer += Time.deltaTime;
+                    if (shootTimer >= shootInterval)
+                    {
+                        SpawnProjectile();
+                        AudioManager.Instance.PlaySoundEffect(soundShoot);
+                        shootTimer = 0f;
+                    }
                 }
             }
-        }
-        else
-        {
-            // Clear current target when no enemies are in range
-            currentTarget = null;
+            else
+            {
+                // Clear current target when no enemies are in range
+                currentTarget = null;
+            }
         }
     }
 
@@ -237,5 +243,28 @@ public class TowerShooting : MonoBehaviour
     public void UpdateEnemies(List<GameObject> updatedEnemies)
     {
         enemiesInRange = updatedEnemies;
+    }
+
+    public void EnableShooting(float cooldownTime)
+    {
+        if(cooldownTime == 0f)
+        {
+            isShootingEnabled = true;
+        }
+        else
+        {
+            StartCoroutine(EnableShootingAfterCooldown(cooldownTime));
+        }
+    }
+
+    public void DisableShooting()
+    {
+        isShootingEnabled = false;
+    }
+
+    private IEnumerator EnableShootingAfterCooldown(float cooldownTime)
+    {
+        yield return new WaitForSeconds(cooldownTime);
+        isShootingEnabled = true;
     }
 }

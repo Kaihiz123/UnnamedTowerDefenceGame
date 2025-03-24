@@ -46,6 +46,7 @@ public class TowerPlacementGrid : MonoBehaviour
     public Vector3 movement = Vector3.zero; // how the grid has been moved
 
     bool isDragging = false;
+    public float cooldownTime = 1f;
 
     private void Start()
     {
@@ -159,6 +160,9 @@ public class TowerPlacementGrid : MonoBehaviour
                     if (Vector2.Distance(mouseStartPos, mousePosition) > 0.1f)
                     {
                         isDragging = true;
+
+                        // tower shouldn't be able to shoot while dragging
+                        raycastedGameObject.GetComponent<TowerShooting>().DisableShooting();
                     }
                 }
                 else
@@ -252,6 +256,10 @@ public class TowerPlacementGrid : MonoBehaviour
 
                         // change this are to be occupied
                         unavailablePositions.Add(new Vector2Int(Mathf.RoundToInt(snapPosition.x - movement.x), Mathf.RoundToInt(snapPosition.y - movement.y)));
+
+                        // tower is placed so we add a cooldown timer after which the tower can shoot again
+                        raycastedGameObject.GetComponent<TowerShooting>().EnableShooting(cooldownTime);
+                        UIRadialTimerManager.Instance.AddTimer(raycastedGameObject.transform.position, cooldownTime);
                     }
                     else
                     {
@@ -261,6 +269,9 @@ public class TowerPlacementGrid : MonoBehaviour
                         raycastedGameObject.transform.position = raycastedGameObjectStart;
                         // this position is now unavailable
                         unavailablePositions.Add(new Vector2Int(Mathf.RoundToInt(raycastedGameObjectStartSnap.x - movement.x), Mathf.RoundToInt(raycastedGameObjectStartSnap.y - movement.y)));
+
+                        // tower can shoot again without cooldown timer
+                        raycastedGameObject.GetComponent<TowerShooting>().EnableShooting(0f);
                     }
 
                     // we are no longer dragging
