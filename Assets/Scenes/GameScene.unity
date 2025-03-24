@@ -2400,6 +2400,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 123410511371563750, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 405823759029996213, guid: da36261be3da19147bae95ad778e3bda, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -2407,6 +2411,22 @@ PrefabInstance:
     - target: {fileID: 405823759029996213, guid: da36261be3da19147bae95ad778e3bda, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.00012207031
+      objectReference: {fileID: 0}
+    - target: {fileID: 417371433218128077, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -80
+      objectReference: {fileID: 0}
+    - target: {fileID: 424847766033868952, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 424847766033868952, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 424847766033868952, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 467175185323921978, guid: da36261be3da19147bae95ad778e3bda, type: 3}
       propertyPath: ObjectsOnGrid
@@ -2508,9 +2528,41 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4058979449454476172, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116629055352441223, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116629055352441223, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4363393293471302309, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4411045560714866519, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_Vertical
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4411045560714866519, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_VerticalScrollbarSpacing
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4411045560714866519, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_VerticalScrollbarVisibility
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4585304563296132047, guid: da36261be3da19147bae95ad778e3bda, type: 3}
       propertyPath: m_Name
       value: StoreWindowCanvasObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104163348475436040, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 6205211523061120171, guid: da36261be3da19147bae95ad778e3bda, type: 3}
       propertyPath: m_Pivot.x
@@ -2596,6 +2648,26 @@ PrefabInstance:
       propertyPath: GameOverScript
       value: 
       objectReference: {fileID: 2143372846}
+    - target: {fileID: 6762831757697133075, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7087805335598593434, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7688066067925508162, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8444415106286911073, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_Spacing
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8444415106286911073, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 8996881805797624895, guid: da36261be3da19147bae95ad778e3bda, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
