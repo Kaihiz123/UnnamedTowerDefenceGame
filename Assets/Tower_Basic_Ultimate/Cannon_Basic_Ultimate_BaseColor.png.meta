@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Cannon_Basic_Ultimate_BaseColor_0: -3952989975384369875
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d6d2087e68d37914b90eda530b3f96e4
+guid: 7079e7f5369438d42b7aa219f81df433
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -216335253949304121
-    second: Cannon_Basic_Ultimate_Emissive_0
+      213: 8722359003164629576
+    second: Tower_Blaster_Advanced_Emissive_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cannon_Basic_Ultimate_Emissive_0
+      name: Tower_Blaster_Advanced_Emissive_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7c235f39b3c6ffcf0800000000000000
-      internalID: -216335253949304121
+      spriteID: 84ade03ec4b0c0970800000000000000
+      internalID: 8722359003164629576
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Cannon_Basic_Ultimate_Emissive_0: -216335253949304121
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

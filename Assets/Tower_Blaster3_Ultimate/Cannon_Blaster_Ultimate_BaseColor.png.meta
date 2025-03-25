@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d6d2087e68d37914b90eda530b3f96e4
+guid: 8719fa278c98df74e9be67c1dcebb02b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -216335253949304121
-    second: Cannon_Basic_Ultimate_Emissive_0
+      213: -6734519724619076003
+    second: Cannon_Blaster_Ultimate_BaseColor_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cannon_Basic_Ultimate_Emissive_0
+      name: Cannon_Blaster_Ultimate_BaseColor_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 16
-        height: 16
+        x: 4
+        y: 4
+        width: 12
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7c235f39b3c6ffcf0800000000000000
-      internalID: -216335253949304121
+      spriteID: d5ee731ddfd2a82a0800000000000000
+      internalID: -6734519724619076003
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Cannon_Basic_Ultimate_Emissive_0: -216335253949304121
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
