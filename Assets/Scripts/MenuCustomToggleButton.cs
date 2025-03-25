@@ -24,6 +24,8 @@ public class MenuCustomToggleButton : MonoBehaviour, IPointerEnterHandler, IPoin
 
     public void UpdateValue()
     {
+        Debug.Log("UpdateValue");
+
         isSelected = toggle.isOn;
         ChangeColor();
         overrideOnce = true;
@@ -41,7 +43,7 @@ public class MenuCustomToggleButton : MonoBehaviour, IPointerEnterHandler, IPoin
         {
             isSelected = isOn;
             ChangeColor();
-        }
+        }        
     }
 
     private void ChangeColor()
