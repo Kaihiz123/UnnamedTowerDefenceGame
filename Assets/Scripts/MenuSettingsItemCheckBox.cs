@@ -17,11 +17,31 @@ public class MenuSettingsItemCheckBox : MonoBehaviour
 
         itemText.text = itemName;
 
-        //TODO: change to current value
+        switch (type)
+        {
+            case ISettings.Type.FULLSCREEN:
+                toggle.isOn = Screen.fullScreen;
+                break;
+            default:
+
+                break;
+        }
+
+        toggle.onValueChanged.AddListener(CheckBoxValueChanged);
     }
 
-    public void CheckBoxValueChanged()
+    public void CheckBoxValueChanged(bool isOn)
     {
-        settings.ValueChanged(type, toggle.isOn ? 1 : 0) ;
+        switch (type)
+        {
+            case ISettings.Type.FULLSCREEN:
+                Screen.fullScreen = isOn;
+                Debug.Log("fullscreen = " + isOn);
+                break;
+            default:
+                break;
+        }
+
+        settings.ValueChanged(type, toggle.isOn ? 1 : 0);
     }
 }

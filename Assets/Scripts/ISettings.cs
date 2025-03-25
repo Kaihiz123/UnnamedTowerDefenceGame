@@ -8,6 +8,8 @@ public interface ISettings
         MASTERVOLUME,
         MUSICVOLUME,
         SOUNDEFFECTVOLUME,
+        RESOLUTION,
+        FULLSCREEN,
 
         // game settings
         STARTMONEY,

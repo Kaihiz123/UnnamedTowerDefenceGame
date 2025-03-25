@@ -17,15 +17,48 @@ public class MenuSettingsItemDropdown : MonoBehaviour
         settings = GetComponentInParent<ISettings>();
         dropdown = GetComponentInChildren<TMPro.TMP_Dropdown>();
 
-        dropdown.ClearOptions(); // Remove existing options
-        dropdown.AddOptions(options);
+        dropdown.ClearOptions();
 
         itemText.text = itemName;
 
-        //TODO: change to current value
+        switch (type)
+        {
+            case ISettings.Type.RESOLUTION:
+                Resolution[] availableResolutions = Screen.resolutions;
+                Resolution currentResolution = Screen.currentResolution;
+                int currentResolutionIndex = -1;
+                for(int i = 0; i < availableResolutions.Length; i++)
+                {
+                    options.Add(availableResolutions[i].width + " x " + availableResolutions[i].height);
+
+                    if(availableResolutions[i].Equals(currentResolution))
+                    {
+                        currentResolutionIndex = i;
+                    }
+                }
+                dropdown.AddOptions(options);
+                dropdown.value = currentResolutionIndex;
+                dropdown.RefreshShownValue();
+
+                dropdown.onValueChanged.AddListener(ResolutionChanged);
+
+                break;
+            default:
+                dropdown.AddOptions(options);
+                break;
+        }
+        
     }
 
-    public void DropdownValueChanged()
+    public void ResolutionChanged(int index)
+    {
+        Resolution newResolution = Screen.resolutions[index];
+        Screen.SetResolution(newResolution.width, newResolution.height, FullScreenMode.MaximizedWindow);
+
+        Debug.Log("resolution changed");
+    }
+
+    public void DropdownValueChanged(int index)
     {
         settings.ValueChanged(type, dropdown.value);
     }
