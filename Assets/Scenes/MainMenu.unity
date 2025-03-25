@@ -140,6 +140,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1324631145212809597, guid: 0b3a29d83d4d1ae4c93fae35d4df335d, type: 3}
+      propertyPath: interval
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1324631145212809597, guid: 0b3a29d83d4d1ae4c93fae35d4df335d, type: 3}
       propertyPath: itemName
       value: Health at the start
       objectReference: {fileID: 0}
@@ -157,6 +161,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1324631145212809597, guid: 0b3a29d83d4d1ae4c93fae35d4df335d, type: 3}
       propertyPath: isInteger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1324631145212809597, guid: 0b3a29d83d4d1ae4c93fae35d4df335d, type: 3}
+      propertyPath: savedAsInteger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2800872120308135118, guid: 0b3a29d83d4d1ae4c93fae35d4df335d, type: 3}
@@ -3370,7 +3378,15 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1324631145212809597, guid: 0b3a29d83d4d1ae4c93fae35d4df335d, type: 3}
+      propertyPath: interval
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1324631145212809597, guid: 0b3a29d83d4d1ae4c93fae35d4df335d, type: 3}
       propertyPath: isInteger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1324631145212809597, guid: 0b3a29d83d4d1ae4c93fae35d4df335d, type: 3}
+      propertyPath: savedAsInteger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2800872120308135118, guid: 0b3a29d83d4d1ae4c93fae35d4df335d, type: 3}
@@ -7425,6 +7441,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1324631145212809597, guid: 0b3a29d83d4d1ae4c93fae35d4df335d, type: 3}
+      propertyPath: interval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1324631145212809597, guid: 0b3a29d83d4d1ae4c93fae35d4df335d, type: 3}
       propertyPath: itemName
       value: Max health
       objectReference: {fileID: 0}
@@ -7442,6 +7462,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1324631145212809597, guid: 0b3a29d83d4d1ae4c93fae35d4df335d, type: 3}
       propertyPath: isInteger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1324631145212809597, guid: 0b3a29d83d4d1ae4c93fae35d4df335d, type: 3}
+      propertyPath: savedAsInteger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2800872120308135118, guid: 0b3a29d83d4d1ae4c93fae35d4df335d, type: 3}

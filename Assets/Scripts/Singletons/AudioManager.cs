@@ -45,8 +45,12 @@ public class AudioManager: MonoBehaviour
     {
         // Log10 is used to convert linear 0...1 -> non linear -80dB...20dB
         // Log10(0) -> sets volume high so we prevent it by using Mathf.Max where -80 is the quietest
-        float convertedVolume = Mathf.Max(Mathf.Log10(volume) * 20f, -80f);
-        audioMixer.SetFloat(type.ToString(), convertedVolume);
+
+        if(type == ISettings.Type.MASTERVOLUME || type == ISettings.Type.SOUNDEFFECTVOLUME || type == ISettings.Type.MUSICVOLUME)
+        {
+            float convertedVolume = Mathf.Max(Mathf.Log10(volume) * 20f, -80f);
+            audioMixer.SetFloat(type.ToString(), convertedVolume);
+        }
     }
 
     public void PlayMusic(AudioClip clip)

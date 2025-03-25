@@ -2557,7 +2557,7 @@ PrefabInstance:
       objectReference: {fileID: 977151634}
     - target: {fileID: 2368359474494329223, guid: da36261be3da19147bae95ad778e3bda, type: 3}
       propertyPath: debug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2368359474494329223, guid: da36261be3da19147bae95ad778e3bda, type: 3}
       propertyPath: playerStartMoneyIfDebugIsOn

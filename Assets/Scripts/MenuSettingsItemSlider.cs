@@ -6,7 +6,6 @@ public class MenuSettingsItemSlider : MonoBehaviour
 
     ISettings settings;
 
-    
     public ISettings.Type type;
 
     public TMPro.TextMeshProUGUI SliderValueText;
@@ -16,7 +15,8 @@ public class MenuSettingsItemSlider : MonoBehaviour
 
     public float minValue;
     public float maxValue;
-    public bool isInteger;
+    public bool savedAsInteger;
+    public int interval;
     public string unit = "";
 
     Slider slider;
@@ -28,34 +28,37 @@ public class MenuSettingsItemSlider : MonoBehaviour
 
         itemText.text = itemName;
 
-        if (isInteger)
+        slider.wholeNumbers = false;
+        slider.minValue = 0f;
+        slider.maxValue = 1f;
+
+        if (savedAsInteger)
         {
-            slider.wholeNumbers = true;
-            slider.minValue = minValue;
-            slider.maxValue = maxValue;
-            slider.value = PlayerPrefs.GetInt(type.ToString(), 0);
+            slider.value = ((float)PlayerPrefs.GetInt(type.ToString(), Mathf.RoundToInt(minValue)) - minValue) / (maxValue - minValue);
         }
         else
         {
-            slider.wholeNumbers = false;
-            slider.minValue = 0f;
-            slider.maxValue = 1f;
             slider.value = PlayerPrefs.GetFloat(type.ToString(), 0f);
         }
-        
+
         SliderValueChanged();
     }
 
     public void SliderValueChanged()
     {
-        if(isInteger)
+        if(savedAsInteger)
         {
-            SliderValueText.text = Mathf.RoundToInt(slider.value) + unit;
-            settings.ValueChanged(type, Mathf.RoundToInt(slider.value));
+            if(interval == 0)
+            {
+                interval = 1;
+            }
+
+            SliderValueText.text = "" + Mathf.RoundToInt((slider.value * (maxValue - minValue) + minValue) / (float)interval) * interval + unit;
+            settings.ValueChanged(type, Mathf.RoundToInt((slider.value * (maxValue - minValue) + minValue) / (float)interval) * interval);
         }
         else
         {
-            SliderValueText.text = Mathf.RoundToInt((slider.value * maxValue) - minValue) + unit;
+            SliderValueText.text = Mathf.RoundToInt(slider.value * (maxValue - minValue) + minValue) + unit;
             AudioManager.Instance.SetVolume(type, slider.value);
             settings.ValueChanged(type, slider.value);
         }
