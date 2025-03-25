@@ -5,14 +5,9 @@ using UnityEngine.UI;
 
 public class SelectionWindowItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
 {
-    public SelectionWindow selectionWindow;
-    //public int price;
-    public TowerInfo.TowerType towerType;
     public int upgradeIndex; // 0,1,2 are upgrades, -1 is sell
 
-    [Header("Tower Type Upgrades")]
-    public TowerTypeUpgradeDataSO towerUpgrades;
-
+    UpgradeLayoutScript upgradeLayoutScript;
     Image upgradeButtonImage;
     float hoverOverAlpha = 1f; // when mouse is above button
     float defaultAlpha = 0.7f; // when mouse is not above button
@@ -23,24 +18,20 @@ public class SelectionWindowItem : MonoBehaviour, IPointerEnterHandler, IPointer
         {
             upgradeButtonImage = GetComponent<Image>();
         }
-
+        if(upgradeLayoutScript == null)
+        {
+            upgradeLayoutScript = GetComponentInParent<UpgradeLayoutScript>();
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        selectionWindow.MouseButtonDown(gameObject);
+        upgradeLayoutScript.MouseButtonDown(gameObject);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if(upgradeIndex == -1)
-        {
-            selectionWindow.MouseButtonUp(gameObject, upgradeIndex, -1, towerUpgrades);
-        }
-        else
-        {
-            selectionWindow.MouseButtonUp(gameObject, upgradeIndex, towerUpgrades.towerType[(int)towerType].upgradeLevels[upgradeIndex].upgradeCost, towerUpgrades);
-        }
+        upgradeLayoutScript.MouseButtonUp(gameObject, upgradeIndex);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -50,7 +41,7 @@ public class SelectionWindowItem : MonoBehaviour, IPointerEnterHandler, IPointer
         color.a = hoverOverAlpha;
         upgradeButtonImage.color = color;
 
-        selectionWindow.HoverOverButtonEnter(gameObject);
+        upgradeLayoutScript.HoverOverButtonEnter(gameObject);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -60,6 +51,6 @@ public class SelectionWindowItem : MonoBehaviour, IPointerEnterHandler, IPointer
         color.a = defaultAlpha;
         upgradeButtonImage.color = color;
 
-        selectionWindow.HoverOverButtonExit(gameObject);
+        upgradeLayoutScript.HoverOverButtonExit(gameObject);
     }
 }
