@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d7f9c1addc788eb4c94947e2da3c2029
+guid: 88134e5e628098d498ed3bcf33725504
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 722961922978589030
-    second: Cannon_Blaster_Ultimate_Alpha_Mask_0
+      213: 8525592357376616557
+    second: Projectile2_Mask_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cannon_Blaster_Ultimate_Alpha_Mask_0
+      name: Projectile2_Mask_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 20
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 669a54dd90a780a00800000000000000
-      internalID: 722961922978589030
+      spriteID: d68e739141df05670800000000000000
+      internalID: 8525592357376616557
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cannon_Blaster_Ultimate_Alpha_Mask_0: 722961922978589030
+      Projectile2_Mask_0: 8525592357376616557
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

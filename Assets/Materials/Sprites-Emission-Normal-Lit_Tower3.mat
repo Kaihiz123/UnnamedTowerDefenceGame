@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites-Emission-Normal-Lit_Tower1
+  m_Name: Sprites-Emission-Normal-Lit_Tower3
   m_Shader: {fileID: -6465566751694194690, guid: 6e3754c918be4df49b657c3eac789ebd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -54,7 +54,7 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _Color: {r: 5.9921565, g: 0, b: 0, a: 0}
+    - _Color: {r: 13.628805, g: 14.259475, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &4938764700173684287
