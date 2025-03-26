@@ -10,6 +10,10 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
 
     public ToggleGroup SettingsToggleGroup;
 
+    // Declare a delegate and event
+    public delegate void ResetSettingsToDefault();
+    public static event ResetSettingsToDefault OnResetSettingsToDefault;
+
     private void Start()
     {
         SettingsTabChanged(panels[0]);
@@ -44,11 +48,14 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
                 Debug.Log("Unsupported type: " + typeof(T));
                 break;
         }
+
+        Debug.Log("" + type.ToString() + ": " + value + " saved to PlayerPrefs");
     }
 
     public void ResetToDefaultButtonClicked()
     {
-        Debug.Log("ResetToDefaultButtonClicked");
+        Debug.Log("ResetSettings");
+        OnResetSettingsToDefault?.Invoke();
     }
 
 }

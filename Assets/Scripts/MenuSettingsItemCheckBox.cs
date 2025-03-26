@@ -10,11 +10,18 @@ public class MenuSettingsItemCheckBox : MonoBehaviour
     public TMPro.TextMeshProUGUI itemText;
     public string itemName;
 
+    public bool isOnByDefault;
+
     private void Awake()
     {
         settings = GetComponentInParent<ISettings>();
         toggle = GetComponentInChildren<Toggle>();
 
+        UpdateInfo();
+    }
+
+    public void UpdateInfo()
+    {
         itemText.text = itemName;
 
         switch (type)
@@ -23,7 +30,7 @@ public class MenuSettingsItemCheckBox : MonoBehaviour
                 toggle.isOn = Screen.fullScreen;
                 break;
             default:
-
+                toggle.isOn = PlayerPrefs.GetInt(type.ToString(), isOnByDefault ? 1 : 0) == 1;
                 break;
         }
 
@@ -36,12 +43,29 @@ public class MenuSettingsItemCheckBox : MonoBehaviour
         {
             case ISettings.Type.FULLSCREEN:
                 Screen.fullScreen = isOn;
-                Debug.Log("fullscreen = " + isOn);
                 break;
             default:
                 break;
         }
 
         settings.ValueChanged(type, toggle.isOn ? 1 : 0);
+    }
+
+    private void ResetSettings()
+    {
+        PlayerPrefs.DeleteKey(type.ToString());
+        UpdateInfo();
+    }
+
+    private void OnEnable()
+    {
+        MenuPlayPanelScript.OnResetSettingsToDefault += ResetSettings;
+        MenuSettingsPanelScript.OnResetSettingsToDefault += ResetSettings;
+    }
+
+    private void OnDisable()
+    {
+        MenuPlayPanelScript.OnResetSettingsToDefault -= ResetSettings;
+        MenuSettingsPanelScript.OnResetSettingsToDefault -= ResetSettings;
     }
 }

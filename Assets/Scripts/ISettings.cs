@@ -4,19 +4,38 @@ public interface ISettings
 {
     public enum Type
     {
-        // actual settings
-        MASTERVOLUME,
-        MUSICVOLUME,
-        SOUNDEFFECTVOLUME,
-        RESOLUTION,
-        FULLSCREEN,
-
         // game settings
         STARTMONEY,
         STARTHEALTH,
         MAXHEALTH,
         DIFFICULTY,
-        BREATHERBETWEENWAVES
+        BREATHERBETWEENWAVES,
+
+        // actual settings
+
+        // graphics
+        UIRESOLUTION,
+        FULLSCREEN,
+        REFRESHRATE,
+        SHOWFPS,
+        WINDOWMODE,
+        VERTICALSYNC,
+        ANTIALIAS,
+        BRIGHTNESS,
+        BLOOM,
+        LIGHTQUALITY,
+        SHADOWQUALITY,
+
+        // audio
+        MASTERVOLUME,
+        MUSICVOLUME,
+        SOUNDEFFECTVOLUME,
+        UIVOLUME,
+        MUTEMUSICONPAUSE,
+
+        // gameplay
+        SHOWPLAYERHEALTHBAR,
+        SHOWENEMYHEALTHBAR
     }
 
     public void ValueChanged<T>(Type type, T newValue) where T : struct;

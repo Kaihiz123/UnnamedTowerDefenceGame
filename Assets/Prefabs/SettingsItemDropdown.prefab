@@ -92,6 +92,7 @@ MonoBehaviour:
   type: 5
   itemText: {fileID: 5466794905102947637}
   itemName: '*Difficulty'
+  defaultIndex: 0
   options:
   - Easy
   - Normal
@@ -574,19 +575,7 @@ MonoBehaviour:
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2629866815698842236}
-        m_TargetAssemblyTypeName: SettingsDropdown, Assembly-CSharp
-        m_MethodName: DropdownValueChanged
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_AlphaFadeSpeed: 0.15
 --- !u!1 &1113568781802310867
 GameObject:

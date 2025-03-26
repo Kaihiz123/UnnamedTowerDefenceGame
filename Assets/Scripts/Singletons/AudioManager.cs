@@ -33,10 +33,12 @@ public class AudioManager: MonoBehaviour
         float masterVolume = PlayerPrefs.GetFloat(ISettings.Type.MASTERVOLUME.ToString(), 0);
         float musicVolume = PlayerPrefs.GetFloat(ISettings.Type.MUSICVOLUME.ToString(), 0);
         float soundEffectVolume = PlayerPrefs.GetFloat(ISettings.Type.SOUNDEFFECTVOLUME.ToString(), 0);
+        float UIVolume = PlayerPrefs.GetFloat(ISettings.Type.UIVOLUME.ToString(), 0);
 
         SetVolume(ISettings.Type.MASTERVOLUME, masterVolume);
         SetVolume(ISettings.Type.MUSICVOLUME, musicVolume);
         SetVolume(ISettings.Type.SOUNDEFFECTVOLUME, soundEffectVolume);
+        SetVolume(ISettings.Type.UIVOLUME, UIVolume);
 
         CreateAudioSourceObjectPool();
     }
@@ -46,7 +48,8 @@ public class AudioManager: MonoBehaviour
         // Log10 is used to convert linear 0...1 -> non linear -80dB...20dB
         // Log10(0) -> sets volume high so we prevent it by using Mathf.Max where -80 is the quietest
 
-        if(type == ISettings.Type.MASTERVOLUME || type == ISettings.Type.SOUNDEFFECTVOLUME || type == ISettings.Type.MUSICVOLUME)
+        if(type == ISettings.Type.MASTERVOLUME || type == ISettings.Type.SOUNDEFFECTVOLUME 
+            || type == ISettings.Type.MUSICVOLUME || type == ISettings.Type.UIVOLUME)
         {
             float convertedVolume = Mathf.Max(Mathf.Log10(volume) * 20f, -80f);
             audioMixer.SetFloat(type.ToString(), convertedVolume);

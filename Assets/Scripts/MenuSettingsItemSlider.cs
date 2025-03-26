@@ -15,6 +15,7 @@ public class MenuSettingsItemSlider : MonoBehaviour
 
     public float minValue;
     public float maxValue;
+    public float defaultSliderValue;
     public bool savedAsInteger;
     public int interval;
     public string unit = "";
@@ -26,6 +27,11 @@ public class MenuSettingsItemSlider : MonoBehaviour
         settings = GetComponentInParent<ISettings>();
         slider = GetComponentInChildren<Slider>();
 
+        UpdateInfo();
+    }
+
+    public void UpdateInfo()
+    {
         itemText.text = itemName;
 
         slider.wholeNumbers = false;
@@ -34,11 +40,19 @@ public class MenuSettingsItemSlider : MonoBehaviour
 
         if (savedAsInteger)
         {
-            slider.value = ((float)PlayerPrefs.GetInt(type.ToString(), Mathf.RoundToInt(minValue)) - minValue) / (maxValue - minValue);
+            if (PlayerPrefs.HasKey(type.ToString()))
+            {
+                int intValue = PlayerPrefs.GetInt(type.ToString());
+                slider.value = ((float)intValue - minValue) / (maxValue - minValue);
+            }
+            else
+            {
+                slider.value = defaultSliderValue;
+            }
         }
         else
         {
-            slider.value = PlayerPrefs.GetFloat(type.ToString(), 0f);
+            slider.value = PlayerPrefs.GetFloat(type.ToString(), defaultSliderValue);
         }
 
         SliderValueChanged();
@@ -63,4 +77,23 @@ public class MenuSettingsItemSlider : MonoBehaviour
             settings.ValueChanged(type, slider.value);
         }
     }
+
+    private void ResetSettings()
+    {
+        PlayerPrefs.DeleteKey(type.ToString());
+        UpdateInfo();
+    }
+
+    private void OnEnable()
+    {
+        MenuPlayPanelScript.OnResetSettingsToDefault += ResetSettings;
+        MenuSettingsPanelScript.OnResetSettingsToDefault += ResetSettings;
+    }
+
+    private void OnDisable()
+    {
+        MenuPlayPanelScript.OnResetSettingsToDefault -= ResetSettings;
+        MenuSettingsPanelScript.OnResetSettingsToDefault -= ResetSettings;
+    }
+
 }
