@@ -39,4 +39,6 @@ public interface ISettings
     }
 
     public void ValueChanged<T>(Type type, T newValue) where T : struct;
+
+    public void ShowFPSPanel(bool show);
 }

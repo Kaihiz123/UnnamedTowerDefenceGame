@@ -30,6 +30,7 @@ public class MenuSettingsItemDropdown : MonoBehaviour
         {
             case ISettings.Type.UIRESOLUTION:
 
+                dropdown.onValueChanged.RemoveAllListeners();
                 options.Clear();
 
                 Resolution[] availableResolutions = Screen.resolutions;
@@ -53,6 +54,7 @@ public class MenuSettingsItemDropdown : MonoBehaviour
 
             case ISettings.Type.WINDOWMODE:
 
+                dropdown.onValueChanged.RemoveAllListeners();
                 options.Clear();
 
                 FullScreenMode[] fullScreenModes = new FullScreenMode[] { FullScreenMode.ExclusiveFullScreen, FullScreenMode.FullScreenWindow, FullScreenMode.MaximizedWindow, FullScreenMode.MaximizedWindow };
@@ -69,6 +71,7 @@ public class MenuSettingsItemDropdown : MonoBehaviour
 
                 break;
             default:
+                dropdown.onValueChanged.RemoveAllListeners();
                 dropdown.AddOptions(options);
                 dropdown.value = PlayerPrefs.GetInt(type.ToString(), defaultIndex);
                 dropdown.RefreshShownValue();
@@ -88,6 +91,22 @@ public class MenuSettingsItemDropdown : MonoBehaviour
 
     public void DropdownValueChanged(int index)
     {
+        switch (type)
+        {
+            case ISettings.Type.REFRESHRATE:
+                // 0 -> 30
+                // 1 -> 60
+                // 2 -> unlimited
+                Application.targetFrameRate = index == 0 ? 30 : index == 1 ? 60 : -1;
+                break;
+            case ISettings.Type.WINDOWMODE:
+                FullScreenMode[] fullScreenModes = new FullScreenMode[] { FullScreenMode.ExclusiveFullScreen, FullScreenMode.FullScreenWindow, FullScreenMode.MaximizedWindow, FullScreenMode.MaximizedWindow };
+                Screen.fullScreenMode = fullScreenModes[index];
+                break;
+            default:
+                break;
+        }
+
         settings.ValueChanged(type, dropdown.value);
     }
 

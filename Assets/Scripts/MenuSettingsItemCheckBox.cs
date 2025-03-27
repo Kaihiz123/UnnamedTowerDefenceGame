@@ -17,6 +17,8 @@ public class MenuSettingsItemCheckBox : MonoBehaviour
         settings = GetComponentInParent<ISettings>();
         toggle = GetComponentInChildren<Toggle>();
 
+        toggle.onValueChanged.AddListener(CheckBoxValueChanged);
+
         UpdateInfo();
     }
 
@@ -29,12 +31,13 @@ public class MenuSettingsItemCheckBox : MonoBehaviour
             case ISettings.Type.FULLSCREEN:
                 toggle.isOn = Screen.fullScreen;
                 break;
+            case ISettings.Type.VERTICALSYNC:
+                toggle.isOn = QualitySettings.vSyncCount == 1;
+                break;
             default:
                 toggle.isOn = PlayerPrefs.GetInt(type.ToString(), isOnByDefault ? 1 : 0) == 1;
                 break;
         }
-
-        toggle.onValueChanged.AddListener(CheckBoxValueChanged);
     }
 
     public void CheckBoxValueChanged(bool isOn)
@@ -42,7 +45,13 @@ public class MenuSettingsItemCheckBox : MonoBehaviour
         switch (type)
         {
             case ISettings.Type.FULLSCREEN:
-                Screen.fullScreen = isOn;
+                Screen.fullScreen = toggle.isOn;
+                break;
+            case ISettings.Type.SHOWFPS:
+                settings.ShowFPSPanel(toggle.isOn);
+                break;
+            case ISettings.Type.VERTICALSYNC:
+                QualitySettings.vSyncCount = toggle.isOn ? 1 : 0;
                 break;
             default:
                 break;

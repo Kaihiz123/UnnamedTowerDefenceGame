@@ -36,8 +36,8 @@ AudioMixerController:
     name: MUSICVOLUME
   - guid: 4999dfbb2dcd8f645b71cb518a15c2d8
     name: SOUNDEFFECTVOLUME
-  - guid: 3c69d0c6eee4f3e49a299d14a57bf287
-    name: MyExposedParam
+  - guid: 01c1b20db0865e848b76b7e0d9f500d8
+    name: UIVOLUME
   m_AudioMixerGroupViews:
   - guids:
     - 53bcc32d246c5564d9c54618e243a5cc

@@ -24,9 +24,12 @@ public class AudioManager: MonoBehaviour
     public AudioMixer audioMixer;
     public AudioSource musicSource;
     public AudioMixerGroup soundEffectAudioMixerGroup;
+    public AudioMixerGroup uiSoundEffectAudioMixerGroup;
     public Transform soundEffectAudioSourceObjectPoolParent;
+    public Transform uiSoundEffectAudioSourceObjectPoolParent;
 
     List<GameObject> soundEffectAudioSourceObjectPool = new List<GameObject>();
+    List<GameObject> uiSoundEffectAudioSourceObjectPool = new List<GameObject>();
 
     private void Start()
     {
@@ -68,6 +71,18 @@ public class AudioManager: MonoBehaviour
         musicSource.Play();
     }
 
+    public void PauseMusic(bool pause)
+    {
+        if (pause)
+        {
+            musicSource.Pause();
+        }
+        else
+        {
+            musicSource.UnPause();
+        }
+    }
+
     public void StopMusic()
     {
         musicSource.Stop();
@@ -78,46 +93,89 @@ public class AudioManager: MonoBehaviour
         // create pool of objects with audio source component
         for(int i = 0; i < 10; i++)
         {
-            GameObject go = CreateSoundEffectNewAudioSourceObject();
-            soundEffectAudioSourceObjectPool.Add(go);
+            GameObject go1 = CreateSoundEffectNewAudioSourceObject(soundEffectAudioMixerGroup);
+            go1.transform.SetParent(soundEffectAudioSourceObjectPoolParent);
+            soundEffectAudioSourceObjectPool.Add(go1);
+
+            GameObject go2 = CreateSoundEffectNewAudioSourceObject(uiSoundEffectAudioMixerGroup);
+            go2.transform.SetParent(uiSoundEffectAudioSourceObjectPoolParent);
+            uiSoundEffectAudioSourceObjectPool.Add(go2);
         }
+
+        
     }
 
-    private GameObject CreateSoundEffectNewAudioSourceObject()
+    private GameObject CreateSoundEffectNewAudioSourceObject(AudioMixerGroup audioMixerGroup)
     {
-        GameObject go = new GameObject("PooledSoundEffectAudioSourceObject");
-        go.transform.SetParent(soundEffectAudioSourceObjectPoolParent);
+        string objName = audioMixerGroup == uiSoundEffectAudioMixerGroup ? "PooledUISoundEffectAudioSourceObject" : audioMixerGroup == soundEffectAudioMixerGroup ? "PooledSoundEffectAudioSourceObject" : "objNameProblem";
+        GameObject go = new GameObject(objName);
         AudioSource audioSource = go.AddComponent<AudioSource>();
-        audioSource.outputAudioMixerGroup = soundEffectAudioMixerGroup;
+        audioSource.outputAudioMixerGroup = audioMixerGroup;
         audioSource.playOnAwake = false;
         go.SetActive(false);
         return go;
     }
 
-    private AudioSource GetFreeAudioSource()
+    private AudioSource GetFreeAudioSource(AudioMixerGroup audioMixerGroup)
     {
         // if pooled object is inactive in hierarchy it's available to be used. After the sound effect has played gameObject is set to be inactive.
         
-        foreach(GameObject audioSourceObject in soundEffectAudioSourceObjectPool)
+        if(audioMixerGroup == soundEffectAudioMixerGroup)
         {
-            if (!audioSourceObject.activeInHierarchy)
+            foreach (GameObject audioSourceObject in soundEffectAudioSourceObjectPool)
             {
-                audioSourceObject.SetActive(true);
-                return audioSourceObject.GetComponent<AudioSource>();
+                if (!audioSourceObject.activeInHierarchy)
+                {
+                    audioSourceObject.SetActive(true);
+                    return audioSourceObject.GetComponent<AudioSource>();
+                }
             }
-        }
 
-        // no free ones so create a new. This makes the pool flexible but may cause stutter when pool is depleted. Needs testing to find good pool size.
-        GameObject go = CreateSoundEffectNewAudioSourceObject();
-        soundEffectAudioSourceObjectPool.Add(go);
-        go.SetActive(true);
-        return go.GetComponent<AudioSource>();
+            // no free ones so create a new. This makes the pool flexible but may cause stutter when pool is depleted. Needs testing to find good pool size.
+            GameObject go = CreateSoundEffectNewAudioSourceObject(soundEffectAudioMixerGroup);
+            go.transform.SetParent(soundEffectAudioSourceObjectPoolParent);
+            soundEffectAudioSourceObjectPool.Add(go);
+            go.SetActive(true);
+            return go.GetComponent<AudioSource>();
+        }
+        else if(audioMixerGroup == uiSoundEffectAudioMixerGroup)
+        {
+            foreach (GameObject audioSourceObject in uiSoundEffectAudioSourceObjectPool)
+            {
+                if (!audioSourceObject.activeInHierarchy)
+                {
+                    audioSourceObject.SetActive(true);
+                    return audioSourceObject.GetComponent<AudioSource>();
+                }
+            }
+
+            // no free ones so create a new. This makes the pool flexible but may cause stutter when pool is depleted. Needs testing to find good pool size.
+            GameObject go = CreateSoundEffectNewAudioSourceObject(uiSoundEffectAudioMixerGroup);
+            go.transform.SetParent(uiSoundEffectAudioSourceObjectPoolParent);
+            uiSoundEffectAudioSourceObjectPool.Add(go);
+            go.SetActive(true);
+            return go.GetComponent<AudioSource>();
+        }
+        else
+        {
+            return null;
+        }
+        
     }
 
     public void PlaySoundEffect(AudioClip clip)
     {
         // find free object from pool
-        AudioSource audioSource = GetFreeAudioSource();
+        AudioSource audioSource = GetFreeAudioSource(soundEffectAudioMixerGroup);
+        audioSource.PlayOneShot(clip);
+        // deactivate object after the clip has been played
+        StartCoroutine(DeactivateAfterTime(audioSource.gameObject, clip.length));
+    }
+
+    public void PlayUISoundEffect(AudioClip clip)
+    {
+        // find free object from pool
+        AudioSource audioSource = GetFreeAudioSource(uiSoundEffectAudioMixerGroup);
         audioSource.PlayOneShot(clip);
         // deactivate object after the clip has been played
         StartCoroutine(DeactivateAfterTime(audioSource.gameObject, clip.length));
