@@ -3,16 +3,19 @@ using UnityEngine.SceneManagement;
 
 public class MenuPlayPanelScript : MonoBehaviour, ISettings
 {
+    // Declare a delegate and event
+    public delegate void ResetSettingsToDefault();
+    public static event ResetSettingsToDefault OnResetSettingsToDefault;
 
     public void ResetToDefaultButtonClicked()
     {
-        Debug.Log("ResetToDefaultButtonClicked");
+        Debug.Log("ResetSettings");
+        OnResetSettingsToDefault?.Invoke();
     }
 
     public void PlayButtonClicked()
     {
         Debug.Log("PlayButtonClicked");
-
         SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
 

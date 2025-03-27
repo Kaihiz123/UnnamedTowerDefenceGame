@@ -6,7 +6,6 @@ public class MenuSettingsItemSlider : MonoBehaviour
 
     ISettings settings;
 
-    
     public ISettings.Type type;
 
     public TMPro.TextMeshProUGUI SliderValueText;
@@ -16,7 +15,9 @@ public class MenuSettingsItemSlider : MonoBehaviour
 
     public float minValue;
     public float maxValue;
-    public bool isInteger;
+    public float defaultSliderValue;
+    public bool savedAsInteger;
+    public int interval;
     public string unit = "";
 
     Slider slider;
@@ -26,38 +27,73 @@ public class MenuSettingsItemSlider : MonoBehaviour
         settings = GetComponentInParent<ISettings>();
         slider = GetComponentInChildren<Slider>();
 
+        UpdateInfo();
+    }
+
+    public void UpdateInfo()
+    {
         itemText.text = itemName;
 
-        if (isInteger)
+        slider.wholeNumbers = false;
+        slider.minValue = 0f;
+        slider.maxValue = 1f;
+
+        if (savedAsInteger)
         {
-            slider.wholeNumbers = true;
-            slider.minValue = minValue;
-            slider.maxValue = maxValue;
-            slider.value = PlayerPrefs.GetInt(type.ToString(), 0);
+            if (PlayerPrefs.HasKey(type.ToString()))
+            {
+                int intValue = PlayerPrefs.GetInt(type.ToString());
+                slider.value = ((float)intValue - minValue) / (maxValue - minValue);
+            }
+            else
+            {
+                slider.value = defaultSliderValue;
+            }
         }
         else
         {
-            slider.wholeNumbers = false;
-            slider.minValue = 0f;
-            slider.maxValue = 1f;
-            slider.value = PlayerPrefs.GetFloat(type.ToString(), 0f);
+            slider.value = PlayerPrefs.GetFloat(type.ToString(), defaultSliderValue);
         }
-        
+
         SliderValueChanged();
     }
 
     public void SliderValueChanged()
     {
-        if(isInteger)
+        if(savedAsInteger)
         {
-            SliderValueText.text = Mathf.RoundToInt(slider.value) + unit;
-            settings.ValueChanged(type, Mathf.RoundToInt(slider.value));
+            if(interval == 0)
+            {
+                interval = 1;
+            }
+
+            SliderValueText.text = "" + Mathf.RoundToInt((slider.value * (maxValue - minValue) + minValue) / (float)interval) * interval + unit;
+            settings.ValueChanged(type, Mathf.RoundToInt((slider.value * (maxValue - minValue) + minValue) / (float)interval) * interval);
         }
         else
         {
-            SliderValueText.text = Mathf.RoundToInt((slider.value * maxValue) - minValue) + unit;
+            SliderValueText.text = Mathf.RoundToInt(slider.value * (maxValue - minValue) + minValue) + unit;
             AudioManager.Instance.SetVolume(type, slider.value);
             settings.ValueChanged(type, slider.value);
         }
     }
+
+    private void ResetSettings()
+    {
+        PlayerPrefs.DeleteKey(type.ToString());
+        UpdateInfo();
+    }
+
+    private void OnEnable()
+    {
+        MenuPlayPanelScript.OnResetSettingsToDefault += ResetSettings;
+        MenuSettingsPanelScript.OnResetSettingsToDefault += ResetSettings;
+    }
+
+    private void OnDisable()
+    {
+        MenuPlayPanelScript.OnResetSettingsToDefault -= ResetSettings;
+        MenuSettingsPanelScript.OnResetSettingsToDefault -= ResetSettings;
+    }
+
 }

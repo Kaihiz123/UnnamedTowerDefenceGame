@@ -17,7 +17,7 @@ public class StoreItemHandler : MonoBehaviour
         foreach(StoreItem storeItem in storeItems)
         {
             // initialize storeItems so that they are ready
-            storeItem.Init();
+            storeItem.Init(towerUpgrades.towerType[(int)storeItem.towerType].upgradeLevels[0].upgradeCost);
         }
         // change the colors of the towers in the store
         ChangeUITowerColors();

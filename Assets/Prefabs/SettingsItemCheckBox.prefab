@@ -315,7 +315,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -359,8 +359,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 190.5, y: -35}
-  m_SizeDelta: {x: 381, y: 50}
+  m_AnchoredPosition: {x: 346, y: -35}
+  m_SizeDelta: {x: 692, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6781908337719605808
 CanvasRenderer:
@@ -553,3 +553,4 @@ MonoBehaviour:
   type: 6
   itemText: {fileID: 990877072801128212}
   itemName: '*Breather between waves'
+  isOnByDefault: 0

@@ -12,15 +12,15 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
     float hoverOverAlpha = 0.5f;
     float defaultAlpha = 1f;
 
-    public void Init()
+    public void Init(int price)
     {
         if(storeHandler == null)
         {
             storeHandler = GetComponentInParent<StoreItemHandler>(true).storeHandler;
         }
 
-        // name of the tower that is shown on the storeItem
-        towerText.text = towerType.ToString();
+        // cost of the tower that is shown on the storeItem
+        towerText.text = "" + price;
     }
 
     public void OnPointerDown(PointerEventData eventData)
