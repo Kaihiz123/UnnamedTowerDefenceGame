@@ -10,6 +10,8 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
 
     public ToggleGroup SettingsToggleGroup;
 
+    public GameObject FPSPanel;
+
     // Declare a delegate and event
     public delegate void ResetSettingsToDefault();
     public static event ResetSettingsToDefault OnResetSettingsToDefault;
@@ -58,4 +60,8 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
         OnResetSettingsToDefault?.Invoke();
     }
 
+    public void ShowFPSPanel(bool show)
+    {
+        FPSPanel.SetActive(show);
+    }
 }

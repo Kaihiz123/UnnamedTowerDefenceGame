@@ -27,4 +27,9 @@ public class MenuPlayPanelScript : MonoBehaviour, ISettings
             PlayerPrefs.Save();
         }
     }
+
+    public void ShowFPSPanel(bool show)
+    {
+        // this is used in MenuSettingsPanelScript
+    }
 }

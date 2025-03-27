@@ -73,7 +73,18 @@ public class MenuSettingsItemSlider : MonoBehaviour
         else
         {
             SliderValueText.text = Mathf.RoundToInt(slider.value * (maxValue - minValue) + minValue) + unit;
-            AudioManager.Instance.SetVolume(type, slider.value);
+            switch (type)
+            {
+                case ISettings.Type.BRIGHTNESS:
+                    Screen.brightness = slider.value;
+                    break;
+                case ISettings.Type.MASTERVOLUME | ISettings.Type.MUSICVOLUME | ISettings.Type.SOUNDEFFECTVOLUME | ISettings.Type.UIVOLUME:
+                    AudioManager.Instance.SetVolume(type, slider.value);
+                    break;
+                default:
+                    break;
+            }
+            
             settings.ValueChanged(type, slider.value);
         }
     }
