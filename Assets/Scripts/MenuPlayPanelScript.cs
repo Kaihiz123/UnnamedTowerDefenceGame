@@ -42,4 +42,9 @@ public class MenuPlayPanelScript : MonoBehaviour, ISettings
     {
         // this is used in MenuSettingsPanelScript
     }
+
+    public void EnableBloom(bool enable)
+    {
+        // this is used in MenuSettingsPanelScript
+    }
 }

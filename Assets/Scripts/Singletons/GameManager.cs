@@ -1,14 +1,18 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
-using static MenuSettingsPanelScript;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     public PlayerBaseHealthBar playerBaseHealthBar;
+    public BloomActivator bloomActivator;
 
     public delegate void ShowEnemyHealthBar(bool show);
     public static event ShowEnemyHealthBar OnShowEnemyHealthBar;
+
+    public delegate void EnablePostProcessingBloom(bool enable);
+    public static event EnablePostProcessingBloom OnEnableBloom;
 
     private void Awake()
     {
@@ -28,8 +32,8 @@ public class GameManager : MonoBehaviour
 
 
         //TODO: go through all the options such as anti aliasing, showFPS...
-        
-        
+
+        OnEnableBloom(PlayerPrefs.GetInt(ISettings.Type.BLOOM.ToString()) == 1);
         ShowPlayerHealthBar(PlayerPrefs.GetInt(ISettings.Type.SHOWPLAYERHEALTHBAR.ToString()) == 1);
         ShowEnemyHealthBars(PlayerPrefs.GetInt(ISettings.Type.SHOWENEMYHEALTHBAR.ToString()) == 1);
     }
@@ -44,15 +48,22 @@ public class GameManager : MonoBehaviour
         OnShowEnemyHealthBar?.Invoke(show);
     }
 
+    public void EnableBloom(bool enable)
+    {
+        OnEnableBloom?.Invoke(enable);
+    }
+
     private void OnEnable()
     {
         MenuSettingsPanelScript.OnShowPlayerHealthBar += ShowPlayerHealthBar;
         MenuSettingsPanelScript.OnShowEnemyHealthBar += ShowEnemyHealthBars;
+        MenuSettingsPanelScript.OnEnableBloom += EnableBloom;
     }
 
     private void OnDisable()
     {
         MenuSettingsPanelScript.OnShowPlayerHealthBar -= ShowPlayerHealthBar;
         MenuSettingsPanelScript.OnShowEnemyHealthBar -= ShowEnemyHealthBars;
+        MenuSettingsPanelScript.OnEnableBloom -= EnableBloom;
     }
 }

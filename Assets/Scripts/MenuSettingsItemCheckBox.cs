@@ -40,6 +40,9 @@ public class MenuSettingsItemCheckBox : MonoBehaviour
             case ISettings.Type.SHOWENEMYHEALTHBAR:
                 toggle.isOn = PlayerPrefs.GetInt(type.ToString()) == 1;
                 break;
+            case ISettings.Type.BLOOM:
+                toggle.isOn = PlayerPrefs.GetInt(type.ToString()) == 1;
+                break;
             default:
                 toggle.isOn = PlayerPrefs.GetInt(type.ToString(), isOnByDefault ? 1 : 0) == 1;
                 break;
@@ -64,6 +67,9 @@ public class MenuSettingsItemCheckBox : MonoBehaviour
                 break;
             case ISettings.Type.SHOWENEMYHEALTHBAR:
                 settings.ShowEnemyHealthBarInGameScene(toggle.isOn);
+                break;
+            case ISettings.Type.BLOOM:
+                settings.EnableBloom(toggle.isOn);
                 break;
             default:
                 break;

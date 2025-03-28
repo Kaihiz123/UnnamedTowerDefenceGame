@@ -44,4 +44,6 @@ public interface ISettings
 
     public void ShowPlayerHealthBarInGameScene(bool show);
     public void ShowEnemyHealthBarInGameScene(bool show);
+
+    public void EnableBloom(bool enable);
 }

@@ -22,6 +22,9 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
     public delegate void ShowEnemyHealthBar(bool show);
     public static event ShowEnemyHealthBar OnShowEnemyHealthBar;
 
+    public delegate void EnablePostProcessingBloomEnable(bool show);
+    public static event EnablePostProcessingBloomEnable OnEnableBloom;
+
     private void Start()
     {
         SettingsTabChanged(panels[0]);
@@ -76,6 +79,10 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
         OnShowEnemyHealthBar?.Invoke(show);
     }
 
+    public void EnableBloom(bool enable)
+    {
+        OnEnableBloom?.Invoke(enable);
+    }
 
     public void ShowFPSPanel(bool show)
     {
