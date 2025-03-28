@@ -1,10 +1,14 @@
 using UnityEngine;
+using static MenuSettingsPanelScript;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     public PlayerBaseHealthBar playerBaseHealthBar;
+
+    public delegate void ShowEnemyHealthBar(bool show);
+    public static event ShowEnemyHealthBar OnShowEnemyHealthBar;
 
     private void Awake()
     {
@@ -31,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     public void ShowEnemyHealthBars(bool show)
     {
-        
+        OnShowEnemyHealthBar?.Invoke(show);
     }
 
     private void OnEnable()
