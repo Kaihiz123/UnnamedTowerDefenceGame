@@ -19,9 +19,13 @@ public class EnemyScript : MonoBehaviour
 
     PlayerHealthSystem playerHealthSystem;
 
+    HealthBar healthBar;
+
     public void Initialize(GameObject waypointsParent, PlayerHealthSystem playerHealthSystem, float enemyScaling)
     {
         pathing = GetComponent<EnemyPathing>();
+        healthBar = GetComponentInChildren<HealthBar>();
+        healthBar.gameObject.SetActive(PlayerPrefs.GetInt(ISettings.Type.SHOWENEMYHEALTHBAR.ToString()) == 1);
         pathing.Initialize(moveSpeed, waypointsParent);
         maxHealth *= enemyScaling;
         currentHealth = maxHealth;
@@ -77,5 +81,20 @@ public class EnemyScript : MonoBehaviour
 
         // Destroy enemy after sound plays
         Destroy(gameObject);
+    }
+
+    private void ShowHealthBar(bool show)
+    {
+        healthBar.gameObject.SetActive(show);
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnShowEnemyHealthBar += ShowHealthBar;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnShowEnemyHealthBar -= ShowHealthBar;
     }
 }
