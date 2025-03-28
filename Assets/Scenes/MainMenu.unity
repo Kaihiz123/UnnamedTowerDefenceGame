@@ -4775,6 +4775,30 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2532526859528787269, guid: 13757490834e5164ab6344d35633cbf8, type: 3}
+      propertyPath: itemName
+      value: Multi-Sample Anti-aliasing (MSAA)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532526859528787269, guid: 13757490834e5164ab6344d35633cbf8, type: 3}
+      propertyPath: options.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532526859528787269, guid: 13757490834e5164ab6344d35633cbf8, type: 3}
+      propertyPath: 'options.Array.data[0]'
+      value: No MSAA
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532526859528787269, guid: 13757490834e5164ab6344d35633cbf8, type: 3}
+      propertyPath: 'options.Array.data[1]'
+      value: 2x
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532526859528787269, guid: 13757490834e5164ab6344d35633cbf8, type: 3}
+      propertyPath: 'options.Array.data[2]'
+      value: 4x
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532526859528787269, guid: 13757490834e5164ab6344d35633cbf8, type: 3}
+      propertyPath: 'options.Array.data[3]'
+      value: 8x
+      objectReference: {fileID: 0}
     - target: {fileID: 2932009659942944987, guid: 13757490834e5164ab6344d35633cbf8, type: 3}
       propertyPath: m_Name
       value: SettingsPanel
