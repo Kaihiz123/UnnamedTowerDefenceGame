@@ -13,6 +13,8 @@ public class PlayerHealthSystem : MonoBehaviour
 
     public PlayerBaseHealthBar playerBaseHealthBar;
 
+    public PlayerBaseScript playerBaseScript;
+
     private void Start()
     {
         playerHealth = PlayerPrefs.GetInt(ISettings.Type.STARTHEALTH.ToString(), 100);
@@ -27,6 +29,7 @@ public class PlayerHealthSystem : MonoBehaviour
         healthText.text = "" + playerHealth + "/" + maxPlayerHealth;
         SettingsManager.Instance.playerHealth = playerHealth; // So far only for PlayerBaseHealthBar
         playerBaseHealthBar.UpdateHealthBar();
+        playerBaseScript.PlayerBaseHealthChange(playerHealth, maxPlayerHealth);
     }
 
     public void PlayerTookDamage(int damage)
