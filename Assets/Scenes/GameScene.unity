@@ -848,6 +848,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8acff520d7a6b5e419d2831ae93d8322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1268977622 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2895882195838249203, guid: 0eb143bd5451274a19d6a6b060697cc0, type: 3}
+  m_PrefabInstance: {fileID: 5297479882878120279}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c7d6139b8d3fa5ddb85814edf91f16f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1367225363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,6 +1067,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c15b7bcf69eff44387988f93c71e7aa, type: 3}
+--- !u!1 &1534753970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1534753971}
+  - component: {fileID: 1534753972}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1534753971
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534753970}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.8800783, y: 0.25601327, z: -0.034354847}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1534753972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534753970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9267baf43d7a440ab4ce98c3cc5cbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBaseHealthBar: {fileID: 1268977622}
 --- !u!114 &1607612056 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7300778601719214611, guid: 9c4276a371f690542a33174fb09f389c, type: 3}
@@ -1451,7 +1507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   note: "Niin taisin unohtaa mainita tosta AudioManagerista ett\xE4 kun tulevaisuudessa
     halutaan soittaa \xE4\xE4niefekti tai soittaa musiikkia niin AudioManager.Instance.PlaySoundEffect()
-    ja .PlayMusic()/.StopMusic() olis ne tavat miten pit\xE4is ne hoitaa\nargumenttina
+    ja .PlayMusic()/.StopMusic()./PauseMusic() olis ne tavat miten pit\xE4is ne hoitaa\nargumenttina
     pit\xE4isi antaa audioClip siit\xE4 \xE4\xE4nest\xE4/musiikista"
 --- !u!1 &1966691045
 GameObject:
@@ -2780,6 +2836,10 @@ PrefabInstance:
       propertyPath: GameOverScript
       value: 
       objectReference: {fileID: 2143372846}
+    - target: {fileID: 6758779822900830520, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: playerBaseHealthBar
+      value: 
+      objectReference: {fileID: 1268977622}
     - target: {fileID: 6762831757697133075, guid: da36261be3da19147bae95ad778e3bda, type: 3}
       propertyPath: m_SizeDelta.x
       value: 20
@@ -2843,3 +2903,4 @@ SceneRoots:
   - {fileID: 522124324}
   - {fileID: 5297479882878120279}
   - {fileID: 2071663311}
+  - {fileID: 1534753971}

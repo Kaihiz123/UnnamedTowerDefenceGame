@@ -11,6 +11,8 @@ public class PlayerHealthSystem : MonoBehaviour
 
     public GameOverScript GameOverScript;
 
+    public PlayerBaseHealthBar playerBaseHealthBar;
+
     private void Start()
     {
         playerHealth = PlayerPrefs.GetInt(ISettings.Type.STARTHEALTH.ToString(), 100);
@@ -23,12 +25,13 @@ public class PlayerHealthSystem : MonoBehaviour
     private void UpdatePlayerHealthText()
     {
         healthText.text = "" + playerHealth + "/" + maxPlayerHealth;
+        SettingsManager.Instance.playerHealth = playerHealth; // So far only for PlayerBaseHealthBar
+        playerBaseHealthBar.UpdateHealthBar();
     }
 
     public void PlayerTookDamage(int damage)
     {
         playerHealth -= damage;
-        SettingsManager.Instance.playerHealth = playerHealth; // So far only for PlayerBaseHealthBar
         UpdatePlayerHealthText();
         if (playerHealth <= 0)
         {
@@ -44,14 +47,12 @@ public class PlayerHealthSystem : MonoBehaviour
         {
             playerHealth = maxPlayerHealth;
         }
-        SettingsManager.Instance.playerHealth = playerHealth; // So far only for PlayerBaseHealthBar
         UpdatePlayerHealthText();
     }
 
     public void IncreasePlayerMaxHealth(int healthIncrease)
     {
         maxPlayerHealth += healthIncrease;
-        SettingsManager.Instance.playerMaxHealth = maxPlayerHealth; // So far only for PlayerBaseHealthBar
         UpdatePlayerHealthText();
     }
 }

@@ -16,6 +16,12 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
     public delegate void ResetSettingsToDefault();
     public static event ResetSettingsToDefault OnResetSettingsToDefault;
 
+    public delegate void ShowPlayerHealthBar(bool show);
+    public static event ShowPlayerHealthBar OnShowPlayerHealthBar;
+
+    public delegate void ShowEnemyHealthBar(bool show);
+    public static event ShowEnemyHealthBar OnShowEnemyHealthBar;
+
     private void Start()
     {
         SettingsTabChanged(panels[0]);
@@ -59,6 +65,17 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
         Debug.Log("ResetSettings");
         OnResetSettingsToDefault?.Invoke();
     }
+
+    public void ShowPlayerHealthBarInGameScene(bool show)
+    {
+        OnShowPlayerHealthBar?.Invoke(show);
+    }
+
+    public void ShowEnemyHealthBarInGameScene(bool show)
+    {
+        OnShowEnemyHealthBar?.Invoke(show);
+    }
+
 
     public void ShowFPSPanel(bool show)
     {

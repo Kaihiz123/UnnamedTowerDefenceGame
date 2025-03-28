@@ -5,7 +5,7 @@ public class PlayerBaseHealthBar : MonoBehaviour
     public Transform healthBarScaler;
     public SpriteRenderer healthBarColor;
 
-    void Update()
+    public void UpdateHealthBar()
     {
         healthBarScaler.transform.localScale = new Vector2(1f, SettingsManager.Instance.playerHealth / SettingsManager.Instance.playerMaxHealth);
         if (healthBarScaler.transform.localScale.y < 0.66f && healthBarScaler.transform.localScale.y > 0.33f)
