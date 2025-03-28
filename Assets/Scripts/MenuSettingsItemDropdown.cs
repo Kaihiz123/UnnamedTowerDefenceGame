@@ -58,7 +58,7 @@ public class MenuSettingsItemDropdown : MonoBehaviour
                 dropdown.onValueChanged.RemoveAllListeners();
                 options.Clear();
 
-                FullScreenMode[] fullScreenModes = new FullScreenMode[] { FullScreenMode.ExclusiveFullScreen, FullScreenMode.FullScreenWindow, FullScreenMode.MaximizedWindow, FullScreenMode.MaximizedWindow };
+                FullScreenMode[] fullScreenModes = new FullScreenMode[] { FullScreenMode.ExclusiveFullScreen, FullScreenMode.FullScreenWindow, FullScreenMode.MaximizedWindow, FullScreenMode.Windowed };
                 FullScreenMode currentFullScreenMode = Screen.fullScreenMode;
                 int currentFullScreenModeIndex = (int)currentFullScreenMode;
                 for (int i = 0; i < fullScreenModes.Length; i++)
@@ -93,7 +93,7 @@ public class MenuSettingsItemDropdown : MonoBehaviour
     public void ResolutionChanged(int index)
     {
         Resolution newResolution = Screen.resolutions[index];
-        FullScreenMode[] fullScreenModes = new FullScreenMode[] { FullScreenMode.ExclusiveFullScreen, FullScreenMode.FullScreenWindow, FullScreenMode.MaximizedWindow, FullScreenMode.MaximizedWindow };
+        FullScreenMode[] fullScreenModes = new FullScreenMode[] { FullScreenMode.ExclusiveFullScreen, FullScreenMode.FullScreenWindow, FullScreenMode.MaximizedWindow, FullScreenMode.Windowed };
         Screen.SetResolution(newResolution.width, newResolution.height, fullScreenModes[PlayerPrefs.GetInt(ISettings.Type.WINDOWMODE.ToString(), 0)]);
 
         Debug.Log("resolution changed");
@@ -110,7 +110,7 @@ public class MenuSettingsItemDropdown : MonoBehaviour
                 Application.targetFrameRate = index == 0 ? 30 : index == 1 ? 60 : -1;
                 break;
             case ISettings.Type.WINDOWMODE:
-                FullScreenMode[] fullScreenModes = new FullScreenMode[] { FullScreenMode.ExclusiveFullScreen, FullScreenMode.FullScreenWindow, FullScreenMode.MaximizedWindow, FullScreenMode.MaximizedWindow };
+                FullScreenMode[] fullScreenModes = new FullScreenMode[] { FullScreenMode.ExclusiveFullScreen, FullScreenMode.FullScreenWindow, FullScreenMode.MaximizedWindow, FullScreenMode.Windowed };
                 Screen.fullScreenMode = fullScreenModes[index];
                 break;
             case ISettings.Type.ANTIALIAS:
