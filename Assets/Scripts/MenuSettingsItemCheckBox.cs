@@ -34,12 +34,6 @@ public class MenuSettingsItemCheckBox : MonoBehaviour
             case ISettings.Type.VERTICALSYNC:
                 toggle.isOn = QualitySettings.vSyncCount == 1;
                 break;
-            case ISettings.Type.SHOWPLAYERHEALTHBAR:
-                toggle.isOn = PlayerPrefs.GetInt(type.ToString()) == 1;
-                break;
-            case ISettings.Type.SHOWENEMYHEALTHBAR:
-                toggle.isOn = PlayerPrefs.GetInt(type.ToString()) == 1;
-                break;
             case ISettings.Type.BLOOM:
                 toggle.isOn = PlayerPrefs.GetInt(type.ToString()) == 1;
                 break;
