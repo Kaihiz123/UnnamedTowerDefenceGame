@@ -3619,6 +3619,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3207028483836473149, guid: 12441c0265ee8e24b90084c737f76aef, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 5708986269336468833, guid: 400fa56c030dd5245983ceaf18e5111c, type: 3}
     - target: {fileID: 5428409140800687281, guid: 12441c0265ee8e24b90084c737f76aef, type: 3}
       propertyPath: m_Name
       value: WorldSpaceCanvas
