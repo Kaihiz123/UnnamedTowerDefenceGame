@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Cannon_Blaster_Advanced_Emissive_0: -6299901246006806723
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

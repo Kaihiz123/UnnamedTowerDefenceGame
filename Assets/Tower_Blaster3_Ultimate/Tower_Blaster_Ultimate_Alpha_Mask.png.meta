@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Tower_Blaster_Ultimate_Alpha_Mask_0: -3304965631677652205
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

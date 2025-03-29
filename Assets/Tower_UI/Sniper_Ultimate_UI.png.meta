@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 112575de12b41fa40ad8800fa79d1798
+guid: 579b28462bb47c849b6bf0d55a4bc70c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4749474260507617095
-    second: Tower_Blaster_Ultimate_NormalMap_0
+      213: -2590280368215182
+    second: Sniper_Ultimate_UI_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tower_Blaster_Ultimate_NormalMap_0
+      name: Sniper_Ultimate_UI_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9b81598e25a761eb0800000000000000
-      internalID: -4749474260507617095
+      spriteID: 27ba8ca572cc6fff0800000000000000
+      internalID: -2590280368215182
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Tower_Blaster_Ultimate_NormalMap_0: -4749474260507617095
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
