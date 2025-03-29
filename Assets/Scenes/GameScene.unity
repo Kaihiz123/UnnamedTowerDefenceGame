@@ -1734,10 +1734,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBaseObjects:
-  - {fileID: 1367225363}
-  - {fileID: 634320413}
-  - {fileID: 1836210470}
   - {fileID: 502648287}
+  - {fileID: 1836210470}
+  - {fileID: 634320413}
+  - {fileID: 1367225363}
 --- !u!4 &1226118699
 Transform:
   m_ObjectHideFlags: 0
@@ -1868,7 +1868,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1367225364
 SpriteRenderer:
   m_ObjectHideFlags: 0
