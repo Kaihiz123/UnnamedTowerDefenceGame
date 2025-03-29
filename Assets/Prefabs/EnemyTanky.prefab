@@ -117,7 +117,7 @@ MonoBehaviour:
   damageToPlayer: 11
   enemySprite: {fileID: 9021140399679092866}
   enemySpriteHit: {fileID: 3857803098980055368}
-  explosionPrefab: {fileID: 5912056139778002667, guid: 384c26ddf50024dd092fbf8d19d7c891, type: 3}
+  explosionPrefab: {fileID: 797075628852647211, guid: aee5d6be9bf46544ba9cec2c33d0489b, type: 3}
   hitTime: 0.1
   soundHit: {fileID: 8300000, guid: d8fb6df35546d43ca9f6b05074dbd3b2, type: 3}
 --- !u!1 &3857803098980055368

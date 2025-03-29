@@ -202,7 +202,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3468400198781791286, guid: 74f12f8ddf992518ebef0f5750d62e8b, type: 3}
+  m_Sprite: {fileID: -665871113431022825, guid: 26ae635c145ceccbdbf5a0444ac39537, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -684,6 +684,8 @@ MonoBehaviour:
   maxPlayerHealth: 10
   healthText: {fileID: 2973385950022956231}
   GameOverScript: {fileID: 0}
+  playerBaseHealthBar: {fileID: 0}
+  playerBaseScript: {fileID: 0}
 --- !u!114 &2368359474494329223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1871,7 +1873,7 @@ PrefabInstance:
     - target: {fileID: 1704987508308894001, guid: 45eda77663977f84da15f853f46f086d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1777630843706804851, guid: 519fcc2df39af529dba735d7aa6b405e, type: 3}
+      objectReference: {fileID: -366476819458169059, guid: 8fb8fbc74d13bab44a190e2d9d99c15b, type: 3}
     - target: {fileID: 1704987508308894001, guid: 45eda77663977f84da15f853f46f086d, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -2037,7 +2039,7 @@ PrefabInstance:
     - target: {fileID: 1704987508308894001, guid: 45eda77663977f84da15f853f46f086d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 4984612247316618152, guid: 79c84fdc509dfde3ba310c1c60000274, type: 3}
+      objectReference: {fileID: 8145580243213933268, guid: 073d40962fde5c244b50141443727835, type: 3}
     - target: {fileID: 1704987508308894001, guid: 45eda77663977f84da15f853f46f086d, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -2203,7 +2205,7 @@ PrefabInstance:
     - target: {fileID: 1704987508308894001, guid: 45eda77663977f84da15f853f46f086d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -3855414125224621176, guid: 9bfc8bd1db19e6d9485af6478966ab62, type: 3}
+      objectReference: {fileID: -3019184035478694897, guid: 263295bfe657d494fb4d9f491dc599cf, type: 3}
     - target: {fileID: 1704987508308894001, guid: 45eda77663977f84da15f853f46f086d, type: 3}
       propertyPath: m_Color.a
       value: 1

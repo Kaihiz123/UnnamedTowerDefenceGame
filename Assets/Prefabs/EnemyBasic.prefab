@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9151817913880738089
 Transform:
   m_ObjectHideFlags: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7400409128685435938, guid: 809bc2db1276fed13bd5097a75186bcb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
   damageToPlayer: 11
   enemySprite: {fileID: 9021140399679092866}
   enemySpriteHit: {fileID: 201322971758624714}
-  explosionPrefab: {fileID: 5912056139778002667, guid: 384c26ddf50024dd092fbf8d19d7c891, type: 3}
+  explosionPrefab: {fileID: 797075628852647211, guid: aee5d6be9bf46544ba9cec2c33d0489b, type: 3}
   hitTime: 0.1
   soundHit: {fileID: 8300000, guid: d8fb6df35546d43ca9f6b05074dbd3b2, type: 3}
 --- !u!1 &9021140399679092866
