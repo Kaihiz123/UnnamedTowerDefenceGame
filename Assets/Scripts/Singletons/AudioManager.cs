@@ -32,11 +32,11 @@ public class AudioManager: MonoBehaviour
     List<GameObject> uiSoundEffectAudioSourceObjectPool = new List<GameObject>();
 
     private void Start()
-    {
-        float masterVolume = PlayerPrefs.GetFloat(ISettings.Type.MASTERVOLUME.ToString(), 0);
-        float musicVolume = PlayerPrefs.GetFloat(ISettings.Type.MUSICVOLUME.ToString(), 0);
-        float soundEffectVolume = PlayerPrefs.GetFloat(ISettings.Type.SOUNDEFFECTVOLUME.ToString(), 0);
-        float UIVolume = PlayerPrefs.GetFloat(ISettings.Type.UIVOLUME.ToString(), 0);
+    {   
+        float masterVolume = PlayerPrefs.GetFloat(ISettings.Type.MASTERVOLUME.ToString(), 0.5f);
+        float musicVolume = PlayerPrefs.GetFloat(ISettings.Type.MUSICVOLUME.ToString(), 0.5f);
+        float soundEffectVolume = PlayerPrefs.GetFloat(ISettings.Type.SOUNDEFFECTVOLUME.ToString(), 0.5f);
+        float UIVolume = PlayerPrefs.GetFloat(ISettings.Type.UIVOLUME.ToString(), 0.5f);
 
         SetVolume(ISettings.Type.MASTERVOLUME, masterVolume);
         SetVolume(ISettings.Type.MUSICVOLUME, musicVolume);
