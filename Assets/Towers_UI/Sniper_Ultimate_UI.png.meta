@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1c0cb222071cdc94ab61c3d5a6a216aa
+guid: f9760a2772f50344b88d9b4aa323fa90
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2319867922746234869
-    second: Blaster_Ultimate_UI_0
+      213: -2590280368215182
+    second: Sniper_Ultimate_UI_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Blaster_Ultimate_UI_0
+      name: Sniper_Ultimate_UI_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b0823ea5a6c2ecfd0800000000000000
-      internalID: -2319867922746234869
+      spriteID: 27ba8ca572cc6fff0800000000000000
+      internalID: -2590280368215182
       vertices: []
       indices: 
       edges: []

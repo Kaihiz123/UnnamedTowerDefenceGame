@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fe9321ca31b2502498e81abfad0f314a
+guid: 10bef31c7454afa40a9725e565fadcb1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8145580243213933268
-    second: Blaster_Normal_UI_0
+      213: -928777936389604127
+    second: Basic_Ultimate_UI_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Blaster_Normal_UI_0
+      name: Basic_Ultimate_UI_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4dad436f21aea0170800000000000000
-      internalID: 8145580243213933268
+      spriteID: 1ecf64243615c13f0800000000000000
+      internalID: -928777936389604127
       vertices: []
       indices: 
       edges: []

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 187a3cbfce754b241b99d2d6b6acfec2
+guid: 8fb8fbc74d13bab44a190e2d9d99c15b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3019184035478694897
-    second: Basic_Normal_UI_0
+      213: -366476819458169059
+    second: Sniper_Normal_UI_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Basic_Normal_UI_0
+      name: Sniper_Normal_UI_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f0413c5bd14b916d0800000000000000
-      internalID: -3019184035478694897
+      spriteID: d17e7cd36430aeaf0800000000000000
+      internalID: -366476819458169059
       vertices: []
       indices: 
       edges: []
