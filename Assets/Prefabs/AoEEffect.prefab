@@ -130,7 +130,7 @@ MonoBehaviour:
   aoEAttackDamage: 0
   aoECollider: {fileID: 3976066642190418147}
   aoEAttackRangeRadius: 0
-  explosionPrefab: {fileID: 5912056139778002667, guid: 384c26ddf50024dd092fbf8d19d7c891, type: 3}
+  explosionPrefab: {fileID: 797075628852647211, guid: aee5d6be9bf46544ba9cec2c33d0489b, type: 3}
   DEBUGAoEAttackRangeCircleSprite: {fileID: 2417946038390359190}
   theDEBUGAoEAttackRangeCircleSprite: {fileID: 7998699053286580240}
 --- !u!1 &7998699053286580240
