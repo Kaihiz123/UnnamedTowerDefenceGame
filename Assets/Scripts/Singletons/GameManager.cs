@@ -34,8 +34,8 @@ public class GameManager : MonoBehaviour
         //TODO: go through all the options such as anti aliasing, showFPS...
 
         OnEnableBloom(PlayerPrefs.GetInt(ISettings.Type.BLOOM.ToString()) == 1);
-        ShowPlayerHealthBar(PlayerPrefs.GetInt(ISettings.Type.SHOWPLAYERHEALTHBAR.ToString()) == 1);
-        ShowEnemyHealthBars(PlayerPrefs.GetInt(ISettings.Type.SHOWENEMYHEALTHBAR.ToString()) == 1);
+        ShowPlayerHealthBar(PlayerPrefs.GetInt(ISettings.Type.SHOWPLAYERHEALTHBAR.ToString(), 1) == 1);
+        ShowEnemyHealthBars(PlayerPrefs.GetInt(ISettings.Type.SHOWENEMYHEALTHBAR.ToString(), 1) == 1);
     }
 
     public void ShowPlayerHealthBar(bool show)

@@ -8,7 +8,7 @@ public class BloomActivator : MonoBehaviour
 
     Bloom bloom;
 
-    private void Start()
+    private void Awake()
     {
         Volume volume = GetComponent<Volume>();
         volume.profile.TryGet(out bloom);

@@ -25,7 +25,7 @@ public class EnemyScript : MonoBehaviour
     {
         pathing = GetComponent<EnemyPathing>();
         healthBar = GetComponentInChildren<HealthBar>();
-        healthBar.gameObject.SetActive(PlayerPrefs.GetInt(ISettings.Type.SHOWENEMYHEALTHBAR.ToString()) == 1);
+        healthBar.gameObject.SetActive(PlayerPrefs.GetInt(ISettings.Type.SHOWENEMYHEALTHBAR.ToString(), 1) == 1);
         pathing.Initialize(moveSpeed, waypointsParent);
         maxHealth *= enemyScaling;
         currentHealth = maxHealth;
