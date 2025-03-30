@@ -767,6 +767,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManagerTester
       objectReference: {fileID: 0}
+    - target: {fileID: 4432117893837686985, guid: 0559c42a9d95cc642818ebca98308568, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

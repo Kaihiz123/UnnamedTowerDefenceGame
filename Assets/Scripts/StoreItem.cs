@@ -9,8 +9,8 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
     public TMPro.TextMeshProUGUI towerText;
     public TowerInfo.TowerType towerType;
 
-    float hoverOverAlpha = 0.5f;
-    float defaultAlpha = 1f;
+    bool playerCanAffordThisItem = true;
+    bool mouseIsHoveringOverThisItem = false;
 
     public void Init(int price)
     {
@@ -39,10 +39,8 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
     {
         // The cursor is hovering over the storeItem
 
-        // change button color alpha
-        Color color = towerImageUI.color;
-        color.a = hoverOverAlpha;
-        towerImageUI.color = color;
+        mouseIsHoveringOverThisItem = true;
+        ChangeColor();
 
         storeHandler.CursorEnterStoreItem(gameObject);
     }
@@ -50,26 +48,55 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
     public void OnPointerExit(PointerEventData eventData)
     {
         // The cursor left the storeItem area
-        
-        // change button color alpha
-        Color color = towerImageUI.color;
-        color.a = defaultAlpha;
-        towerImageUI.color = color;
+
+        mouseIsHoveringOverThisItem = false;
+        ChangeColor();
 
         storeHandler.CursorExitStoreItem(gameObject);
     }
 
     public void PlayerCanAfford()
     {
-        // change color to blue
-        towerImageUI.color = new Color(1f, 1f, 1f, defaultAlpha);
-        towerText.color = new Color(1f, 1f, 0.5f, 1f);
+        playerCanAffordThisItem = true;
+        ChangeColor();
     }
 
     public void PlayerCannotAfford()
     {
-        // change color to red
-        towerImageUI.color = new Color(0.33f, 0.33f, 0.33f, hoverOverAlpha);
-        towerText.color = new Color(0.6f, 0.6f, 0.6f, 1f);
+        playerCanAffordThisItem = false;
+        ChangeColor();
+    }
+
+    private void ChangeColor()
+    {
+        float hoverOverAlpha = 0.5f;
+        float defaultAlpha = 1f;
+
+        if (playerCanAffordThisItem)
+        {
+            if (mouseIsHoveringOverThisItem)
+            {
+                towerImageUI.color = new Color(1f, 1f, 1f, hoverOverAlpha);
+                towerText.color = new Color(1f, 1f, 0.5f, 1f);
+            }
+            else
+            {
+                towerImageUI.color = new Color(1f, 1f, 1f, defaultAlpha);
+                towerText.color = new Color(1f, 1f, 0.5f, 1f);
+            }
+        }
+        else
+        {
+            if (mouseIsHoveringOverThisItem)
+            {
+                towerImageUI.color = new Color(0.33f, 0.33f, 0.33f, hoverOverAlpha);
+                towerText.color = new Color(0.6f, 0.6f, 0.6f, 1f);
+            }
+            else
+            {
+                towerImageUI.color = new Color(0.33f, 0.33f, 0.33f, defaultAlpha);
+                towerText.color = new Color(0.6f, 0.6f, 0.6f, 1f);
+            }
+        }
     }
 }
