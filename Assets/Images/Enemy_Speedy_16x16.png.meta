@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fe8d0bfdac6c4794f93b6c400c2aa564
+guid: 23afe8f73d8a841c7b47da5deb5169ed
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8056044961909972149
-    second: Sniper_Advanced_UI_0
+      213: 1420521149223480184
+    second: Enemy_Speedy_16x16_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,24 +96,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sniper_Advanced_UI_0
+      name: Enemy_Speedy_16x16_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b43e7c63acd233090800000000000000
-      internalID: -8056044961909972149
+      spriteID: 87b256f7574b6b310800000000000000
+      internalID: 1420521149223480184
       vertices: []
       indices: 
       edges: []
@@ -138,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Sniper_Advanced_UI_0: -8056044961909972149
+      Enemy_Speedy_16x16_0: 1420521149223480184
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
