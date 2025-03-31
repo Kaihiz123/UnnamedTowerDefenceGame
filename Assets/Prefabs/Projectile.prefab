@@ -122,6 +122,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 0}
   aoEEffectPrefab: {fileID: 0}
   sparkEffectPrefab: {fileID: 1239500627973033316, guid: bb82f853aafe4f54ab27a28b9c049162, type: 3}
+  shieldHitEffectPrefab: {fileID: 1239500627973033316, guid: fbda4e79666b88a4f972585bf003f583, type: 3}
 --- !u!1 &6089980472827680049
 GameObject:
   m_ObjectHideFlags: 0
