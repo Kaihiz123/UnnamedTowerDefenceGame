@@ -19,9 +19,6 @@ public class SelectionWindow : MonoBehaviour
 
     public List<UpgradeLayoutScript> upgradeLayoutScripts = new List<UpgradeLayoutScript>();
 
-    public Color ownedColor;
-    public Color notOwnedColor;
-
     public void Init(TowerInfo towerInfo)
     {
         currentTowerInfo = towerInfo;
@@ -52,11 +49,18 @@ public class SelectionWindow : MonoBehaviour
             {
                 if(currentTowerInfo.upgradeIndex >= item.upgradeIndex)
                 {
-                    item.gameObject.GetComponent<Image>().color = ownedColor;
+                    item.PlayerOwns();
                 }
                 else
                 {
-                    item.gameObject.GetComponent<Image>().color = notOwnedColor;
+                    if(bank.GetPlayerMoney() >= towerUpgrades.towerType[(int)currentTowerInfo.towerType].upgradeLevels[item.upgradeIndex].upgradeCost)
+                    {
+                        item.PlayerCanAfford();
+                    }
+                    else
+                    {
+                        item.PlayerCannotAfford();
+                    }
                 }
             }
         }
