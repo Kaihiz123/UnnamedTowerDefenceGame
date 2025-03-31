@@ -7,8 +7,9 @@ public class TowerPlacementGrid : MonoBehaviour
 {
     // This scripts idea is to be able to place tower on a grid
 
-    public bool debug;
-    public bool hidePlaceHoldersOfTheUnavailableAreas;
+    public bool hideUnavailableAreas;
+    public bool showStoreAllTheTime;
+    public bool towersCanBeMoved;
 
     public Vector2 GridSize; 
     
@@ -62,7 +63,7 @@ public class TowerPlacementGrid : MonoBehaviour
         }
 
         // deactivate all the placeholders of the unavailable areas
-        if (hidePlaceHoldersOfTheUnavailableAreas)
+        if (hideUnavailableAreas)
         {
             UnavailableAreasParent.gameObject.SetActive(false);
         }
@@ -98,8 +99,11 @@ public class TowerPlacementGrid : MonoBehaviour
                     // this is used to determine if user is dragging the tower or selecting it (distance between start and current)
                     mouseStartPos = mousePosition;
 
-                    // remove an area from the list so that a tower can be placed here
-                    unavailablePositions.Remove(new Vector2Int(Mathf.RoundToInt(snapPosition.x - movement.x), Mathf.RoundToInt(snapPosition.y - movement.y)));
+                    if (towersCanBeMoved)
+                    {
+                        // remove an area from the list so that a tower can be placed here
+                        unavailablePositions.Remove(new Vector2Int(Mathf.RoundToInt(snapPosition.x - movement.x), Mathf.RoundToInt(snapPosition.y - movement.y)));
+                    }
 
                     // move the indicator to dragged tower and show it
                     SelectionIndicator.transform.position = raycastedGameObject.transform.position;
@@ -138,7 +142,10 @@ public class TowerPlacementGrid : MonoBehaviour
                 Ghost.SetActive(true);
 
                 // hide the store
-                storeHandler.ScreenSpaceOverlayCanvasObject.SetActive(false);
+                if (!showStoreAllTheTime)
+                {
+                    storeHandler.ScreenSpaceOverlayCanvasObject.SetActive(false);
+                }
 
                 // check if area is available
                 if (isAreaAvailable(snapPosition, movement))
@@ -151,7 +158,7 @@ public class TowerPlacementGrid : MonoBehaviour
                     Ghost.GetComponent<SpriteRenderer>().color = Color.red;
                 }
             }
-            else if (raycastedGameObject != null)
+            else if (raycastedGameObject != null && towersCanBeMoved)
             {
                 // determine if we are dragging an old tower or selecting it (if we are selecting we just skip the whole GetMouseButton())
                 if (!isDragging)
@@ -179,7 +186,10 @@ public class TowerPlacementGrid : MonoBehaviour
                     Ghost.SetActive(true);
 
                     // since we are dragging a tower we hide the store
-                    storeHandler.ScreenSpaceOverlayCanvasObject.SetActive(false);
+                    if (!showStoreAllTheTime)
+                    {
+                        storeHandler.ScreenSpaceOverlayCanvasObject.SetActive(false);
+                    }
 
                     // check if area is available
                     if (isAreaAvailable(snapPosition, movement))
@@ -236,7 +246,10 @@ public class TowerPlacementGrid : MonoBehaviour
                 }
 
                 // show store again
-                storeHandler.ScreenSpaceOverlayCanvasObject.SetActive(true);
+                if (!showStoreAllTheTime)
+                {
+                    storeHandler.ScreenSpaceOverlayCanvasObject.SetActive(true);
+                }
 
                 // hide ghost
                 Ghost.SetActive(false);
@@ -244,7 +257,7 @@ public class TowerPlacementGrid : MonoBehaviour
                 // reset bought object
                 boughtGameObject = null;
             }
-            else if (raycastedGameObject != null)
+            else if (raycastedGameObject != null && towersCanBeMoved)
             {
                 if (isDragging)
                 {
@@ -294,13 +307,27 @@ public class TowerPlacementGrid : MonoBehaviour
                 selectedGameObject = raycastedGameObject;
 
                 // show the store again
-                storeHandler.ScreenSpaceOverlayCanvasObject.SetActive(true);
+                if (!showStoreAllTheTime)
+                {
+                    storeHandler.ScreenSpaceOverlayCanvasObject.SetActive(true);
+                }
 
-                // no tower is no longer selected
+                // reset raycastObject
                 raycastedGameObject = null;
 
                 // hide ghost
                 Ghost.SetActive(false);
+            }
+            else if (raycastedGameObject != null && !towersCanBeMoved)
+            {
+                // show the selection window
+                ShowSelectionWindow(true);
+
+                // raycasted object is now selected
+                selectedGameObject = raycastedGameObject;
+
+                // reset raycastObject
+                raycastedGameObject = null;
             }
         }
     }

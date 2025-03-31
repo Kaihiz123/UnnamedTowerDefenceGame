@@ -4118,9 +4118,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1391577037}
     - target: {fileID: 5667451153566279232, guid: bb0c0c633198c08479e1c19ab4700cc4, type: 3}
+      propertyPath: showStoreAllTheTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5667451153566279232, guid: bb0c0c633198c08479e1c19ab4700cc4, type: 3}
       propertyPath: selectionWindowCanvasObject
       value: 
       objectReference: {fileID: 1672004240}
+    - target: {fileID: 5667451153566279232, guid: bb0c0c633198c08479e1c19ab4700cc4, type: 3}
+      propertyPath: hidePlaceHoldersOfTheUnavailableAreas
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6675091721374810695, guid: bb0c0c633198c08479e1c19ab4700cc4, type: 3}
       propertyPath: m_Name
       value: Grid
