@@ -7,17 +7,13 @@ public class SelectionWindowItem : MonoBehaviour, IPointerEnterHandler, IPointer
 {
     public int upgradeIndex; // 0,1,2 are upgrades, -1 is sell
 
-    UpgradeLayoutScript upgradeLayoutScript;
-    Image upgradeButtonImage;
-    float hoverOverAlpha = 1f; // when mouse is above button
-    float defaultAlpha = 0.7f; // when mouse is not above button
+    public TMPro.TextMeshProUGUI buttonText;
+    public Image upgradeButtonImage;
 
+    UpgradeLayoutScript upgradeLayoutScript;
+    
     private void Start()
     {
-        if(upgradeButtonImage == null)
-        {
-            upgradeButtonImage = GetComponent<Image>();
-        }
         if(upgradeLayoutScript == null)
         {
             upgradeLayoutScript = GetComponentInParent<UpgradeLayoutScript>();
@@ -37,9 +33,8 @@ public class SelectionWindowItem : MonoBehaviour, IPointerEnterHandler, IPointer
     public void OnPointerEnter(PointerEventData eventData)
     {
         // indicate that cursor is above the button
-        Color color = upgradeButtonImage.color;
-        color.a = hoverOverAlpha;
-        upgradeButtonImage.color = color;
+        mouseIsHoveringOverThisItem = true;
+        ChangeColor();
 
         upgradeLayoutScript.HoverOverButtonEnter(gameObject);
     }
@@ -47,10 +42,80 @@ public class SelectionWindowItem : MonoBehaviour, IPointerEnterHandler, IPointer
     public void OnPointerExit(PointerEventData eventData)
     {
         // indicate that cursor is no longer above the button
-        Color color = upgradeButtonImage.color;
-        color.a = defaultAlpha;
-        upgradeButtonImage.color = color;
+        mouseIsHoveringOverThisItem = false;
+        ChangeColor();
 
         upgradeLayoutScript.HoverOverButtonExit(gameObject);
     }
+
+    bool playerCanAffordThisItem;
+    bool mouseIsHoveringOverThisItem;
+    bool playerOwnsThisItem;
+
+    public void PlayerCanAfford()
+    {
+        playerCanAffordThisItem = true;
+        playerOwnsThisItem = false;
+        ChangeColor();
+    }
+
+    public void PlayerCannotAfford()
+    {
+        playerCanAffordThisItem = false;
+        playerOwnsThisItem = false;
+        ChangeColor();
+    }
+
+    public void PlayerOwns()
+    {
+        playerOwnsThisItem = true;
+    }
+
+    private void ChangeColor()
+    {
+        float hoverOverAlpha = 0.5f;
+        float defaultAlpha = 1f;
+
+        if(upgradeIndex == -1)
+        {
+            // this is sell button
+            if (mouseIsHoveringOverThisItem)
+            {
+                upgradeButtonImage.color = new Color(1f, 1f, 1f, hoverOverAlpha);
+                buttonText.color = new Color(1f, 1f, 0.5f, 1f);
+            }
+            else
+            {
+                upgradeButtonImage.color = new Color(1f, 1f, 1f, defaultAlpha);
+                buttonText.color = new Color(1f, 1f, 0.5f, 1f);
+            }
+        }
+        else if (playerOwnsThisItem)
+        {
+            // player owns this upgrade
+
+            upgradeButtonImage.color = new Color(1f, 1f, 1f, hoverOverAlpha);
+            buttonText.color = new Color(1f, 1f, 0.5f, 1f);
+        }
+        else if (playerCanAffordThisItem)
+        {
+            if (mouseIsHoveringOverThisItem)
+            {
+                upgradeButtonImage.color = new Color(1f, 1f, 1f, hoverOverAlpha);
+                buttonText.color = new Color(1f, 1f, 0.5f, 1f);
+            }
+            else
+            {
+                upgradeButtonImage.color = new Color(1f, 1f, 1f, defaultAlpha);
+                buttonText.color = new Color(1f, 1f, 0.5f, 1f);
+            }
+        }
+        else
+        {
+            // player doesnt own this and cannot afford it
+            upgradeButtonImage.color = new Color(0.33f, 0.33f, 0.33f, defaultAlpha);
+            buttonText.color = new Color(0.6f, 0.6f, 0.6f, 1f);
+        }
+    }
+
 }
