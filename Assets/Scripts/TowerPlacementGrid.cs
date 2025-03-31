@@ -34,6 +34,9 @@ public class TowerPlacementGrid : MonoBehaviour
     public List<Vector2Int> unavailablePositions = new List<Vector2Int>();
     public Transform UnavailableAreasParent;
 
+    List<Vector2Int> offlimitsPositions = new List<Vector2Int>();
+    public Transform OffLimitsAreasParent;
+
     GameObject selectedGameObject; // currently selected tower
     Vector3 selectedGameObjectStart; // selected tower start position
     //Vector2 selectedGameObjectStartSnap; // selected towers start position that is snapped to the grid
@@ -62,6 +65,12 @@ public class TowerPlacementGrid : MonoBehaviour
             unavailablePositions.Add(new Vector2Int(Mathf.RoundToInt(t.position.x), Mathf.RoundToInt(t.position.y)));
         }
 
+        // add offlimits areas to offlimitsPositions
+        foreach(Transform t in OffLimitsAreasParent)
+        {
+            offlimitsPositions.Add(new Vector2Int(Mathf.RoundToInt(t.position.x), Mathf.RoundToInt(t.position.y)));
+        }
+
         // deactivate all the placeholders of the unavailable areas
         if (hideUnavailableAreas)
         {
@@ -79,7 +88,7 @@ public class TowerPlacementGrid : MonoBehaviour
         // convert mouse position to snapped position
         Vector2 snapPosition = GetSnapPosition(mousePosition);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) // left mouse button is pressed down
         {
             if (EventSystem.current.IsPointerOverGameObject())
             {
@@ -126,7 +135,7 @@ public class TowerPlacementGrid : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0)) // left mouse button is held down
         {
             if(boughtGameObject != null)
             {
@@ -139,7 +148,6 @@ public class TowerPlacementGrid : MonoBehaviour
                 
                 // move ghost to snapped position
                 Ghost.transform.position = new Vector3(snapPosition.x, snapPosition.y, 0f);
-                Ghost.SetActive(true);
 
                 // hide the store
                 if (!showStoreAllTheTime)
@@ -147,15 +155,21 @@ public class TowerPlacementGrid : MonoBehaviour
                     storeHandler.ScreenSpaceOverlayCanvasObject.SetActive(false);
                 }
 
-                // check if area is available
-                if (isAreaAvailable(snapPosition, movement))
+                // check if area is offlimits
+                if(isAreaOfflimits(snapPosition, movement))
+                {
+                    Ghost.SetActive(false);
+                }
+                else if (isAreaAvailable(snapPosition, movement)) // check if area is available
                 {
                     // change the color of the ghost based on availability of the area
                     Ghost.GetComponent<SpriteRenderer>().color = Color.green;
+                    Ghost.SetActive(true);
                 }
                 else
                 {
                     Ghost.GetComponent<SpriteRenderer>().color = Color.red;
+                    Ghost.SetActive(true);
                 }
             }
             else if (raycastedGameObject != null && towersCanBeMoved)
@@ -183,7 +197,6 @@ public class TowerPlacementGrid : MonoBehaviour
                     
                     // move ghost to snapped position
                     Ghost.transform.position = new Vector3(snapPosition.x, snapPosition.y, 0f);
-                    Ghost.SetActive(true);
 
                     // since we are dragging a tower we hide the store
                     if (!showStoreAllTheTime)
@@ -191,21 +204,27 @@ public class TowerPlacementGrid : MonoBehaviour
                         storeHandler.ScreenSpaceOverlayCanvasObject.SetActive(false);
                     }
 
-                    // check if area is available
-                    if (isAreaAvailable(snapPosition, movement))
+                    // check if position is offlimits
+                    if(isAreaOfflimits(snapPosition, movement))
+                    {
+                        Ghost.SetActive(false);
+                    }
+                    else if (isAreaAvailable(snapPosition, movement)) // check if area is available
                     {
                         // change the color of the ghost based on availability of the area
                         Ghost.GetComponent<SpriteRenderer>().color = Color.green;
+                        Ghost.SetActive(true);
                     }
                     else
                     {
                         Ghost.GetComponent<SpriteRenderer>().color = Color.red;
+                        Ghost.SetActive(true);
                     }
                 }
             }
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0)) // left mouse button is released
         {
             if(boughtGameObject != null)
             {
@@ -378,6 +397,20 @@ public class TowerPlacementGrid : MonoBehaviour
         }
 
         return true;
+    }
+
+    private bool isAreaOfflimits(Vector2 snapPosition, Vector3 movement)
+    {
+        Vector2Int v = new Vector2Int(Mathf.RoundToInt(snapPosition.x - movement.x), Mathf.RoundToInt(snapPosition.y - movement.y));
+        foreach (Vector2Int offlimitPosition in offlimitsPositions)
+        {
+            if ((v.x == offlimitPosition.x && v.y == offlimitPosition.y))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void ShowSelectionWindow(bool show)
