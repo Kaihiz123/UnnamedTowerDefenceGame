@@ -8,6 +8,7 @@ public class TowerPlacementGrid : MonoBehaviour
     // This scripts idea is to be able to place tower on a grid
 
     public bool hideUnavailableAreas;
+    public bool hideOfflimitsAreas;
     public bool showStoreAllTheTime;
     public bool towersCanBeMoved;
 
@@ -75,6 +76,11 @@ public class TowerPlacementGrid : MonoBehaviour
         if (hideUnavailableAreas)
         {
             UnavailableAreasParent.gameObject.SetActive(false);
+        }
+
+        if (hideOfflimitsAreas)
+        {
+            OffLimitsAreasParent.gameObject.SetActive(false);
         }
         
     }
