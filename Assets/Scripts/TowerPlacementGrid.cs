@@ -10,9 +10,6 @@ public class TowerPlacementGrid : MonoBehaviour
     public bool debug;
     public bool hidePlaceHoldersOfTheUnavailableAreas;
 
-    public Color GhostColorAvailable;
-    public Color GhostColorNOTAvailable;
-
     public Vector2 GridSize; 
     
     public Vector2 ElementSize; // if Towers and Ghosts localScale == ElementSize everything fits nicely
@@ -147,11 +144,11 @@ public class TowerPlacementGrid : MonoBehaviour
                 if (isAreaAvailable(snapPosition, movement))
                 {
                     // change the color of the ghost based on availability of the area
-                    Ghost.GetComponent<SpriteRenderer>().color = GhostColorAvailable;
+                    Ghost.GetComponent<SpriteRenderer>().color = Color.green;
                 }
                 else
                 {
-                    Ghost.GetComponent<SpriteRenderer>().color = GhostColorNOTAvailable;
+                    Ghost.GetComponent<SpriteRenderer>().color = Color.red;
                 }
             }
             else if (raycastedGameObject != null)

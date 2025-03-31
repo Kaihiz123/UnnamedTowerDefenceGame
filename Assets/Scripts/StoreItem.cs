@@ -89,12 +89,12 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
         {
             if (mouseIsHoveringOverThisItem)
             {
-                towerImageUI.color = new Color(0.33f, 0.33f, 0.33f, 0.33f);
+                towerImageUI.color = new Color(0.33f, 0.33f, 0.33f, hoverOverAlpha);
                 towerText.color = new Color(0.6f, 0.6f, 0.6f, 1f);
             }
             else
             {
-                towerImageUI.color = new Color(0.33f, 0.33f, 0.33f, 0.33f);
+                towerImageUI.color = new Color(0.33f, 0.33f, 0.33f, defaultAlpha);
                 towerText.color = new Color(0.6f, 0.6f, 0.6f, 1f);
             }
         }
