@@ -6,7 +6,7 @@ public class ProjectileCollision : MonoBehaviour
     public GameObject explosionPrefab;
     public GameObject aoEEffectPrefab;
     [SerializeField] private GameObject sparkEffectPrefab;
-
+    [SerializeField] private GameObject shieldHitEffectPrefab;
     void Start()
     {
         // Find the parent Projectile script
@@ -21,16 +21,31 @@ public class ProjectileCollision : MonoBehaviour
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
             if (enemy != null)
             {
-                enemy.TakeDamage(parentProjectile.projectileAttackDamage); // Apply damage to enemy
+                // Check for shield first
+                bool shieldAbsorbedHit = enemy.HitShield();
+                
+                if (shieldAbsorbedHit)
+                {
+                    // Shield absorbed the hit, spawn shield hit effect if available
+                    if (shieldHitEffectPrefab != null)
+                    {
+                        Instantiate(shieldHitEffectPrefab, transform.position, Quaternion.Euler(0, 0, 180) * parentProjectile.transform.rotation);
+                    }
+                }
+                else
+                {
+                    // No shield, apply damage normally
+                    enemy.TakeDamage(parentProjectile.projectileAttackDamage);
+                    
+                    // Hit spark particles
+                    if (sparkEffectPrefab != null)
+                    {                                                
+                        Instantiate(sparkEffectPrefab, transform.position, Quaternion.Euler(0, 0, 180) * parentProjectile.transform.rotation);
+                    }
+                }
             }
 
-            // Hit spark particles
-            if (sparkEffectPrefab != null)
-            {                                                
-                Instantiate(sparkEffectPrefab, transform.position, Quaternion.Euler(0, 0, 180) * parentProjectile.transform.rotation);
-            }
-
-            // Destroy the parent projectile on impact
+            // Destroy the parent projectile on impact regardless of shield
             Destroy(parentProjectile.gameObject);
         }
 
@@ -39,8 +54,8 @@ public class ProjectileCollision : MonoBehaviour
         {
             // Instantiate explosion effect
             GameObject explosionInstance = Instantiate(explosionPrefab, transform.position, transform.rotation);
-            GameObject aoEEffectInstance = Instantiate(aoEEffectPrefab, transform.position, transform.rotation);
-            Explosion explosionScript = explosionInstance.GetComponent<Explosion>();
+            GameObject aoEEffectInstance = Instantiate(aoEEffectPrefab, transform.position, transform.rotation);            
+            /* Explosion explosionScript = explosionInstance.GetComponent<Explosion>();
             if (explosionScript != null && explosionScript.theParticleSystem != null)
             {
                 // Modify the Start Lifetime of the Particle System
@@ -50,7 +65,8 @@ public class ProjectileCollision : MonoBehaviour
             else
             {
                 Debug.LogError("Explosion script or Particle System is missing on the instantiated object!");
-            }
+            } */
+            
             AoEEffect aoEEffectScript = aoEEffectInstance.GetComponent<AoEEffect>();
             if (aoEEffectScript != null)
             {

@@ -38,7 +38,15 @@ public class AoEEffect : MonoBehaviour
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
             if (enemy != null)
             {
-                enemy.TakeDamage(aoEAttackDamage); // Apply damage to enemy
+                // Check if the enemy has a shield
+                if (enemy.shieldCharges > 0)
+                {
+                    // Skip this enemy, shield blocks AoE damage
+                    return;
+                }
+                
+                // No shield, apply damage normally
+                enemy.TakeDamage(aoEAttackDamage); 
 
                 // Instantiate explosionPrefab at enemy's position, with no parent
                 GameObject explosion = Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);

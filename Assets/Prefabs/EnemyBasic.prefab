@@ -206,7 +206,10 @@ MonoBehaviour:
   enemySpriteHit: {fileID: 201322971758624714}
   explosionPrefab: {fileID: 4339805837996082915, guid: e6c97c4dcdcd4cc99baf6f8a4d9c7538, type: 3}
   hitTime: 0.1
+  shieldCharges: 0
+  shieldVisualPrefab: {fileID: 4146154081398775368, guid: 3c093e56683ddb542a97cc34aa985bf5, type: 3}
   soundHit: {fileID: 8300000, guid: d8fb6df35546d43ca9f6b05074dbd3b2, type: 3}
+  shieldHitSound: {fileID: 0}
 --- !u!1 &9021140399679092866
 GameObject:
   m_ObjectHideFlags: 0

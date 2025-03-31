@@ -14,14 +14,23 @@ public class EnemyScript : MonoBehaviour
     private float hitTimer = 0f;
     public float hitTime;
 
+    [Header("Shield Settings")]
+
+
+    public int shieldCharges = 0;
+    [SerializeField] private GameObject shieldVisualPrefab;
+    private GameObject activeShieldVisual; // Reference to the instantiated shield
+    private bool hasShield => shieldCharges > 0;
+
     private EnemyPathing pathing;
     public AudioClip soundHit;
 
-    PlayerHealthSystem playerHealthSystem;
+    public AudioClip shieldHitSound;
 
+    PlayerHealthSystem playerHealthSystem;
     HealthBar healthBar;
 
-    public void Initialize(GameObject waypointsParent, PlayerHealthSystem playerHealthSystem, float enemyScaling)
+    public void Initialize(GameObject waypointsParent, PlayerHealthSystem playerHealthSystem, float enemyScaling, int shieldCharges = 0)
     {
         pathing = GetComponent<EnemyPathing>();
         healthBar = GetComponentInChildren<HealthBar>();
@@ -30,6 +39,12 @@ public class EnemyScript : MonoBehaviour
         maxHealth *= enemyScaling;
         currentHealth = maxHealth;
         this.playerHealthSystem = playerHealthSystem;
+        
+        // Set shield charges
+        this.shieldCharges = shieldCharges;
+        
+        // Create shield visual if this enemy has shield charges
+        UpdateShieldVisual();
     }
 
     void Update()
@@ -54,6 +69,41 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    // Handle shield hits
+    public bool HitShield()
+    {
+        if (hasShield)
+        {
+            shieldCharges--;
+            UpdateShieldVisual();
+            
+            // Play shield hit sound
+            if (shieldHitSound != null)
+                AudioManager.Instance.PlaySoundEffect(shieldHitSound);
+                
+            return true; // Shield absorbed the hit
+        }
+        return false; // No shield to absorb hit
+    }
+
+    private void UpdateShieldVisual()
+    {
+
+        // If we have shield charges but no active shield visual, create one
+        if (hasShield && activeShieldVisual == null && shieldVisualPrefab != null)
+        {
+
+            activeShieldVisual = Instantiate(shieldVisualPrefab, transform.position, Quaternion.identity);
+            activeShieldVisual.transform.SetParent(transform); // Parent to the enemy
+            activeShieldVisual.transform.localPosition = Vector3.zero; // Center on the enemy
+        }
+        // If we have no shield charges but still have an active shield visual, destroy it
+        else if (!hasShield && activeShieldVisual != null)
+        {
+            Destroy(activeShieldVisual);
+            activeShieldVisual = null;
+        }
+    }
 
     // Call this method with damage argument when enemy takes damage
     public void TakeDamage(float damage)
@@ -77,9 +127,9 @@ public class EnemyScript : MonoBehaviour
         // Instantiate explosion effect
         Instantiate(explosionPrefab, transform.position, transform.rotation);
 
-        Debug.Log("Enemy dead");
+        Debug.Log("Enemy [" + gameObject.name + "] dead");
 
-        // Destroy enemy after sound plays
+        // Destroy enemy after sound plays (mikä ääni?)
         Destroy(gameObject);
     }
 

@@ -39,6 +39,8 @@ public class WaveManager : MonoBehaviour
         public float spawnDelay;
         // Number of this enemy type to spawn consecutively
         public int count = 1;
+        // Number of shield charges this enemy has
+        public int shieldCharges = 0;
     }
 
     // Represents a complete wave of enemies
@@ -176,8 +178,24 @@ public class WaveManager : MonoBehaviour
             GameObject enemyToSpawn = GetEnemyPrefab(enemyType);
             GameObject newEnemy = Instantiate(enemyToSpawn, position, rotation);
             newEnemy.transform.SetParent(enemyParent);
-            float enemyScaling = waves[helperCurrentWave - 1].enemyScaling;
-            newEnemy.GetComponent<EnemyScript>().Initialize(waypointsParent, playerHealthSystem, enemyScaling);
+            
+            // Get the current wave and find the enemy spawn configuration
+            Wave currentWave = waves[helperCurrentWave - 1];
+            float enemyScaling = currentWave.enemyScaling;
+            
+            // Find the current spawn configuration to get shield charges
+            int shieldCharges = 0;
+            foreach (EnemySpawn spawn in currentWave.enemies)
+            {
+                if (spawn.enemyType == enemyType)
+                {
+                    shieldCharges = spawn.shieldCharges;
+                    break;
+                }
+            }
+            
+            // Pass shield charges to the Initialize method
+            newEnemy.GetComponent<EnemyScript>().Initialize(waypointsParent, playerHealthSystem, enemyScaling, shieldCharges);
         }
     }
 }
