@@ -243,6 +243,9 @@ public class TowerPlacementGrid : MonoBehaviour
                     // change this are to be occupied
                     unavailablePositions.Add(new Vector2Int(Mathf.RoundToInt(snapPosition.x - movement.x), Mathf.RoundToInt(snapPosition.y - movement.y)));
 
+                    // notify the bank that the transaction was successful (money is removed from bank)
+                    bank.NewTowerWasPlacedSuccessfully();
+
                     // show the selection window
                     ShowSelectionWindow(true);
                     // move the selection indicator to selectedGameObjects position
@@ -251,9 +254,6 @@ public class TowerPlacementGrid : MonoBehaviour
                     SelectionIndicator.SetActive(true);
                     // bought object is now selected
                     selectedGameObject = boughtGameObject;
-
-                    // notify the bank that the transaction was successful (money is removed from bank)
-                    bank.NewTowerWasPlacedSuccessfully();
 
                     // update tower's attack, range, firerate, etc. values to match the upgrade index
                     selectedGameObject.GetComponent<TowerUpgrading>().RunWhenTowerUpgrades();

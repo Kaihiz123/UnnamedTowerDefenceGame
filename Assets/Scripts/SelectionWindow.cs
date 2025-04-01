@@ -24,10 +24,11 @@ public class SelectionWindow : MonoBehaviour
         currentTowerInfo = towerInfo;
 
         towerNameText.text = towerInfo.towerType.ToString();
-
-        UpdateUpgradeStatus();
+        
         upgradeLayoutScripts[(int)towerInfo.towerType].Init(towerInfo, this);
         upgradeLayoutScripts[(int)towerInfo.towerType].gameObject.SetActive(true);
+
+        UpdateUpgradeStatus();
     }
 
     public void CloseSelectionWindow()
