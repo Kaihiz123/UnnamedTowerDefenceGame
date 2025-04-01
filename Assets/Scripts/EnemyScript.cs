@@ -106,8 +106,24 @@ public class EnemyScript : MonoBehaviour
     }
 
     // Call this method with damage argument when enemy takes damage
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, TowerInfo.TowerType sourceTowerType = TowerInfo.TowerType.Basic)
     {
+        // Calculate effective damage and overkill
+        float effectiveDamage = Mathf.Min(damage, currentHealth);
+        float overkillDamage = damage > currentHealth ? damage - currentHealth : 0;
+        
+        // Record effective and overkill damage
+        if (StatisticsTracker.Instance != null)
+        {
+            StatisticsTracker.Instance.RecordEffectiveDamage(sourceTowerType, effectiveDamage);
+        
+            if (overkillDamage > 0)
+            {
+                StatisticsTracker.Instance.RecordOverkillDamage(sourceTowerType, overkillDamage);
+            }
+        }
+        
+        // Apply the damage
         currentHealth -= damage;
         AudioManager.Instance.PlaySoundEffect(soundHit);
 

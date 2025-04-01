@@ -9,6 +9,9 @@ public class Projectile : MonoBehaviour
     [HideInInspector]
     public float projectileAoEAttackRangeRadius;
     public float projectileLifetime; // Time before self-destruction
+    
+    [HideInInspector]
+    public TowerInfo.TowerType sourceTowerType; // Tower type that shot this projectile
 
     void Start()
     {

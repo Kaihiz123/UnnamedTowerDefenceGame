@@ -227,6 +227,12 @@ public class WaveManager : MonoBehaviour
             
             Debug.Log("Starting Wave " + (waveIndex + 1) + " Enemy Scaling: " + currentActiveWave.enemyScaling);
             
+            // Notify StatisticsTracker of wave start
+            if (StatisticsTracker.Instance != null)
+            {
+                StatisticsTracker.Instance.OnWaveStart();
+            }
+            
             // Spawn each enemy in the current wave
             for (int spawnIndex = 0; spawnIndex < currentActiveWave.enemies.Count; spawnIndex++)
             {
@@ -251,6 +257,12 @@ public class WaveManager : MonoBehaviour
 
             // Wait until all the children are dead
             yield return new WaitUntil(() => enemyParent.childCount == 0);
+
+            // Notify StatisticsTracker of wave end
+            if (StatisticsTracker.Instance != null)
+            {
+                StatisticsTracker.Instance.OnWaveEnd();
+            }
 
             // Lets do unspeakable things to other systems now that the wave is over
             bank.IncreasePlayerMoney(currentActiveWave.waveReward);
