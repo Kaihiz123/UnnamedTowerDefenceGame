@@ -22,8 +22,10 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private Bank bank;
 
     [Header("Infinite Wave Settings")]
-    [SerializeField] private float infiniteWaveScalingIncrement = 0.1f; // Amount to increase scaling each infinite wave
-    [SerializeField] private float maxScalingMultiplier = 5f; // Maximum scaling multiplier
+    [SerializeField] private float infiniteWaveScalingIncrement = 0.1f;
+    [SerializeField] private float maxScalingMultiplier = 5f;
+    [SerializeField] private int globalInfiniteWaveReward = 100;
+    [SerializeField] private bool useGlobalInfiniteWaveReward = true;
 
     // Defines the different types of enemies that can be spawned
     public enum EnemyType
@@ -110,37 +112,65 @@ public class WaveManager : MonoBehaviour
     public IEnumerator Spawning()
     {
         // Start from the specified wave in debug mode
-        int startWaveIndex = debugMode ? Mathf.Clamp(startFromWave -1, 0, waves.Count - 1) : 0;
+        int startWaveIndex = debugMode ? startFromWave -1 : 0;
 
         // Calculate bank balance for skipped waves if debug mode is enabled
         if (debugMode && startWaveIndex > 0)
         {
             int accumulatedMoney = 0;
-            for (int i = 0; i < startWaveIndex; i++)
+            
+            // Calculate money from main waves
+            for (int i = 0; i < Mathf.Min(startWaveIndex, waves.Count); i++)
             {
                 accumulatedMoney += waves[i].waveReward;
+            }
+            
+            // Calculate money for repeating waves
+            if (startWaveIndex > waves.Count && repeatingWaves.Count > 0)
+            {
+                int repeatingWavesSkipped = startWaveIndex - waves.Count;
+                
+                // Initialize infinite waves completed and scaling multiplier when starting from repeating waves
+                infiniteWavesCompleted = repeatingWavesSkipped;
+                currentScalingMultiplier = Mathf.Min(
+                    1f + (infiniteWavesCompleted * infiniteWaveScalingIncrement), 
+                    maxScalingMultiplier
+                );
+                
+                Debug.Log($"Debug mode: Starting at infinite wave {infiniteWavesCompleted} with scaling multiplier {currentScalingMultiplier:F2}");
+                
+                accumulatedMoney += repeatingWavesSkipped * globalInfiniteWaveReward;
+                
+                Debug.Log($"Debug mode: Added rewards for {repeatingWavesSkipped} skipped repeating waves");
             }
             
             // Add the accumulated money to the player's bank
             if (accumulatedMoney > 0)
             {
                 bank.IncreasePlayerMoney(accumulatedMoney);
-                Debug.Log($"Debug mode: Added {accumulatedMoney} money for skipped waves (1-{startWaveIndex})");
+                Debug.Log($"Debug mode: Added {accumulatedMoney} total money for skipped waves (1-{startWaveIndex})");
             }
         }
         
-        // Use wave counter instead of for loop to allow infinite progression
         int waveIndex = startWaveIndex;
         
         while (true)
         {
-            // Wait for player to trigger wave
-            nextWaveButton.gameObject.SetActive(true); // change depending on UI needs
-            yield return new WaitUntil(() => nextWaveTriggered);
-            nextWaveButton.gameObject.SetActive(false); // change depending on UI needs
-            nextWaveTriggered = false;
+            if (waveIndex < waves.Count)
+            {
+                // Wait for player to trigger wave (only for main waves)
+                nextWaveButton.gameObject.SetActive(true);
+                yield return new WaitUntil(() => nextWaveTriggered);
+                nextWaveButton.gameObject.SetActive(false);
+                nextWaveTriggered = false;
+            }
+            else
+            {
+                // No buten for repeating waves
+                yield return new WaitForSeconds(2f);
+            }
             
-            // Get the current wave (from main list or random from repeating list)
+            // Get the current wave
             if (waveIndex < waves.Count)
             {
                 // Still in main wave list
@@ -169,9 +199,11 @@ public class WaveManager : MonoBehaviour
                 currentActiveWave = repeatingWaves[randomIndex];
                 
                 // Apply scaling multiplier to the infinite wave
-                // We create a clone of the wave to modify its scaling without affecting the original
+                // Clone of the wave to modify its scaling without affecting the original
                 Wave modifiedWave = new Wave();
-                modifiedWave.waveReward = currentActiveWave.waveReward;
+                
+                // Use global reward for infinite waves if enabled
+                modifiedWave.waveReward = useGlobalInfiniteWaveReward ? globalInfiniteWaveReward : currentActiveWave.waveReward;
                 modifiedWave.enemies = currentActiveWave.enemies;
                 
                 // Apply the scaling multiplier to the base scaling of the wave
@@ -180,7 +212,7 @@ public class WaveManager : MonoBehaviour
                 // Set the modified wave as current active wave
                 currentActiveWave = modifiedWave;
                 
-                Debug.Log($"Selected repeating wave pattern {randomIndex + 1} with scaling multiplier {currentScalingMultiplier:F2}");
+                Debug.Log($"Selected repeating wave pattern {randomIndex + 1} with scaling multiplier {currentScalingMultiplier:F2} and reward {modifiedWave.waveReward}");
             }
             
             helperCurrentWave = waveIndex + 1; // update current wave for inspector

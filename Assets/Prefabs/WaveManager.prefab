@@ -327,15 +327,17 @@ MonoBehaviour:
   nextWaveButton: {fileID: 1060625713205744055}
   nextWaveTriggered: 0
   helperCurrentWave: 0
-  debugMode: 1
-  startFromWave: 0
+  debugMode: 0
+  startFromWave: 1
   spawnPoint: {fileID: 0}
   enemyParent: {fileID: 0}
   waypointsParent: {fileID: 0}
   playerHealthSystem: {fileID: 0}
   bank: {fileID: 0}
-  infiniteWaveScalingIncrement: 0.1
-  maxScalingMultiplier: 5
+  infiniteWaveScalingIncrement: 0.2
+  maxScalingMultiplier: 10
+  globalInfiniteWaveReward: 100
+  useGlobalInfiniteWaveReward: 1
   basicEnemy: {fileID: 1401652412983515288, guid: b02be7594cead5e4baed89952494b068, type: 3}
   fastEnemy: {fileID: 1401652412983515288, guid: 4d3ede04a195b8441bdcce93e1749489, type: 3}
   tankEnemy: {fileID: 1401652412983515288, guid: 6637d77568c7e094eb3f24d69491438f, type: 3}
@@ -347,8 +349,15 @@ MonoBehaviour:
       spawnDelay: 1
       count: 5
       shieldCharges: 0
-  repeatingWaves:
   - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 0
+      spawnDelay: 0.8
+      count: 10
+      shieldCharges: 0
+  repeatingWaves:
+  - waveReward: 0
     enemyScaling: 1
     enemies:
     - enemyType: 0
