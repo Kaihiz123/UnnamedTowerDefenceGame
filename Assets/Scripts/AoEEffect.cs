@@ -45,7 +45,7 @@ public class AoEEffect : MonoBehaviour
                     return;
                 }
                 
-                // No shield, apply damage normally
+                // No shield, apply AoE damage normally
                 enemy.TakeDamage(aoEAttackDamage); 
 
                 // Instantiate explosionPrefab at enemy's position, with no parent

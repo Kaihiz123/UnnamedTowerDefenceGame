@@ -21,6 +21,10 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private PlayerHealthSystem playerHealthSystem;
     [SerializeField] private Bank bank;
 
+    [Header("Infinite Wave Settings")]
+    [SerializeField] private float infiniteWaveScalingIncrement = 0.1f; // Amount to increase scaling each infinite wave
+    [SerializeField] private float maxScalingMultiplier = 5f; // Maximum scaling multiplier
+
     // Defines the different types of enemies that can be spawned
     public enum EnemyType
     {
@@ -59,6 +63,13 @@ public class WaveManager : MonoBehaviour
     
     [Header("Wave Configuration")]
     [SerializeField] private List<Wave> waves = new List<Wave>();
+    [SerializeField] private List<Wave> repeatingWaves = new List<Wave>();
+    
+    // Reference to the current active wave
+    private Wave currentActiveWave;
+    // To track the scaling for infinite waves
+    private float currentScalingMultiplier = 1f;
+    private int infiniteWavesCompleted = 0;
 
     // Returns the correct enemy prefab based on the enemy type
     private GameObject GetEnemyPrefab(EnemyType type)
@@ -118,8 +129,10 @@ public class WaveManager : MonoBehaviour
             }
         }
         
-        // Loop through each wave
-        for (int waveIndex = startWaveIndex; waveIndex < waves.Count; waveIndex++)
+        // Use wave counter instead of for loop to allow infinite progression
+        int waveIndex = startWaveIndex;
+        
+        while (true)
         {
             // Wait for player to trigger wave
             nextWaveButton.gameObject.SetActive(true); // change depending on UI needs
@@ -127,14 +140,65 @@ public class WaveManager : MonoBehaviour
             nextWaveButton.gameObject.SetActive(false); // change depending on UI needs
             nextWaveTriggered = false;
             
+            // Get the current wave (from main list or random from repeating list)
+            if (waveIndex < waves.Count)
+            {
+                // Still in main wave list
+                currentActiveWave = waves[waveIndex];
+            }
+            else
+            {
+                // Switched to repeating waves
+                if (waveIndex == waves.Count)
+                {
+                    Debug.Log("Main waves completed! Starting repeating waves.");
+                    
+                    if (repeatingWaves.Count == 0)
+                    {
+                        Debug.Log("No repeating waves defined. Game over!");
+                        yield break;
+                    }
+                    
+                    // Reset for first infinite wave
+                    infiniteWavesCompleted = 0;
+                    currentScalingMultiplier = 1f;
+                }
+                
+                // Select a random wave from repeating waves
+                int randomIndex = Random.Range(0, repeatingWaves.Count);
+                currentActiveWave = repeatingWaves[randomIndex];
+                
+                // Apply scaling multiplier to the infinite wave
+                // We create a clone of the wave to modify its scaling without affecting the original
+                Wave modifiedWave = new Wave();
+                modifiedWave.waveReward = currentActiveWave.waveReward;
+                modifiedWave.enemies = currentActiveWave.enemies;
+                
+                // Apply the scaling multiplier to the base scaling of the wave
+                modifiedWave.enemyScaling = currentActiveWave.enemyScaling * currentScalingMultiplier;
+                
+                // Set the modified wave as current active wave
+                currentActiveWave = modifiedWave;
+                
+                Debug.Log($"Selected repeating wave pattern {randomIndex + 1} with scaling multiplier {currentScalingMultiplier:F2}");
+            }
+            
             helperCurrentWave = waveIndex + 1; // update current wave for inspector
-            Wave currentWave = waves[waveIndex];
-            Debug.Log("Starting Wave " + (waveIndex + 1) + " Enemy Scaling: " + currentWave.enemyScaling);
+            
+            // Check if the wave is empty
+            if (currentActiveWave.enemies == null || currentActiveWave.enemies.Count == 0)
+            {
+                Debug.LogWarning($"Wave {waveIndex + 1} is empty! Skipping to next wave.");
+                waveIndex++;
+                continue; // Skip to the next wave
+            }
+            
+            Debug.Log("Starting Wave " + (waveIndex + 1) + " Enemy Scaling: " + currentActiveWave.enemyScaling);
             
             // Spawn each enemy in the current wave
-            for (int spawnIndex = 0; spawnIndex < currentWave.enemies.Count; spawnIndex++)
+            for (int spawnIndex = 0; spawnIndex < currentActiveWave.enemies.Count; spawnIndex++)
             {
-                EnemySpawn spawn = currentWave.enemies[spawnIndex];
+                EnemySpawn spawn = currentActiveWave.enemies[spawnIndex];
                 
                 // Spawn the specified count of this enemy type
                 for (int i = 0; i < spawn.count; i++)
@@ -157,11 +221,24 @@ public class WaveManager : MonoBehaviour
             yield return new WaitUntil(() => enemyParent.childCount == 0);
 
             // Lets do unspeakable things to other systems now that the wave is over
-            bank.IncreasePlayerMoney(currentWave.waveReward);
-            Debug.Log("Wave " + (waveIndex + 1) + " completed!" + " Money earned: " + currentWave.waveReward);
+            bank.IncreasePlayerMoney(currentActiveWave.waveReward);
+            Debug.Log("Wave " + (waveIndex + 1) + " completed!" + " Money earned: " + currentActiveWave.waveReward);
+            
+            // If this was an infinite wave, increment the scaling for next infinite wave
+            if (waveIndex >= waves.Count)
+            {
+                infiniteWavesCompleted++;
+                // Increase the scaling multiplier for the next infinite wave
+                currentScalingMultiplier = Mathf.Min(
+                    1f + (infiniteWavesCompleted * infiniteWaveScalingIncrement), 
+                    maxScalingMultiplier
+                );
+                Debug.Log($"Infinite wave {infiniteWavesCompleted} completed. Next scaling multiplier: {currentScalingMultiplier:F2}");
+            }
+            
+            // Increment wave index for next loop
+            waveIndex++;
         }
-        
-        Debug.Log("All waves completed!");
     }
 
     // Call this to trigger the next wave
@@ -179,22 +256,19 @@ public class WaveManager : MonoBehaviour
             GameObject newEnemy = Instantiate(enemyToSpawn, position, rotation);
             newEnemy.transform.SetParent(enemyParent);
             
-            // Get the current wave and find the enemy spawn configuration
-            Wave currentWave = waves[helperCurrentWave - 1];
-            float enemyScaling = currentWave.enemyScaling;
+            float enemyScaling = currentActiveWave.enemyScaling;
             
             // Find the current spawn configuration to get shield charges
             int shieldCharges = 0;
-            foreach (EnemySpawn spawn in currentWave.enemies)
+            foreach (EnemySpawn spawn in currentActiveWave.enemies)
             {
                 if (spawn.enemyType == enemyType)
                 {
-                    shieldCharges = spawn.shieldCharges;
+                    shieldCharges = (int)(spawn.shieldCharges*currentScalingMultiplier);
                     break;
                 }
             }
             
-            // Pass shield charges to the Initialize method
             newEnemy.GetComponent<EnemyScript>().Initialize(waypointsParent, playerHealthSystem, enemyScaling, shieldCharges);
         }
     }

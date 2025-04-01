@@ -34,8 +34,17 @@ public class ProjectileCollision : MonoBehaviour
                 }
                 else
                 {
-                    // No shield, apply damage normally
-                    enemy.TakeDamage(parentProjectile.projectileAttackDamage);
+                    // No shield - check if it's an AoE projectile
+                    bool isAoEProjectile = gameObject.CompareTag("ProjectileAoE");
+                    
+                    if (!isAoEProjectile)
+                    {
+                        enemy.TakeDamage(parentProjectile.projectileAttackDamage);
+                    }
+                    else 
+                    {
+                        enemy.TakeDamage(0); // still removes shield charges on direct hit
+                    }
                     
                     // Hit spark particles
                     if (sparkEffectPrefab != null)
@@ -45,7 +54,6 @@ public class ProjectileCollision : MonoBehaviour
                 }
             }
 
-            // Destroy the parent projectile on impact regardless of shield
             Destroy(parentProjectile.gameObject);
         }
 
