@@ -78,7 +78,10 @@ public class MenuSettingsItemSlider : MonoBehaviour
                 case ISettings.Type.BRIGHTNESS:
                     Screen.brightness = slider.value;
                     break;
-                case ISettings.Type.MASTERVOLUME | ISettings.Type.MUSICVOLUME | ISettings.Type.SOUNDEFFECTVOLUME | ISettings.Type.UIVOLUME:
+                case ISettings.Type.MASTERVOLUME:
+                case ISettings.Type.MUSICVOLUME:
+                case ISettings.Type.SOUNDEFFECTVOLUME:
+                case ISettings.Type.UIVOLUME:
                     AudioManager.Instance.SetVolume(type, slider.value);
                     break;
                 default:

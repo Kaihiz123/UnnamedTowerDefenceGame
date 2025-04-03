@@ -51,6 +51,8 @@ public class AudioManager: MonoBehaviour
         // Log10 is used to convert linear 0...1 -> non linear -80dB...20dB
         // Log10(0) -> sets volume high so we prevent it by using Mathf.Max where -80 is the quietest
 
+        Debug.Log("" + type.ToString() + ", volume=" + volume);
+
         if(type == ISettings.Type.MASTERVOLUME || type == ISettings.Type.SOUNDEFFECTVOLUME 
             || type == ISettings.Type.MUSICVOLUME || type == ISettings.Type.UIVOLUME)
         {

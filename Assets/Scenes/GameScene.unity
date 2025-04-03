@@ -6535,18 +6535,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74689aa371446aa4d832acb09b7a1ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWaveBasicEffectiveDamage: 0
+  currentWaveSniperEffectiveDamage: 0
+  currentWaveAoEEffectiveDamage: 0
+  currentWaveTotalEffectiveDamage: 0
+  lastWaveBasicEffectiveDamage: 0
+  lastWaveSniperEffectiveDamage: 0
+  lastWaveAoEEffectiveDamage: 0
+  lastWaveTotalEffectiveDamage: 0
   basicTowerDamage: 0
   sniperTowerDamage: 0
   aoeTowerDamage: 0
   totalDamage: 0
-  basicTowerBlockedDamage: 0
-  sniperTowerBlockedDamage: 0
-  aoeTowerBlockedDamage: 0
-  totalBlockedDamage: 0
   basicTowerEffectiveDamage: 0
   sniperTowerEffectiveDamage: 0
   aoeTowerEffectiveDamage: 0
   totalEffectiveDamage: 0
+  basicTowerBlockedDamage: 0
+  sniperTowerBlockedDamage: 0
+  aoeTowerBlockedDamage: 0
+  totalBlockedDamage: 0
   basicTowerOverkillDamage: 0
   sniperTowerOverkillDamage: 0
   aoeTowerOverkillDamage: 0
@@ -9706,6 +9714,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1189929520 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4889327406665005690, guid: 6c15b7bcf69eff44387988f93c71e7aa, type: 3}
+  m_PrefabInstance: {fileID: 1408188672}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1191185058
 GameObject:
   m_ObjectHideFlags: 0
@@ -13573,6 +13586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBaseHealthBar: {fileID: 1268977622}
   bloomActivator: {fileID: 1895411506}
+  FPSPanel: {fileID: 1189929520}
 --- !u!1 &1535680315
 GameObject:
   m_ObjectHideFlags: 0
