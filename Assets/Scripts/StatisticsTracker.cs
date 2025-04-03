@@ -31,28 +31,28 @@ public class StatisticsTracker : MonoBehaviour
     [Space]
     [SerializeField] private float lastWaveTotalEffectiveDamage;
     
-    [Header("Total Attempted Damage (Read-Only)")]
+    [Header("Total Attempted Damage")]
     [SerializeField] private float basicTowerDamage;
     [SerializeField] private float sniperTowerDamage;
     [SerializeField] private float aoeTowerDamage;
     [Space]
     [SerializeField] private float totalDamage;
     
-    [Header("Effective Damage (Read-Only)")]
+    [Header("Effective Damage")]
     [SerializeField] private float basicTowerEffectiveDamage;
     [SerializeField] private float sniperTowerEffectiveDamage;
     [SerializeField] private float aoeTowerEffectiveDamage;
     [Space]
     [SerializeField] private float totalEffectiveDamage;
     
-    [Header("Shield Blocked Damage (Read-Only)")]
+    [Header("Shield Blocked Damage")]
     [SerializeField] private float basicTowerBlockedDamage;
     [SerializeField] private float sniperTowerBlockedDamage;
     [SerializeField] private float aoeTowerBlockedDamage;
     [Space]
     [SerializeField] private float totalBlockedDamage;
     
-    [Header("Overkill Damage (Read-Only)")]
+    [Header("Overkill Damage")]
     [SerializeField] private float basicTowerOverkillDamage;
     [SerializeField] private float sniperTowerOverkillDamage;
     [SerializeField] private float aoeTowerOverkillDamage;
