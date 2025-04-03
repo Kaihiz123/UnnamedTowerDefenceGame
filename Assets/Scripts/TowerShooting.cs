@@ -35,6 +35,7 @@ public class TowerShooting : MonoBehaviour
     public AudioClip soundShoot;
 
     private TowerShootingAoE towerShootingAoEScript;
+    public TowerInfo towerInfo;
 
     bool isShootingEnabled = true;
 
@@ -43,6 +44,7 @@ public class TowerShooting : MonoBehaviour
         towerShootingAoEScript = GetComponent<TowerShootingAoE>();
         UpdateFireRate();
         UpdateDebugCircleRadius();
+        towerInfo = GetComponent<TowerInfo>();
     }
 
     public void UpdateDebugCircleRadius()
@@ -223,6 +225,12 @@ public class TowerShooting : MonoBehaviour
             {
                 projectileScript.projectileAttackDamage = projectileAttackDamage;
                 projectileScript.projectileSpeed = projectileSpeed;
+
+                // Get the TowerInfo component and set the tower type
+                if (towerInfo != null)
+                {
+                    projectileScript.sourceTowerType = towerInfo.towerType;
+                }
 
                 if (towerShootingAoEScript != null)
                 {

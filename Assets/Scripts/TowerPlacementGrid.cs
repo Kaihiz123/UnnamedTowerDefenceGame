@@ -235,13 +235,16 @@ public class TowerPlacementGrid : MonoBehaviour
             if(boughtGameObject != null)
             {
                 // check if the area is available
-                if (isAreaAvailable(snapPosition, movement))//Mathf.RoundToInt(snapX - movement.x), Mathf.RoundToInt(snapY - movement.y)))
+                if (isAreaAvailable(snapPosition, movement) && !isAreaOfflimits(snapPosition, movement))//Mathf.RoundToInt(snapX - movement.x), Mathf.RoundToInt(snapY - movement.y)))
                 {
                     // move the selected tower to position
                     boughtGameObject.transform.position = new Vector3(snapPosition.x, snapPosition.y, 0f);
 
                     // change this are to be occupied
                     unavailablePositions.Add(new Vector2Int(Mathf.RoundToInt(snapPosition.x - movement.x), Mathf.RoundToInt(snapPosition.y - movement.y)));
+
+                    // notify the bank that the transaction was successful (money is removed from bank)
+                    bank.NewTowerWasPlacedSuccessfully();
 
                     // show the selection window
                     ShowSelectionWindow(true);
@@ -251,9 +254,6 @@ public class TowerPlacementGrid : MonoBehaviour
                     SelectionIndicator.SetActive(true);
                     // bought object is now selected
                     selectedGameObject = boughtGameObject;
-
-                    // notify the bank that the transaction was successful (money is removed from bank)
-                    bank.NewTowerWasPlacedSuccessfully();
 
                     // update tower's attack, range, firerate, etc. values to match the upgrade index
                     selectedGameObject.GetComponent<TowerUpgrading>().RunWhenTowerUpgrades();
@@ -287,7 +287,7 @@ public class TowerPlacementGrid : MonoBehaviour
                 if (isDragging)
                 {
                     // check if the area is available
-                    if (isAreaAvailable(snapPosition, movement))//Mathf.RoundToInt(snapX - movement.x), Mathf.RoundToInt(snapY - movement.y)))
+                    if (isAreaAvailable(snapPosition, movement) && !isAreaOfflimits(snapPosition, movement))
                     {
                         // move the selected tower to position
                         raycastedGameObject.transform.position = new Vector3(snapPosition.x, snapPosition.y, 0f);
@@ -360,6 +360,11 @@ public class TowerPlacementGrid : MonoBehaviour
     private Vector2 GetSnapPosition(Vector3 mousePosition)
     {
         float snapX, snapY;
+
+        snapX = Mathf.Round((mousePosition.x - movement.x - ElementSize.x) / ElementSize.x) * ElementSize.x + ElementSize.x + movement.x;
+        snapY = Mathf.Round((mousePosition.y - movement.y - ElementSize.y) / ElementSize.y) * ElementSize.y + ElementSize.y + movement.y;
+
+        /*        
         if (GridSize.x % 2 == 0)
         {
             snapX = Mathf.Round((mousePosition.x - movement.x - ElementSize.x / 2f) / ElementSize.x) * ElementSize.x + ElementSize.x / 2f + movement.x;
@@ -376,6 +381,7 @@ public class TowerPlacementGrid : MonoBehaviour
         {
             snapY = Mathf.Round((mousePosition.y - movement.y - ElementSize.y) / ElementSize.y) * ElementSize.y + ElementSize.y + movement.y;
         }
+        */
 
         return new Vector2(snapX, snapY);
     }
@@ -408,6 +414,13 @@ public class TowerPlacementGrid : MonoBehaviour
     private bool isAreaOfflimits(Vector2 snapPosition, Vector3 movement)
     {
         Vector2Int v = new Vector2Int(Mathf.RoundToInt(snapPosition.x - movement.x), Mathf.RoundToInt(snapPosition.y - movement.y));
+
+        // check if area is outside the grid
+        if ((float)v.x > GridSize.x / 2f || (float)v.x < -GridSize.x / 2f || (float)v.y > GridSize.y / 2f || (float)v.y < -GridSize.y / 2f)
+        {
+            return true;
+        }
+
         foreach (Vector2Int offlimitPosition in offlimitsPositions)
         {
             if ((v.x == offlimitPosition.x && v.y == offlimitPosition.y))
@@ -457,15 +470,128 @@ public class TowerPlacementGrid : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        for(int i = 1; i < GridSize.x; i++)
+
+        if (GridSize.x % 2 == 0)
         {
-            Gizmos.DrawLine(new Vector3(i * ElementSize.x - GridSize.x * 0.5f * ElementSize.x + movement.x, GridSize.y * -0.5f * ElementSize.y + movement.y, 0f), new Vector3(i * ElementSize.x - GridSize.x * 0.5f * ElementSize.x + movement.x, GridSize.y * ElementSize.y + GridSize.y * -0.5f * ElementSize.y + movement.y, 0f));
+            for (int i = 1; i <= GridSize.x; i++)
+            {
+                Gizmos.DrawLine(
+                    new Vector3(
+                        i * ElementSize.x - GridSize.x * 0.5f * ElementSize.x - 0.5f * ElementSize.x + movement.x,
+                        GridSize.y * -0.5f * ElementSize.y + movement.y,
+                        0f),
+                    new Vector3(
+                        i * ElementSize.x - GridSize.x * 0.5f * ElementSize.x - 0.5f * ElementSize.x + movement.x,
+                        GridSize.y * ElementSize.y + GridSize.y * -0.5f * ElementSize.y + movement.y,
+                        0f));
+            }
         }
-        
+        else
+        {
+            for (int i = 1; i < GridSize.x; i++)
+            {
+                Gizmos.DrawLine(
+                    new Vector3(
+                        i * ElementSize.x - GridSize.x * 0.5f * ElementSize.x + movement.x,
+                        GridSize.y * -0.5f * ElementSize.y + movement.y,
+                        0f),
+                    new Vector3(
+                        i * ElementSize.x - GridSize.x * 0.5f * ElementSize.x + movement.x,
+                        GridSize.y * ElementSize.y + GridSize.y * -0.5f * ElementSize.y + movement.y,
+                        0f));
+            }
+        }
+
+        /*
+        for (int i = 1; i < GridSize.x; i++)
+        {
+            if(GridSize.x % 2 == 0)
+            {   
+                Gizmos.DrawLine(
+                new Vector3(
+                    i * ElementSize.x - GridSize.x * 0.5f * ElementSize.x + 0.5f * ElementSize.x + movement.x,
+                    GridSize.y * -0.5f * ElementSize.y + movement.y,
+                    0f),
+                new Vector3(
+                    i * ElementSize.x - GridSize.x * 0.5f * ElementSize.x + 0.5f * ElementSize.x + movement.x,
+                    GridSize.y * ElementSize.y + GridSize.y * -0.5f * ElementSize.y + movement.y,
+                    0f));
+            }
+            else
+            {
+                Gizmos.DrawLine(
+                new Vector3(
+                    i * ElementSize.x - GridSize.x * 0.5f * ElementSize.x + movement.x,
+                    GridSize.y * -0.5f * ElementSize.y + movement.y,
+                    0f),
+                new Vector3(
+                    i * ElementSize.x - GridSize.x * 0.5f * ElementSize.x + movement.x,
+                    GridSize.y * ElementSize.y + GridSize.y * -0.5f * ElementSize.y + movement.y,
+                    0f));
+            }
+        }
+        */
+
+        if (GridSize.y % 2 == 0)
+        {
+            for (int i = 1; i <= GridSize.y; i++)
+            {
+                Gizmos.DrawLine(
+                    new Vector3(
+                        GridSize.x * -0.5f * ElementSize.x + movement.x,
+                        i * ElementSize.y - GridSize.y * 0.5f * ElementSize.y - 0.5f * ElementSize.y + movement.y,
+                        0f),
+                    new Vector3(
+                        GridSize.x * ElementSize.x + GridSize.x * -0.5f * ElementSize.x + movement.x,
+                        i * ElementSize.y - GridSize.y * 0.5f * ElementSize.y - 0.5f * ElementSize.y + movement.y,
+                        0f));
+            }
+        }
+        else
+        {
+            for (int i = 1; i < GridSize.y; i++)
+            {
+                Gizmos.DrawLine(
+                    new Vector3(
+                        GridSize.x * -0.5f * ElementSize.x + movement.x,
+                        i * ElementSize.y - GridSize.y * 0.5f * ElementSize.y + movement.y,
+                        0f),
+                    new Vector3(
+                        GridSize.x * ElementSize.x + GridSize.x * -0.5f * ElementSize.x + movement.x,
+                        i * ElementSize.y - GridSize.y * 0.5f * ElementSize.y + movement.y,
+                        0f));
+            }
+        }
+
+        /*
         for (int i = 1; i < GridSize.y; i++)
         {
-            Gizmos.DrawLine(new Vector3(GridSize.x * -0.5f * ElementSize.x + movement.x, i * ElementSize.y - GridSize.y * 0.5f * ElementSize.y + movement.y, 0f), new Vector3(GridSize.x * ElementSize.x + GridSize.x * -0.5f * ElementSize.x + movement.x, i * ElementSize.y - GridSize.y * 0.5f * ElementSize.y + movement.y, 0f));
+            if(GridSize.y % 2 == 0)
+            {
+                Gizmos.DrawLine(
+                new Vector3(
+                    GridSize.x * -0.5f * ElementSize.x + movement.x,
+                    i * ElementSize.y - GridSize.y * 0.5f * ElementSize.y + 0.5f * ElementSize.y + movement.y,
+                    0f),
+                new Vector3(
+                    GridSize.x * ElementSize.x + GridSize.x * -0.5f * ElementSize.x + movement.x,
+                    i * ElementSize.y - GridSize.y * 0.5f * ElementSize.y + 0.5f * ElementSize.y + movement.y,
+                    0f));
+            }
+            else
+            {
+                Gizmos.DrawLine(
+                new Vector3(
+                    GridSize.x * -0.5f * ElementSize.x + movement.x,
+                    i * ElementSize.y - GridSize.y * 0.5f * ElementSize.y + movement.y,
+                    0f),
+                new Vector3(
+                    GridSize.x * ElementSize.x + GridSize.x * -0.5f * ElementSize.x + movement.x,
+                    i * ElementSize.y - GridSize.y * 0.5f * ElementSize.y + movement.y,
+                    0f));
+            }
         }
+        */
        
     }
 

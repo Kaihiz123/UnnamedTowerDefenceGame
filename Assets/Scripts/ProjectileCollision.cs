@@ -21,11 +21,28 @@ public class ProjectileCollision : MonoBehaviour
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
             if (enemy != null)
             {
-                // Check for shield first
+
                 bool shieldAbsorbedHit = enemy.HitShield();
+                bool isAoEProjectile = gameObject.CompareTag("ProjectileAoE");
+                
+                // Record damage attempt
+                if (!isAoEProjectile && StatisticsTracker.Instance != null)
+                {
+                    StatisticsTracker.Instance.RecordDamageAttempt(
+                        parentProjectile.sourceTowerType, 
+                        parentProjectile.projectileAttackDamage);
+                }
                 
                 if (shieldAbsorbedHit)
                 {
+                    // Record damage blocked by shield
+                    if (!isAoEProjectile && StatisticsTracker.Instance != null)
+                    {
+                        StatisticsTracker.Instance.RecordShieldBlockedDamage(
+                            parentProjectile.sourceTowerType, 
+                            parentProjectile.projectileAttackDamage);
+                    }
+                    
                     // Shield absorbed the hit, spawn shield hit effect if available
                     if (shieldHitEffectPrefab != null)
                     {
@@ -34,8 +51,15 @@ public class ProjectileCollision : MonoBehaviour
                 }
                 else
                 {
-                    // No shield, apply damage normally
-                    enemy.TakeDamage(parentProjectile.projectileAttackDamage);
+                    // No shield - check if it's an AoE projectile
+                    if (!isAoEProjectile)
+                    {
+                        enemy.TakeDamage(parentProjectile.projectileAttackDamage, parentProjectile.sourceTowerType);
+                    }
+                    else 
+                    {
+                        enemy.TakeDamage(0, parentProjectile.sourceTowerType); // still removes shield charges on direct hit
+                    }
                     
                     // Hit spark particles
                     if (sparkEffectPrefab != null)
@@ -45,7 +69,6 @@ public class ProjectileCollision : MonoBehaviour
                 }
             }
 
-            // Destroy the parent projectile on impact regardless of shield
             Destroy(parentProjectile.gameObject);
         }
 
@@ -71,7 +94,8 @@ public class ProjectileCollision : MonoBehaviour
             if (aoEEffectScript != null)
             {
                 aoEEffectScript.aoEAttackDamage = parentProjectile.projectileAttackDamage;
-                aoEEffectScript.aoEAttackRangeRadius = parentProjectile.projectileAoEAttackRangeRadius; 
+                aoEEffectScript.aoEAttackRangeRadius = parentProjectile.projectileAoEAttackRangeRadius;
+                aoEEffectScript.sourceTowerType = parentProjectile.sourceTowerType;
             }
         }
     }

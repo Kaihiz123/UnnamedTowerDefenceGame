@@ -10,6 +10,9 @@ public class AoEEffect : MonoBehaviour
     public GameObject explosionPrefab;
     public Transform DEBUGAoEAttackRangeCircleSprite;
     [SerializeField] private GameObject theDEBUGAoEAttackRangeCircleSprite;
+    
+    [HideInInspector]
+    public TowerInfo.TowerType sourceTowerType; // Tower type that generated this AoE effect
 
     void Start()
     { 
@@ -38,15 +41,27 @@ public class AoEEffect : MonoBehaviour
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
             if (enemy != null)
             {
+                // Record AoE damage attempt
+                if (StatisticsTracker.Instance != null)
+                {
+                    StatisticsTracker.Instance.RecordDamageAttempt(sourceTowerType, aoEAttackDamage);
+                }
+                
                 // Check if the enemy has a shield
                 if (enemy.shieldCharges > 0)
                 {
+                    // Record the damage blocked by the shield
+                    if (StatisticsTracker.Instance != null)
+                    {
+                        StatisticsTracker.Instance.RecordShieldBlockedDamage(sourceTowerType, aoEAttackDamage);
+                    }
+                    
                     // Skip this enemy, shield blocks AoE damage
                     return;
                 }
                 
-                // No shield, apply damage normally
-                enemy.TakeDamage(aoEAttackDamage); 
+                // No shield, apply AoE damage normally
+                enemy.TakeDamage(aoEAttackDamage, sourceTowerType); 
 
                 // Instantiate explosionPrefab at enemy's position, with no parent
                 GameObject explosion = Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);
