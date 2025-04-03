@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5594057048422298156}
   - component: {fileID: 1625206394816389831}
   - component: {fileID: 2625487681423157201}
+  - component: {fileID: 1577885607268876736}
   m_Layer: 5
   m_Name: ExitGameButton
   m_TagString: Untagged
@@ -133,6 +134,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1577885607268876736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288522095581313717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8abab8cf4f096bb8b249c6b15f74736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundHover: {fileID: 8300000, guid: 27af269441b4e9a0c8b9b23ef8e57b4d, type: 3}
+  soundClick: {fileID: 8300000, guid: d84addd4d4f65c8668db6bc5412db39e, type: 3}
 --- !u!1 &657156281162807567
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,6 +160,7 @@ GameObject:
   - component: {fileID: 1584821672009744664}
   - component: {fileID: 2115155330911887239}
   - component: {fileID: 8757627384692783644}
+  - component: {fileID: 1932522241694504619}
   m_Layer: 5
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -266,6 +282,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1932522241694504619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657156281162807567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8abab8cf4f096bb8b249c6b15f74736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundHover: {fileID: 8300000, guid: 27af269441b4e9a0c8b9b23ef8e57b4d, type: 3}
+  soundClick: {fileID: 8300000, guid: d84addd4d4f65c8668db6bc5412db39e, type: 3}
 --- !u!1 &1305953681435030231
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,7 +429,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2874024429827574680
@@ -860,7 +890,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4889327406665005690
@@ -1208,6 +1238,7 @@ GameObject:
   - component: {fileID: 5294535827277143455}
   - component: {fileID: 4453764384276326574}
   - component: {fileID: 4660842557836168243}
+  - component: {fileID: 5594570289661265976}
   m_Layer: 5
   m_Name: ExitToMainMenuButton
   m_TagString: Untagged
@@ -1329,6 +1360,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5594570289661265976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6979230711543867801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8abab8cf4f096bb8b249c6b15f74736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundHover: {fileID: 8300000, guid: 27af269441b4e9a0c8b9b23ef8e57b4d, type: 3}
+  soundClick: {fileID: 8300000, guid: d84addd4d4f65c8668db6bc5412db39e, type: 3}
 --- !u!1 &7054436776602099897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1582,7 +1627,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7584914799755393670
@@ -1597,6 +1642,7 @@ GameObject:
   - component: {fileID: 4344946185187968333}
   - component: {fileID: 4927275420220009368}
   - component: {fileID: 5937050110606569394}
+  - component: {fileID: 1758580880202388326}
   m_Layer: 5
   m_Name: ResumeButton
   m_TagString: Untagged
@@ -1718,6 +1764,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1758580880202388326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7584914799755393670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8abab8cf4f096bb8b249c6b15f74736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundHover: {fileID: 8300000, guid: 27af269441b4e9a0c8b9b23ef8e57b4d, type: 3}
+  soundClick: {fileID: 8300000, guid: d84addd4d4f65c8668db6bc5412db39e, type: 3}
 --- !u!1 &9206870047262821897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1851,7 +1911,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &2646165961965539557
@@ -1920,7 +1980,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5117620841489325333, guid: 5442405208cfabb4cbd7ed6d39d3a537, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 321
+      value: 325.7575
       objectReference: {fileID: 0}
     - target: {fileID: 5117620841489325333, guid: 5442405208cfabb4cbd7ed6d39d3a537, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2040,7 +2100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7666423827329299704, guid: 5442405208cfabb4cbd7ed6d39d3a537, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 107
+      value: 111.7575
       objectReference: {fileID: 0}
     - target: {fileID: 7666423827329299704, guid: 5442405208cfabb4cbd7ed6d39d3a537, type: 3}
       propertyPath: m_AnchoredPosition.y
