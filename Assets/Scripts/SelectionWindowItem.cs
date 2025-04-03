@@ -18,6 +18,12 @@ public class SelectionWindowItem : MonoBehaviour, IPointerEnterHandler, IPointer
         {
             upgradeLayoutScript = GetComponentInParent<UpgradeLayoutScript>();
         }
+
+        if(upgradeIndex == 0)
+        {
+            playerOwnsThisItem = true;
+            ChangeColor();
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)

@@ -328,7 +328,7 @@ MonoBehaviour:
   nextWaveTriggered: 0
   helperCurrentWave: 0
   debugMode: 0
-  startFromWave: 10
+  startFromWave: 1
   spawnPoint: {fileID: 0}
   enemyParent: {fileID: 0}
   waypointsParent: {fileID: 0}
