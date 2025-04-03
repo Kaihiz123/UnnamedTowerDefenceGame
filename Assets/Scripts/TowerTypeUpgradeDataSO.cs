@@ -4,6 +4,8 @@ using UnityEngine;
 [System.Serializable]
 public class UpgradeLevelData
 {
+    public Sprite towerBaseSprite;
+    public Sprite towerTurretSprite;
     public int upgradeCost;
     public float range;
     public float attackDamage;
