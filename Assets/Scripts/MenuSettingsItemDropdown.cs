@@ -76,7 +76,7 @@ public class MenuSettingsItemDropdown : MonoBehaviour
                 dropdown.AddOptions(options);
                 // Valid values are 0(no MSAA), 2, 4, and 8
                 int[] intArray = new int[] { 0, 2, 4, 8 };
-                dropdown.value = intArray[PlayerPrefs.GetInt(type.ToString())];
+                dropdown.value = intArray[PlayerPrefs.GetInt(type.ToString(), defaultIndex)];
                 dropdown.RefreshShownValue();
                 dropdown.onValueChanged.AddListener(DropdownValueChanged);
                 break;
