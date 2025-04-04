@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         // this is called when scene loads
 
 
-        //TODO: go through all the options such as anti aliasing, showFPS...
+        // go through all the options such as anti aliasing, showFPS...
 
         // actual settings
 

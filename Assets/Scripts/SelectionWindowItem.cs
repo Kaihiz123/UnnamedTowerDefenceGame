@@ -61,14 +61,12 @@ public class SelectionWindowItem : MonoBehaviour, IPointerEnterHandler, IPointer
     public void PlayerCanAfford()
     {
         playerCanAffordThisItem = true;
-        //playerOwnsThisItem = false;
         ChangeColor();
     }
 
     public void PlayerCannotAfford()
     {
         playerCanAffordThisItem = false;
-        //playerOwnsThisItem = false;
         ChangeColor();
     }
 

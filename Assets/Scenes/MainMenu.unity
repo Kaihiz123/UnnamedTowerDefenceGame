@@ -4025,6 +4025,7 @@ MonoBehaviour:
   - {fileID: 1107059099}
   - {fileID: 1284168355}
   ExitButton: {fileID: 623808112}
+  FPSPanel: {fileID: 391257756}
   mainMenuMusicAudioClip: {fileID: 8300000, guid: 08a4aa11824371edeaf147d89de6383b, type: 3}
 --- !u!1 &848465008
 GameObject:
