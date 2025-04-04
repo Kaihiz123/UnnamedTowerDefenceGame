@@ -44,7 +44,7 @@ public class UpgradeLayoutScript : MonoBehaviour
 
     }
 
-    public void MouseButtonUp(GameObject go, int upgradeIndex)
+    public void MouseButtonUp(GameObject go, int upgradeIndex, SelectionWindowItem selectionWindowItem)
     {
         // confirm that mouse button was pressed down and up on the same button
         if (hoverOverButton == go)
@@ -68,7 +68,7 @@ public class UpgradeLayoutScript : MonoBehaviour
                 // Check that this upgrade haven't been bought already. Also prevent player skipping upgrades.
                 if (currentTowerInfo.upgradeIndex + 1 == upgradeIndex)
                 {
-                    selectionWindow.UpgradeButtonPressed(upgradeIndex, towerUpgrades.towerType[(int)towerType].upgradeLevels[upgradeIndex].upgradeCost);
+                    selectionWindow.UpgradeButtonPressed(upgradeIndex, towerUpgrades.towerType[(int)towerType].upgradeLevels[upgradeIndex].upgradeCost, selectionWindowItem);
                 }
             }
 

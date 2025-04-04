@@ -33,7 +33,7 @@ public class SelectionWindowItem : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        upgradeLayoutScript.MouseButtonUp(gameObject, upgradeIndex);
+        upgradeLayoutScript.MouseButtonUp(gameObject, upgradeIndex, this);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -61,20 +61,21 @@ public class SelectionWindowItem : MonoBehaviour, IPointerEnterHandler, IPointer
     public void PlayerCanAfford()
     {
         playerCanAffordThisItem = true;
-        playerOwnsThisItem = false;
+        //playerOwnsThisItem = false;
         ChangeColor();
     }
 
     public void PlayerCannotAfford()
     {
         playerCanAffordThisItem = false;
-        playerOwnsThisItem = false;
+        //playerOwnsThisItem = false;
         ChangeColor();
     }
 
-    public void PlayerOwns()
+    public void PlayerOwns(bool owns)
     {
-        playerOwnsThisItem = true;
+        playerOwnsThisItem = owns;
+        ChangeColor();
     }
 
     private void ChangeColor()

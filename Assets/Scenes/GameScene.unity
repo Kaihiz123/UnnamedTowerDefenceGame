@@ -16426,7 +16426,7 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.9997746
+    width: 1
     height: 1
   near clip plane: 0.3
   far clip plane: 100
@@ -21961,6 +21961,10 @@ PrefabInstance:
       propertyPath: debug
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2368359474494329223, guid: da36261be3da19147bae95ad778e3bda, type: 3}
+      propertyPath: selectionWindow
+      value: 
+      objectReference: {fileID: 1391577037}
     - target: {fileID: 2368359474494329223, guid: da36261be3da19147bae95ad778e3bda, type: 3}
       propertyPath: playerStartMoneyIfDebugIsOn
       value: 400
