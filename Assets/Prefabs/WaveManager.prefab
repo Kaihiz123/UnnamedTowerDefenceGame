@@ -338,7 +338,7 @@ MonoBehaviour:
   waypointsParent: {fileID: 0}
   playerHealthSystem: {fileID: 0}
   bank: {fileID: 0}
-  infiniteWaveScalingIncrement: 0.2
+  infiniteWaveScalingIncrement: 0.1
   maxScalingMultiplier: 10
   globalInfiniteWaveReward: 100
   useGlobalInfiniteWaveReward: 1
@@ -350,41 +350,33 @@ MonoBehaviour:
     enemyScaling: 1
     enemies:
     - enemyType: 0
-      spawnDelay: 2
+      spawnDelay: 4
       count: 4
       shieldCharges: 0
   - waveReward: 100
     enemyScaling: 1
     enemies:
     - enemyType: 0
-      spawnDelay: 1.8
-      count: 8
+      spawnDelay: 2.5
+      count: 6
       shieldCharges: 0
   - waveReward: 100
     enemyScaling: 1
     enemies:
     - enemyType: 0
-      spawnDelay: 1
+      spawnDelay: 1.5
       count: 4
       shieldCharges: 2
   - waveReward: 100
     enemyScaling: 1
     enemies:
     - enemyType: 0
-      spawnDelay: 1
+      spawnDelay: 1.5
       count: 2
-      shieldCharges: 2
+      shieldCharges: 4
     - enemyType: 0
-      spawnDelay: 1
-      count: 2
-      shieldCharges: 0
-    - enemyType: 0
-      spawnDelay: 1
-      count: 2
-      shieldCharges: 2
-    - enemyType: 0
-      spawnDelay: 1
-      count: 2
+      spawnDelay: 1.5
+      count: 6
       shieldCharges: 0
   - waveReward: 100
     enemyScaling: 1
