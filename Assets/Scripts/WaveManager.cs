@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 public class WaveManager : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private Button nextWaveButton;
+    [SerializeField] private TextMeshProUGUI waveText;
     [SerializeField] private bool nextWaveTriggered = false; // visible for testing
     [SerializeField] private int helperCurrentWave = 0;
 
@@ -14,6 +16,12 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private bool debugMode = false;
     [SerializeField] private int startFromWave = 1;
     [Header("Spawn Settings")] 
+
+    [Header("Bonus Settings")]
+    [SerializeField] private int waveBonusInterval = 5;
+    [SerializeField] private int waveBonusAmount = 200;
+    [SerializeField] private bool enableWaveBonus = true;
+
     
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform enemyParent;
@@ -105,7 +113,16 @@ public class WaveManager : MonoBehaviour
             enemyParent = GameObject.Find("EnemiesParent").transform;
         }
 
+        UpdateWaveText(1);
         StartCoroutine(Spawning());
+    }
+
+    private void UpdateWaveText(int waveNumber)
+    {
+        if (waveText != null)
+        {
+                waveText.text = $"Wave: {waveNumber}";
+        }
     }
 
     // Main spawning coroutine that handles wave progression
@@ -113,45 +130,74 @@ public class WaveManager : MonoBehaviour
     {
         // Start from the specified wave in debug mode
         int startWaveIndex = debugMode ? startFromWave -1 : 0;
-
-        // Calculate bank balance for skipped waves if debug mode is enabled
-        if (debugMode && startWaveIndex > 0)
-        {
-            int accumulatedMoney = 0;
-            
-            // Calculate money from main waves
-            for (int i = 0; i < Mathf.Min(startWaveIndex, waves.Count); i++)
+            // Calculate bank balance for skipped waves if debug mode is enabled
+            if (debugMode && startWaveIndex > 0)
             {
-                accumulatedMoney += waves[i].waveReward;
-            }
+                int accumulatedMoney = 0;
             
-            // Calculate money for repeating waves
-            if (startWaveIndex > waves.Count && repeatingWaves.Count > 0)
-            {
-                int repeatingWavesSkipped = startWaveIndex - waves.Count;
+                // Calculate money from main waves
+                for (int i = 0; i < Mathf.Min(startWaveIndex, waves.Count); i++)
+                {
+                    accumulatedMoney += waves[i].waveReward;
                 
-                // Initialize infinite waves completed and scaling multiplier when starting from repeating waves
-                infiniteWavesCompleted = repeatingWavesSkipped;
-                currentScalingMultiplier = Mathf.Min(
-                    1f + (infiniteWavesCompleted * infiniteWaveScalingIncrement), 
-                    maxScalingMultiplier
-                );
-                
-                Debug.Log($"Debug mode: Starting at infinite wave {infiniteWavesCompleted} with scaling multiplier {currentScalingMultiplier:F2}");
-                
-                accumulatedMoney += repeatingWavesSkipped * globalInfiniteWaveReward;
-                
-                Debug.Log($"Debug mode: Added rewards for {repeatingWavesSkipped} skipped repeating waves");
-            }
+                    // Add wave bonus if applicable
+                    if (enableWaveBonus && (i + 1) % waveBonusInterval == 0)
+                    {
+                        accumulatedMoney += waveBonusAmount;
+                        Debug.Log($"Debug mode: Added wave bonus of {waveBonusAmount} for wave {i + 1}");
+                    }
+                }
             
-            // Add the accumulated money to the player's bank
-            if (accumulatedMoney > 0)
-            {
-                bank.IncreasePlayerMoney(accumulatedMoney);
-                Debug.Log($"Debug mode: Added {accumulatedMoney} total money for skipped waves (1-{startWaveIndex})");
+                // Calculate money for repeating waves
+                if (startWaveIndex > waves.Count && repeatingWaves.Count > 0)
+                {
+                    int repeatingWavesSkipped = startWaveIndex - waves.Count;
+                
+                    // Initialize infinite waves completed and scaling multiplier when starting from repeating waves
+                    infiniteWavesCompleted = repeatingWavesSkipped;
+                    currentScalingMultiplier = Mathf.Min(
+                        1f + (infiniteWavesCompleted * infiniteWaveScalingIncrement), 
+                        maxScalingMultiplier
+                    );
+                
+                    Debug.Log($"Debug mode: Starting at infinite wave {infiniteWavesCompleted} with scaling multiplier {currentScalingMultiplier:F2}");
+                
+                    accumulatedMoney += repeatingWavesSkipped * globalInfiniteWaveReward;
+                
+                    // Add wave bonuses for repeating waves if applicable
+                    if (enableWaveBonus)
+                    {
+                        int totalWavesWithMainWaves = waves.Count + repeatingWavesSkipped;
+                        int bonusesInRepeatingWaves = 0;
+                    
+                        // Calculate how many bonus intervals were in the repeating waves
+                        for (int waveNum = waves.Count + 1; waveNum <= totalWavesWithMainWaves; waveNum++)
+                        {
+                            if (waveNum % waveBonusInterval == 0)
+                            {
+                                bonusesInRepeatingWaves++;
+                            }
+                        }
+                    
+                        int bonusRewards = bonusesInRepeatingWaves * waveBonusAmount;
+                        accumulatedMoney += bonusRewards;
+                    
+                        if (bonusesInRepeatingWaves > 0)
+                        {
+                            Debug.Log($"Debug mode: Added {bonusesInRepeatingWaves} wave bonuses for repeating waves: {bonusRewards}");
+                        }
+                    }
+                
+                    Debug.Log($"Debug mode: Added rewards for {repeatingWavesSkipped} skipped repeating waves");
+                }
+            
+                // Add the accumulated money to the player's bank
+                if (accumulatedMoney > 0)
+                {
+                    bank.IncreasePlayerMoney(accumulatedMoney);
+                    Debug.Log($"Debug mode: Added {accumulatedMoney} total money for skipped waves (1-{startWaveIndex})");
+                }
             }
-        }
-        
         int waveIndex = startWaveIndex;
         
         while (true)
@@ -160,13 +206,14 @@ public class WaveManager : MonoBehaviour
             {
                 // Wait for player to trigger wave (only for main waves)
                 nextWaveButton.gameObject.SetActive(true);
+                UpdateWaveText(waveIndex + 1);
                 yield return new WaitUntil(() => nextWaveTriggered);
                 nextWaveButton.gameObject.SetActive(false);
                 nextWaveTriggered = false;
             }
             else
             {
-                // No buten for repeating waves
+                // No button for repeating waves
                 yield return new WaitForSeconds(2f);
             }
             
@@ -216,6 +263,7 @@ public class WaveManager : MonoBehaviour
             }
             
             helperCurrentWave = waveIndex + 1; // update current wave for inspector
+            UpdateWaveText(helperCurrentWave);
             
             // Check if the wave is empty
             if (currentActiveWave.enemies == null || currentActiveWave.enemies.Count == 0)
@@ -251,7 +299,7 @@ public class WaveManager : MonoBehaviour
                               (spawn.enemyType == EnemyType.Delay ? "Delayed by " + spawn.spawnDelay + " Seconds" : 
                                "Spawning " + spawn.enemyType + " (" + (i + 1) + "/" + spawn.count + ")"));
                               
-                    SpawnEnemy(spawn.enemyType, spawnPoint.position, spawnPoint.rotation);
+                    SpawnEnemy(spawn.enemyType, spawnPoint.position, spawnPoint.rotation, spawnIndex);
                 }
             }
 
@@ -268,7 +316,13 @@ public class WaveManager : MonoBehaviour
             bank.IncreasePlayerMoney(currentActiveWave.waveReward);
             Debug.Log("Wave " + (waveIndex + 1) + " completed!" + " Money earned: " + currentActiveWave.waveReward);
             
-            // If this was an infinite wave, increment the scaling for next infinite wave
+            if (enableWaveBonus && (waveIndex + 1) % waveBonusInterval == 0)
+            {
+                bank.IncreasePlayerMoney(waveBonusAmount);
+                Debug.Log($"Wave bonus! Completed {waveBonusInterval} waves! Bonus reward: {waveBonusAmount}");
+            }
+            
+            // If this was an infinite wave, increment the scaling for next infinite wave            
             if (waveIndex >= waves.Count)
             {
                 infiniteWavesCompleted++;
@@ -282,6 +336,7 @@ public class WaveManager : MonoBehaviour
             
             // Increment wave index for next loop
             waveIndex++;
+            UpdateWaveText(waveIndex + 1);
         }
     }
 
@@ -289,10 +344,11 @@ public class WaveManager : MonoBehaviour
     public void TriggerNextWave()
     {
         nextWaveTriggered = true;
+        UpdateWaveText(helperCurrentWave);
     }
 
     // Separated enemy spawning method
-    private void SpawnEnemy(EnemyType enemyType, Vector3 position, Quaternion rotation)
+    private void SpawnEnemy(EnemyType enemyType, Vector3 position, Quaternion rotation, int spawnIndex)
     {
         if (enemyType != EnemyType.Delay)
         {
@@ -302,16 +358,7 @@ public class WaveManager : MonoBehaviour
             
             float enemyScaling = currentActiveWave.enemyScaling;
             
-            // Find the current spawn configuration to get shield charges
-            int shieldCharges = 0;
-            foreach (EnemySpawn spawn in currentActiveWave.enemies)
-            {
-                if (spawn.enemyType == enemyType)
-                {
-                    shieldCharges = (int)(spawn.shieldCharges*currentScalingMultiplier);
-                    break;
-                }
-            }
+            int shieldCharges = (int)(currentActiveWave.enemies[spawnIndex].shieldCharges * currentScalingMultiplier);
             
             newEnemy.GetComponent<EnemyScript>().Initialize(waypointsParent, playerHealthSystem, enemyScaling, shieldCharges);
         }
