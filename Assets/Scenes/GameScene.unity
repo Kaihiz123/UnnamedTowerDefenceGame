@@ -16603,9 +16603,9 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.052730694
+    x: 0
     y: 0
-    width: 0.8939108
+    width: 1
     height: 1
   near clip plane: 0.3
   far clip plane: 100
@@ -17750,6 +17750,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 539890556942838611, guid: aa215b77abe4d204086e1dd9f5fd9154, type: 3}
+      propertyPath: soundEffectPoolSize
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3659796666525727726, guid: aa215b77abe4d204086e1dd9f5fd9154, type: 3}
       propertyPath: m_Name
       value: AudioManager
