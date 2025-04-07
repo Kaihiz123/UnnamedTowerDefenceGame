@@ -27,6 +27,9 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
     public delegate void EnablePostProcessingBloomEnable(bool show);
     public static event EnablePostProcessingBloomEnable OnEnableBloom;
 
+    public delegate void UpdateInfos();
+    public static event UpdateInfos updateInfos;
+
     private void Start()
     {
         SettingsTabChanged(panels[0]);
@@ -97,5 +100,10 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
         {
             AudioManager.Instance.PauseMusic(mute);
         }
+    }
+
+    public void UpdateAllInfos()
+    {
+        updateInfos?.Invoke();
     }
 }

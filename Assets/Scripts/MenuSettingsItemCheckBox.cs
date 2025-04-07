@@ -82,11 +82,13 @@ public class MenuSettingsItemCheckBox : MonoBehaviour
     {
         MenuPlayPanelScript.OnResetSettingsToDefault += ResetSettings;
         MenuSettingsPanelScript.OnResetSettingsToDefault += ResetSettings;
+        MenuSettingsPanelScript.updateInfos += UpdateInfo;
     }
 
     private void OnDisable()
     {
         MenuPlayPanelScript.OnResetSettingsToDefault -= ResetSettings;
         MenuSettingsPanelScript.OnResetSettingsToDefault -= ResetSettings;
+        MenuSettingsPanelScript.updateInfos -= UpdateInfo;
     }
 }

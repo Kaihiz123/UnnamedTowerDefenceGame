@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
@@ -35,6 +36,7 @@ public class MenuSettingsItemDropdown : MonoBehaviour
 
                 dropdown.onValueChanged.RemoveAllListeners();
                 options.Clear();
+                availableResolutions.Clear();
 
                 Resolution[] potentialResolutions = Screen.resolutions;
                 foreach(Resolution resolution in potentialResolutions)
@@ -61,7 +63,30 @@ public class MenuSettingsItemDropdown : MonoBehaviour
                 dropdown.onValueChanged.AddListener(ResolutionChanged);
 
                 break;
+            case ISettings.Type.DISPLAY:
+                dropdown.onValueChanged.RemoveAllListeners();
+                options.Clear();
 
+                List<DisplayInfo> displayLayout = new List<DisplayInfo>();
+                Screen.GetDisplayLayout(displayLayout);
+                int current = -1;
+                DisplayInfo currentDisplay = Screen.mainWindowDisplayInfo;
+                for (int i = 0; i < displayLayout.Count; i++)
+                {
+                    options.Add(displayLayout[i].name);
+
+                    if(displayLayout[i].name == currentDisplay.name)
+                    {
+                        current = i;
+                    }
+                }
+
+                dropdown.AddOptions(options);
+                dropdown.value = current;
+                dropdown.RefreshShownValue();
+                dropdown.onValueChanged.AddListener(DropdownValueChanged);
+
+                break;
             case ISettings.Type.WINDOWMODE:
 
                 dropdown.onValueChanged.RemoveAllListeners();
@@ -127,6 +152,13 @@ public class MenuSettingsItemDropdown : MonoBehaviour
                 int[] intArray = new int[] { 0, 2, 4, 8 };
                 QualitySettings.antiAliasing = intArray[index];
                 break;
+            case ISettings.Type.DISPLAY:
+                List<DisplayInfo> displayLayout = new List<DisplayInfo>();
+                Screen.GetDisplayLayout(displayLayout);
+                DisplayInfo displayInfo = displayLayout[index];
+                AsyncOperation asyncOperation = Screen.MoveMainWindowTo(displayInfo, new Vector2Int(0,0));
+                StartCoroutine(ChangeScreen(asyncOperation));
+                break;
             default:
                 break;
         }
@@ -144,11 +176,23 @@ public class MenuSettingsItemDropdown : MonoBehaviour
     {
         MenuPlayPanelScript.OnResetSettingsToDefault += ResetSettings;
         MenuSettingsPanelScript.OnResetSettingsToDefault += ResetSettings;
+        MenuSettingsPanelScript.updateInfos += UpdateInfo;
     }
 
     private void OnDisable()
     {
         MenuPlayPanelScript.OnResetSettingsToDefault -= ResetSettings;
         MenuSettingsPanelScript.OnResetSettingsToDefault -= ResetSettings;
+        MenuSettingsPanelScript.updateInfos -= UpdateInfo;
+    }
+
+    private IEnumerator ChangeScreen(AsyncOperation asyncOperation)
+    {
+        while (!asyncOperation.isDone)
+        {
+            yield return null;
+        }
+
+        settings.UpdateAllInfos();
     }
 }

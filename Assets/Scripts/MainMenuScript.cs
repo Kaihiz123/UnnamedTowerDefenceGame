@@ -86,7 +86,7 @@ public class MainMenuScript : MonoBehaviour, IConfirmation
 
 
         // FULLSCREEN
-        Screen.fullScreen = PlayerPrefs.GetInt(ISettings.Type.FULLSCREEN.ToString(), 0) == 1;
+        Screen.fullScreen = PlayerPrefs.GetInt(ISettings.Type.FULLSCREEN.ToString(), 1) == 1;
 
         // REFRESHRATE
         int frameRateIndex = PlayerPrefs.GetInt(ISettings.Type.REFRESHRATE.ToString(), 2);
