@@ -257,6 +257,10 @@ public class TowerPlacementGrid : MonoBehaviour
 
                     // update tower's attack, range, firerate, etc. values to match the upgrade index
                     selectedGameObject.GetComponent<TowerUpgrading>().RunWhenTowerUpgrades();
+
+                    // tower is placed so we add a cooldown timer after which the tower can shoot again
+                    selectedGameObject.GetComponent<TowerShooting>().EnableShooting(cooldownTime);
+                    UIRadialTimerManager.Instance.AddTimer(selectedGameObject.transform.position, cooldownTime);
                 }
                 else
                 {

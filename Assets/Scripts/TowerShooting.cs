@@ -37,7 +37,7 @@ public class TowerShooting : MonoBehaviour
     private TowerShootingAoE towerShootingAoEScript;
     public TowerInfo towerInfo;
 
-    bool isShootingEnabled = true;
+    bool isShootingEnabled = false;
 
     void Start()
     {
