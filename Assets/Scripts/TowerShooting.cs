@@ -45,7 +45,6 @@ public class TowerShooting : MonoBehaviour
         UpdateFireRate();
         UpdateDebugCircleRadius();
         towerInfo = GetComponent<TowerInfo>();
-        //ShowAreaVisual(true);
     }
 
     public void UpdateDebugCircleRadius()
@@ -87,16 +86,6 @@ public class TowerShooting : MonoBehaviour
 
     void Update()
     {
-        /*
-        if (SettingsManager.Instance.DebugON == true)
-        {
-            theDebug_EnemyDetectAreaVisual.SetActive(true);
-        }
-        else
-        {
-            theDebug_EnemyDetectAreaVisual.SetActive(false);
-        }
-        */
 
         if (isShootingEnabled)
         {

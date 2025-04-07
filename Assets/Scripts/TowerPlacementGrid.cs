@@ -450,13 +450,11 @@ public class TowerPlacementGrid : MonoBehaviour
             {
                 selectionWindow.Init(boughtGameObject.GetComponent<TowerInfo>());
                 selectionWindowCanvasObject.SetActive(show);
-                //boughtGameObject.GetComponent<TowerShooting>().ShowAreaVisual(true);
             }
             else if (raycastedGameObject != null)
             {
                 selectionWindow.Init(raycastedGameObject.GetComponent<TowerInfo>());
                 selectionWindowCanvasObject.SetActive(show);
-                //raycastedGameObject.GetComponent<TowerShooting>().ShowAreaVisual(true);
             }
         }
         else

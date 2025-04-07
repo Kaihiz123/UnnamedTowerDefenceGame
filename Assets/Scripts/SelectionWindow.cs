@@ -81,6 +81,7 @@ public class SelectionWindow : MonoBehaviour
         {
             currentTowerInfo.upgradeIndex = upgradeNumber;
             currentTowerInfo.gameObject.GetComponent<TowerUpgrading>().RunWhenTowerUpgrades();
+            currentTowerInfo.gameObject.GetComponent<TowerShooting>().DisableShooting();
             float buildTime = towerUpgrades.towerType[(int)currentTowerInfo.towerType].upgradeLevels[upgradeNumber].buildTime;
             currentTowerInfo.gameObject.GetComponent<TowerShooting>().EnableShooting(buildTime);
             UIRadialTimerManager.Instance.AddTimer(currentTowerInfo.transform.position, buildTime);
