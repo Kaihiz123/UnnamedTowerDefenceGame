@@ -23,6 +23,7 @@ MonoBehaviour:
       projectileSpeed: 18
       fireRate: 4
       aoeRadius: 0
+      buildTime: 3
     - towerBaseSprite: {fileID: -8751146212108180465, guid: ab1ddd6d296b1c2479416041e1079ce6, type: 3}
       towerTurretSprite: {fileID: 359988316741786400, guid: 2bc373a86611fd1479cbcefabb483b0f, type: 3}
       upgradeCost: 100
@@ -31,6 +32,7 @@ MonoBehaviour:
       projectileSpeed: 18
       fireRate: 4.5
       aoeRadius: 0
+      buildTime: 3
     - towerBaseSprite: {fileID: -7108797985038833940, guid: fe7e144b60d191942bf2c807f69cd1cd, type: 3}
       towerTurretSprite: {fileID: -3952989975384369875, guid: 03c82115c1382584ca4ba06cc0ac0f10, type: 3}
       upgradeCost: 200
@@ -39,6 +41,7 @@ MonoBehaviour:
       projectileSpeed: 18
       fireRate: 5
       aoeRadius: 0
+      buildTime: 3
   - Type: 1
     upgradeLevels:
     - towerBaseSprite: {fileID: 5082139542385208303, guid: 95f4d1885052e6449afcce1632fec723, type: 3}
@@ -49,6 +52,7 @@ MonoBehaviour:
       projectileSpeed: 30
       fireRate: 0.5
       aoeRadius: 0
+      buildTime: 3
     - towerBaseSprite: {fileID: -6055026733118100030, guid: 61c380fd2b7de114bba544be24317abf, type: 3}
       towerTurretSprite: {fileID: -8582369237107821948, guid: f43150595205f274c96fc677d4cd3c3d, type: 3}
       upgradeCost: 200
@@ -57,6 +61,7 @@ MonoBehaviour:
       projectileSpeed: 30
       fireRate: 0.5
       aoeRadius: 0
+      buildTime: 3
     - towerBaseSprite: {fileID: 8960830561637441709, guid: cf2b535b9deedf94b8ddff75a5130bb6, type: 3}
       towerTurretSprite: {fileID: -2149037107695786548, guid: 42cbd9268dd5c3c4688284c76d5987e5, type: 3}
       upgradeCost: 400
@@ -65,6 +70,7 @@ MonoBehaviour:
       projectileSpeed: 30
       fireRate: 0.5
       aoeRadius: 0
+      buildTime: 3
   - Type: 2
     upgradeLevels:
     - towerBaseSprite: {fileID: -6266228602998423030, guid: 210974b849561a646bc29f52bade0510, type: 3}
@@ -75,6 +81,7 @@ MonoBehaviour:
       projectileSpeed: 12
       fireRate: 1.5
       aoeRadius: 2
+      buildTime: 3
     - towerBaseSprite: {fileID: -4288013637585971879, guid: 323d6cac0564ceb4cb40ba3f03d7ac8b, type: 3}
       towerTurretSprite: {fileID: 5783713106622133718, guid: 8bd2c86f4ee664a4d8028d5948dd6fca, type: 3}
       upgradeCost: 300
@@ -83,6 +90,7 @@ MonoBehaviour:
       projectileSpeed: 12
       fireRate: 1.5
       aoeRadius: 2
+      buildTime: 3
     - towerBaseSprite: {fileID: 4516983597941911605, guid: e3fc0b96ffa1cee4e9d25a75ff98c3c4, type: 3}
       towerTurretSprite: {fileID: -6734519724619076003, guid: 8719fa278c98df74e9be67c1dcebb02b, type: 3}
       upgradeCost: 600
@@ -91,3 +99,4 @@ MonoBehaviour:
       projectileSpeed: 12
       fireRate: 1.5
       aoeRadius: 2
+      buildTime: 3
