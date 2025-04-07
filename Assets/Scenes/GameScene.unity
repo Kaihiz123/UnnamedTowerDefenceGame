@@ -11961,6 +11961,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4590060885139786061, guid: 6c15b7bcf69eff44387988f93c71e7aa, type: 3}
+      propertyPath: pauseMenuScript
+      value: 
+      objectReference: {fileID: 1408188673}
     - target: {fileID: 4673658031562912498, guid: 6c15b7bcf69eff44387988f93c71e7aa, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -12398,6 +12402,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c15b7bcf69eff44387988f93c71e7aa, type: 3}
+--- !u!114 &1408188673 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7309858347194231939, guid: 6c15b7bcf69eff44387988f93c71e7aa, type: 3}
+  m_PrefabInstance: {fileID: 1408188672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d56da97a885e5b499825221b53a9746, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1416207654
 GameObject:
   m_ObjectHideFlags: 0

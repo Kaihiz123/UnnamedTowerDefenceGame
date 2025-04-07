@@ -12,6 +12,8 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
 
     public GameObject FPSPanel;
 
+    public PauseMenuScript pauseMenuScript;
+
     // Declare a delegate and event
     public delegate void ResetSettingsToDefault();
     public static event ResetSettingsToDefault OnResetSettingsToDefault;
@@ -87,5 +89,13 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
     public void ShowFPSPanel(bool show)
     {
         FPSPanel.SetActive(show);
+    }
+
+    public void MuteMusicOnPause(bool mute)
+    {
+        if(pauseMenuScript != null)
+        {
+            AudioManager.Instance.PauseMusic(mute);
+        }
     }
 }

@@ -62,6 +62,9 @@ public class MenuSettingsItemCheckBox : MonoBehaviour
             case ISettings.Type.BLOOM:
                 settings.EnableBloom(toggle.isOn);
                 break;
+            case ISettings.Type.MUTEMUSICONPAUSE:
+                settings.MuteMusicOnPause(toggle.isOn);
+                break;
             default:
                 break;
         }

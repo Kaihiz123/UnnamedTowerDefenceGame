@@ -46,4 +46,6 @@ public interface ISettings
     public void ShowEnemyHealthBarInGameScene(bool show);
 
     public void EnableBloom(bool enable);
+
+    public void MuteMusicOnPause(bool mute);
 }
