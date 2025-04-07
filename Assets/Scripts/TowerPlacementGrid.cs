@@ -255,9 +255,6 @@ public class TowerPlacementGrid : MonoBehaviour
                     // bought object is now selected
                     selectedGameObject = boughtGameObject;
 
-                    // update tower's attack, range, firerate, etc. values to match the upgrade index
-                    selectedGameObject.GetComponent<TowerUpgrading>().RunWhenTowerUpgrades();
-
                     // tower is placed so we add a cooldown timer after which the tower can shoot again
                     selectedGameObject.GetComponent<TowerShooting>().EnableShooting(cooldownTime);
                     UIRadialTimerManager.Instance.AddTimer(selectedGameObject.transform.position, cooldownTime);
@@ -444,17 +441,23 @@ public class TowerPlacementGrid : MonoBehaviour
             {
                 selectionWindow.Init(boughtGameObject.GetComponent<TowerInfo>());
                 selectionWindowCanvasObject.SetActive(show);
+                boughtGameObject.GetComponent<TowerShooting>().ShowAreaVisual(true);
             }
             else if (raycastedGameObject != null)
             {
                 selectionWindow.Init(raycastedGameObject.GetComponent<TowerInfo>());
                 selectionWindowCanvasObject.SetActive(show);
+                raycastedGameObject.GetComponent<TowerShooting>().ShowAreaVisual(true);
             }
         }
         else
         {
             selectionWindow.CloseSelectionWindow();
             selectionWindowCanvasObject.SetActive(show);
+            if(selectedGameObject != null)
+            {
+                selectedGameObject.GetComponent<TowerShooting>().ShowAreaVisual(false);
+            }
         }
     }
 
