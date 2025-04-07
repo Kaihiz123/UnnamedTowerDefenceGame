@@ -272,6 +272,11 @@ public class TowerShooting : MonoBehaviour
         isShootingEnabled = false;
     }
 
+    public bool IsAvailableToUpgrade()
+    {
+        return isShootingEnabled;
+    }
+
     private IEnumerator EnableShootingAfterCooldown(float cooldownTime)
     {
         yield return new WaitForSeconds(cooldownTime);

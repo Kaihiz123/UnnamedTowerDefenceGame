@@ -51,7 +51,7 @@ public class TowerPlacementGrid : MonoBehaviour
     public Vector3 movement = Vector3.zero; // how the grid has been moved
 
     bool isDragging = false;
-    public float cooldownTime = 1f;
+    public float draggingCooldownTime = 1f;
 
     private void Start()
     {
@@ -265,8 +265,10 @@ public class TowerPlacementGrid : MonoBehaviour
                     selectedGameObject = boughtGameObject;
 
                     // tower is placed so we add a cooldown timer after which the tower can shoot again
-                    selectedGameObject.GetComponent<TowerShooting>().EnableShooting(cooldownTime);
-                    UIRadialTimerManager.Instance.AddTimer(selectedGameObject.transform.position, cooldownTime);
+                    TowerInfo towerInfo = selectedGameObject.GetComponent<TowerInfo>();
+                    float buildTime = selectedGameObject.GetComponent<TowerUpgrading>().towerUpgrades.towerType[(int)towerInfo.towerType].upgradeLevels[0].buildTime;
+                    selectedGameObject.GetComponent<TowerShooting>().EnableShooting(buildTime);
+                    UIRadialTimerManager.Instance.AddTimer(selectedGameObject.transform.position, buildTime);
                 }
                 else
                 {
@@ -306,8 +308,8 @@ public class TowerPlacementGrid : MonoBehaviour
                         unavailablePositions.Add(new Vector2Int(Mathf.RoundToInt(snapPosition.x - movement.x), Mathf.RoundToInt(snapPosition.y - movement.y)));
 
                         // tower is placed so we add a cooldown timer after which the tower can shoot again
-                        raycastedGameObject.GetComponent<TowerShooting>().EnableShooting(cooldownTime);
-                        UIRadialTimerManager.Instance.AddTimer(raycastedGameObject.transform.position, cooldownTime);
+                        raycastedGameObject.GetComponent<TowerShooting>().EnableShooting(draggingCooldownTime);
+                        UIRadialTimerManager.Instance.AddTimer(raycastedGameObject.transform.position, draggingCooldownTime);
                     }
                     else
                     {
@@ -450,11 +452,13 @@ public class TowerPlacementGrid : MonoBehaviour
             {
                 selectionWindow.Init(boughtGameObject.GetComponent<TowerInfo>());
                 selectionWindowCanvasObject.SetActive(show);
+                boughtGameObject.GetComponent<TowerShooting>().ShowAreaVisual(true);
             }
             else if (raycastedGameObject != null)
             {
                 selectionWindow.Init(raycastedGameObject.GetComponent<TowerInfo>());
                 selectionWindowCanvasObject.SetActive(show);
+                raycastedGameObject.GetComponent<TowerShooting>().ShowAreaVisual(true);
             }
         }
         else

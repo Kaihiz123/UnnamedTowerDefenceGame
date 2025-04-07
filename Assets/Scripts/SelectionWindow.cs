@@ -76,6 +76,12 @@ public class SelectionWindow : MonoBehaviour
 
     public void UpgradeButtonPressed(int upgradeNumber, int price, SelectionWindowItem selectionWindowItem)
     {
+        // block if already upgrading/building
+        if (!currentTowerInfo.gameObject.GetComponent<TowerShooting>().IsAvailableToUpgrade())
+        {
+            return;
+        }
+        
         // if player has enough money increment towerInfos upgradeIndex by 1 and updateUpgradeStatus
         if (bank.BuyUpgrade(price))
         {
