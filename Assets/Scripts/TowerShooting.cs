@@ -45,7 +45,7 @@ public class TowerShooting : MonoBehaviour
         UpdateFireRate();
         UpdateDebugCircleRadius();
         towerInfo = GetComponent<TowerInfo>();
-        ShowAreaVisual(true);
+        //ShowAreaVisual(true);
     }
 
     public void UpdateDebugCircleRadius()
@@ -73,6 +73,11 @@ public class TowerShooting : MonoBehaviour
     public void UpdateFireRate()
     {
         shootInterval = 1f / towerFireRate; // Calculate time between shots
+    }
+
+    public void UpdateAreaVisualPosition(Vector2Int snapPosition)
+    {
+        theDebug_EnemyDetectAreaVisual.transform.position = new Vector3(snapPosition.x, snapPosition.y, 0f);
     }
 
     public void ShowAreaVisual(bool show)

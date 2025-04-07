@@ -161,21 +161,27 @@ public class TowerPlacementGrid : MonoBehaviour
                     storeHandler.ScreenSpaceOverlayCanvasObject.SetActive(false);
                 }
 
+                Vector2Int v = new Vector2Int(Mathf.RoundToInt(snapPosition.x - movement.x), Mathf.RoundToInt(snapPosition.y - movement.y));
+                boughtGameObject.GetComponent<TowerShooting>().UpdateAreaVisualPosition(v);
+
                 // check if area is offlimits
                 if(isAreaOfflimits(snapPosition, movement))
                 {
                     Ghost.SetActive(false);
+                    boughtGameObject.GetComponent<TowerShooting>().ShowAreaVisual(false);
                 }
                 else if (isAreaAvailable(snapPosition, movement)) // check if area is available
                 {
                     // change the color of the ghost based on availability of the area
                     Ghost.GetComponent<SpriteRenderer>().color = Color.green;
                     Ghost.SetActive(true);
+                    boughtGameObject.GetComponent<TowerShooting>().ShowAreaVisual(true);
                 }
                 else
                 {
                     Ghost.GetComponent<SpriteRenderer>().color = Color.red;
                     Ghost.SetActive(true);
+                    boughtGameObject.GetComponent<TowerShooting>().ShowAreaVisual(true);
                 }
             }
             else if (raycastedGameObject != null && towersCanBeMoved)
@@ -239,6 +245,9 @@ public class TowerPlacementGrid : MonoBehaviour
                 {
                     // move the selected tower to position
                     boughtGameObject.transform.position = new Vector3(snapPosition.x, snapPosition.y, 0f);
+
+                    Vector2Int v = new Vector2Int(Mathf.RoundToInt(snapPosition.x - movement.x), Mathf.RoundToInt(snapPosition.y - movement.y));
+                    boughtGameObject.GetComponent<TowerShooting>().UpdateAreaVisualPosition(v);
 
                     // change this are to be occupied
                     unavailablePositions.Add(new Vector2Int(Mathf.RoundToInt(snapPosition.x - movement.x), Mathf.RoundToInt(snapPosition.y - movement.y)));
@@ -441,13 +450,13 @@ public class TowerPlacementGrid : MonoBehaviour
             {
                 selectionWindow.Init(boughtGameObject.GetComponent<TowerInfo>());
                 selectionWindowCanvasObject.SetActive(show);
-                boughtGameObject.GetComponent<TowerShooting>().ShowAreaVisual(true);
+                //boughtGameObject.GetComponent<TowerShooting>().ShowAreaVisual(true);
             }
             else if (raycastedGameObject != null)
             {
                 selectionWindow.Init(raycastedGameObject.GetComponent<TowerInfo>());
                 selectionWindowCanvasObject.SetActive(show);
-                raycastedGameObject.GetComponent<TowerShooting>().ShowAreaVisual(true);
+                //raycastedGameObject.GetComponent<TowerShooting>().ShowAreaVisual(true);
             }
         }
         else
