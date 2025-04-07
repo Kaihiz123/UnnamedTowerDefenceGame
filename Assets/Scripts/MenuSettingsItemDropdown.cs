@@ -13,6 +13,8 @@ public class MenuSettingsItemDropdown : MonoBehaviour
     public int defaultIndex;
     public List<string> options = new List<string>();
 
+    List<Resolution> availableResolutions = new List<Resolution>();
+
     private void Awake()
     {
         settings = GetComponentInParent<ISettings>();
@@ -34,10 +36,17 @@ public class MenuSettingsItemDropdown : MonoBehaviour
                 dropdown.onValueChanged.RemoveAllListeners();
                 options.Clear();
 
-                Resolution[] availableResolutions = Screen.resolutions;
+                Resolution[] potentialResolutions = Screen.resolutions;
+                foreach(Resolution resolution in potentialResolutions)
+                {
+                    if (!availableResolutions.Contains(resolution))
+                    {
+                        availableResolutions.Add(resolution);
+                    }
+                }
                 Resolution currentResolution = Screen.currentResolution;
                 int currentResolutionIndex = -1;
-                for (int i = 0; i < availableResolutions.Length; i++)
+                for (int i = 0; i < availableResolutions.Count; i++)
                 {
                     options.Add(availableResolutions[i].width + " x " + availableResolutions[i].height);
 
@@ -92,7 +101,7 @@ public class MenuSettingsItemDropdown : MonoBehaviour
 
     public void ResolutionChanged(int index)
     {
-        Resolution newResolution = Screen.resolutions[index];
+        Resolution newResolution = availableResolutions[index];
         FullScreenMode[] fullScreenModes = new FullScreenMode[] { FullScreenMode.ExclusiveFullScreen, FullScreenMode.FullScreenWindow, FullScreenMode.MaximizedWindow, FullScreenMode.Windowed };
         Screen.SetResolution(newResolution.width, newResolution.height, fullScreenModes[PlayerPrefs.GetInt(ISettings.Type.WINDOWMODE.ToString(), 0)]);
 
