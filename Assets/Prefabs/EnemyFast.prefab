@@ -117,7 +117,7 @@ MonoBehaviour:
   damageToPlayer: 11
   enemySprite: {fileID: 9021140399679092866}
   enemySpriteHit: {fileID: 4498986619522959443}
-  explosionPrefab: {fileID: 4339805837996082915, guid: e6c97c4dcdcd4cc99baf6f8a4d9c7538, type: 3}
+  explosionPrefab: {fileID: 4339805837996082915, guid: d840de26ef2a2964abf0f05d828e9b71, type: 3}
   hitTime: 0.1
   shieldCharges: 0
   shieldVisualPrefab: {fileID: 4146154081398775368, guid: 3c093e56683ddb542a97cc34aa985bf5, type: 3}
