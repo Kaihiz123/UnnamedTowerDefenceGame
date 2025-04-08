@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyPathing : MonoBehaviour
 {
+    [SerializeField] private GameObject sparkEffectPrefab;
     private Transform[] waypoints;
     private int currentWaypointIndex = 0;
     private float moveSpeed;

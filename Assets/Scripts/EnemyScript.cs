@@ -3,6 +3,7 @@ using UnityEngine.Rendering;
 
 public class EnemyScript : MonoBehaviour
 {
+
     [Header("Enemy Stats")]
     public float maxHealth = 100;
     public float currentHealth = 100; // public for debugging
@@ -29,6 +30,7 @@ public class EnemyScript : MonoBehaviour
 
     PlayerHealthSystem playerHealthSystem;
     HealthBar healthBar;
+    
 
     public void Initialize(GameObject waypointsParent, PlayerHealthSystem playerHealthSystem, float enemyScaling, int shieldCharges = 0)
     {
@@ -56,8 +58,9 @@ public class EnemyScript : MonoBehaviour
             Debug.Log($"Enemy reached the end! Player takes {damageToPlayer} damage.");
 
             playerHealthSystem.PlayerTookDamage(damageToPlayer);
+            
+            Die();
 
-            Destroy(gameObject);
         }
 
         hitTimer += Time.deltaTime;
