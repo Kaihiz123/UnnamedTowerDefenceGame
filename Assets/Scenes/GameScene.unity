@@ -18647,8 +18647,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 539890556942838611, guid: aa215b77abe4d204086e1dd9f5fd9154, type: 3}
+      propertyPath: adaptivePoolSize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 539890556942838611, guid: aa215b77abe4d204086e1dd9f5fd9154, type: 3}
       propertyPath: soundEffectPoolSize
-      value: 10
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3659796666525727726, guid: aa215b77abe4d204086e1dd9f5fd9154, type: 3}
       propertyPath: m_Name
