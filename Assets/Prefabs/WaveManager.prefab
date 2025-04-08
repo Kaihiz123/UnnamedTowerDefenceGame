@@ -328,8 +328,8 @@ MonoBehaviour:
   waveText: {fileID: 0}
   nextWaveTriggered: 0
   helperCurrentWave: 0
-  debugMode: 1
-  startFromWave: 3
+  debugMode: 0
+  startFromWave: 1
   waveBonusInterval: 5
   waveBonusAmount: 200
   enableWaveBonus: 1

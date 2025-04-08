@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5447c1e76a153674ebcdc4f9428553ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sparkEffectPrefab: {fileID: 0}
   spriteTransform: {fileID: 5827796655822067643}
 --- !u!114 &8738789976338177682
 MonoBehaviour:
@@ -111,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d081cf6db3660dc4daefba193c6f8a3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 2
   maxHealth: 450
   currentHealth: 450
   moveSpeed: 1.5

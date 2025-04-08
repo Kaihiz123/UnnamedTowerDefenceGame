@@ -36,7 +36,7 @@ public class PlayerHealthSystem : MonoBehaviour
     {
         playerHealth -= damage;
         UpdatePlayerHealthText();
-        if (playerHealth <= 0)
+        if (playerHealth <= 0 && GameOverScript.GameOverScreen.activeSelf == false)
         {
             // Show game over screen
             GameOverScript.ShowGameOverScreen();

@@ -9,8 +9,11 @@ public class PauseMenuScript : MonoBehaviour, IConfirmation
 
     public GameObject settingsPanel;
 
+    private GameTimer gameTimer;
+
     private void Start()
     {
+        gameTimer = FindFirstObjectByType<GameTimer>();
         // close the pause menu if it's showing at the beginning
         if (PauseWindow.activeInHierarchy)
         {
@@ -51,10 +54,20 @@ public class PauseMenuScript : MonoBehaviour, IConfirmation
         if (PauseWindow.activeInHierarchy)
         {
             Time.timeScale = 0f;
+            // Pause the timer when game is paused
+            if (gameTimer != null)
+            {
+                gameTimer.PauseTimer(true);
+            }
         }
         else
         {
             Time.timeScale = 1f;
+            // Unpause the timer when game is resumed
+            if (gameTimer != null)
+            {
+                gameTimer.PauseTimer(false);
+            }
         }
     }
 

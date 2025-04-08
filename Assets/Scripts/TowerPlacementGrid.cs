@@ -280,6 +280,13 @@ public class TowerPlacementGrid : MonoBehaviour
 
                     // there is no selected object
                     selectedGameObject = null;
+
+                    // Request tower investment recalculation after unsuccesunsuccesful placement
+                    if (StatisticsTracker.Instance != null)
+                    {
+                        StatisticsTracker.Instance.RequestTowerInvestmentRecalculation();
+                        Debug.Log("Tower investment recalculation requested after failing to place a new tower.");
+                    }
                 }
 
                 // show store again
@@ -482,6 +489,13 @@ public class TowerPlacementGrid : MonoBehaviour
         ShowSelectionWindow(false);
         // hide the selection indicator
         SelectionIndicator.SetActive(false);
+
+        // Update tower investment statistics after selling a tower
+        if (StatisticsTracker.Instance != null)
+        {
+            StatisticsTracker.Instance.RequestTowerInvestmentRecalculation();
+            Debug.Log("Tower investment recalculation requested after selling a tower.");
+        }
     }
 
     // this is used in unity editor to show grid if gizmos are active

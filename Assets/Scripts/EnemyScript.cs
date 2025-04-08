@@ -1,8 +1,17 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class EnemyScript : MonoBehaviour
 {
+    public enum EnemyType
+    {
+        Basic,
+        Fast,
+        Tanky
+    }
+
+    [Header("Enemy Type")]
+    [SerializeField] public EnemyType enemyType = EnemyType.Basic;
+
 
     [Header("Enemy Stats")]
     public float maxHealth = 100;
@@ -55,11 +64,11 @@ public class EnemyScript : MonoBehaviour
         if (pathing.HasReachedEnd)
         {
             // Placeholder for applying damage to player
-            Debug.Log($"Enemy reached the end! Player takes {damageToPlayer} damage.");
+            Debug.Log($"Enemy reached the end! Player takes {damageToPlayer} damage."); // Placeholder has held its place
 
             playerHealthSystem.PlayerTookDamage(damageToPlayer);
             
-            Die();
+            Die(); // Rude
 
         }
 
@@ -136,6 +145,12 @@ public class EnemyScript : MonoBehaviour
         
         if (currentHealth <= 0)
         {
+            // Record the kill before the enemy dies due to no longer being alive
+            if (StatisticsTracker.Instance != null)
+            {
+                StatisticsTracker.Instance.RecordEnemyKill(enemyType);
+            }
+            
             Die();
         }
     }

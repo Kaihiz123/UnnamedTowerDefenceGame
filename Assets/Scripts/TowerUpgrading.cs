@@ -58,6 +58,12 @@ public class TowerUpgrading : MonoBehaviour
             {
                 towerTurretRenderer.sprite = upgradeData.towerTurretSprite;
             }
+            
+            // Update the tower investment statistics after upgrading
+            if (StatisticsTracker.Instance != null)
+            {
+                StatisticsTracker.Instance.RequestTowerInvestmentRecalculation();
+            }
         }
     }
 }

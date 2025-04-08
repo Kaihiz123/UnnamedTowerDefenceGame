@@ -99,6 +99,11 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    public int GetWavesReached()
+    {
+        return helperCurrentWave;
+    }
+
     void Start()
     {
         // if bank reference is not set, find it in the scene
@@ -122,6 +127,14 @@ public class WaveManager : MonoBehaviour
         if (waveText != null)
         {
                 waveText.text = $"Wave: {waveNumber}";
+        }
+    }
+
+    public void DisableWaveText()
+    {
+        if (waveText != null)
+        {
+            waveText.gameObject.SetActive(false);
         }
     }
 

@@ -16,6 +16,9 @@ public class StatisticsTracker : MonoBehaviour
     private Dictionary<TowerInfo.TowerType, float> currentWaveEffectiveDamage = new Dictionary<TowerInfo.TowerType, float>();
     private Dictionary<TowerInfo.TowerType, float> lastWaveEffectiveDamage = new Dictionary<TowerInfo.TowerType, float>();
 
+    // Dictionary to track kills by enemy type
+    private Dictionary<EnemyScript.EnemyType, int> killsByEnemyType = new Dictionary<EnemyScript.EnemyType, int>();
+
     // Inspector-visible stats (read-only)
     [Header("Current Wave Effective Damage")]
     [SerializeField] private float currentWaveBasicEffectiveDamage;
@@ -59,6 +62,44 @@ public class StatisticsTracker : MonoBehaviour
     [Space]
     [SerializeField] private float totalOverkillDamage;
 
+    [Header("Enemy Kills")]
+    [SerializeField] private int basicEnemiesKilled;
+    [SerializeField] private int fastEnemiesKilled;
+    [SerializeField] private int tankyEnemiesKilled;
+    [Space]
+    [SerializeField] private int totalEnemiesKilled;
+
+    [Header("Tower Investment")]
+    [SerializeField] private float basicTowerInvestment;
+    [SerializeField] private float sniperTowerInvestment;
+    [SerializeField] private float aoeTowerInvestment;
+    [Space]
+    [SerializeField] private float totalTowerInvestment;
+
+    private Dictionary<TowerInfo.TowerType, float> investmentByTowerType = new Dictionary<TowerInfo.TowerType, float>();
+
+    [Header("Current Wave Damage Efficiency (Damage/Money)")]
+    [SerializeField] private float currentWaveBasicEfficiency;
+    [SerializeField] private float currentWaveSniperEfficiency;
+    [SerializeField] private float currentWaveAoEEfficiency;
+    [Space]
+    [SerializeField] private float currentWaveTotalEfficiency;
+    
+    [Header("Last Wave Damage Efficiency (Damage/Money)")]
+    [SerializeField] private float lastWaveBasicEfficiency;
+    [SerializeField] private float lastWaveSniperEfficiency;
+    [SerializeField] private float lastWaveAoEEfficiency;
+    [Space]
+    [SerializeField] private float lastWaveTotalEfficiency;
+    
+    // Calculated efficiency values for current wave
+    private Dictionary<TowerInfo.TowerType, float> currentWaveEfficiencyByTowerType = new Dictionary<TowerInfo.TowerType, float>();
+    private float currentWaveTotalEfficiencyValue = 0f;
+    
+    // Stored efficiency values from last wave
+    private Dictionary<TowerInfo.TowerType, float> lastWaveEfficiencyByTowerType = new Dictionary<TowerInfo.TowerType, float>();
+    private float lastWaveTotalEfficiencyValue = 0f;
+
     private void Awake()
     {
         // Singleton pattern implementation
@@ -80,6 +121,15 @@ public class StatisticsTracker : MonoBehaviour
             overkillDamageByTowerType[towerType] = 0f;
             currentWaveEffectiveDamage[towerType] = 0f;
             lastWaveEffectiveDamage[towerType] = 0f;
+            investmentByTowerType[towerType] = 0f;
+            currentWaveEfficiencyByTowerType[towerType] = 0f;
+            lastWaveEfficiencyByTowerType[towerType] = 0f;
+        }
+        
+        // Initialize kills dictionary with all enemy types
+        foreach (EnemyScript.EnemyType enemyType in System.Enum.GetValues(typeof(EnemyScript.EnemyType)))
+        {
+            killsByEnemyType[enemyType] = 0;
         }
     }
 
@@ -236,15 +286,50 @@ public class StatisticsTracker : MonoBehaviour
         return total;
     }
 
+    // Flag stats for reset
+    private bool statisticsResetRequested = false;
+
+    // Public method to request statistics reset
+    public void RequestStatisticsReset()
+    {
+        statisticsResetRequested = true;
+    }
+
     // Reset all statistics
     public void ResetStatistics()
     {
-        foreach (TowerInfo.TowerType towerType in damageByTowerType.Keys)
+        // Create a safe copy of the tower type keys to avoid enumeration issues
+        List<TowerInfo.TowerType> towerTypesList = new List<TowerInfo.TowerType>(damageByTowerType.Keys);
+        
+        foreach (TowerInfo.TowerType towerType in towerTypesList)
         {
+            // Reset damage statistics
             damageByTowerType[towerType] = 0f;
             shieldBlockedDamageByTowerType[towerType] = 0f;
             effectiveDamageByTowerType[towerType] = 0f;
             overkillDamageByTowerType[towerType] = 0f;
+            
+            // Reset wave damage statistics
+            currentWaveEffectiveDamage[towerType] = 0f;
+            lastWaveEffectiveDamage[towerType] = 0f;
+            
+            // Reset investment data
+            investmentByTowerType[towerType] = 0f;
+            
+            // Reset efficiency metrics
+            currentWaveEfficiencyByTowerType[towerType] = 0f;
+            lastWaveEfficiencyByTowerType[towerType] = 0f;
+        }
+        
+        // Reset total efficiency values
+        currentWaveTotalEfficiencyValue = 0f;
+        lastWaveTotalEfficiencyValue = 0f;
+        
+        // Reset kill statistics
+        List<EnemyScript.EnemyType> enemyTypesList = new List<EnemyScript.EnemyType>(killsByEnemyType.Keys);
+        foreach (EnemyScript.EnemyType enemyType in enemyTypesList)
+        {
+            killsByEnemyType[enemyType] = 0;
         }
         
         // Update inspector values
@@ -284,14 +369,42 @@ public class StatisticsTracker : MonoBehaviour
         UpdateInspectorValues();
     }
     
+    // Calculate and store current wave efficiency values
+    private void UpdateCurrentWaveEfficiency()
+    {
+        // Calculate for each tower type
+        foreach (TowerInfo.TowerType towerType in System.Enum.GetValues(typeof(TowerInfo.TowerType)))
+        {
+            float investment = GetInvestmentByTowerType(towerType);
+            float damage = GetCurrentWaveEffectiveDamage(towerType);
+            
+            currentWaveEfficiencyByTowerType[towerType] = investment <= 0 ? 0 : damage / investment;
+        }
+        
+        // Calculate total
+        float totalInvestment = GetTotalTowerInvestment();
+        float totalDamage = GetCurrentWaveTotalEffectiveDamage();
+        
+        currentWaveTotalEfficiencyValue = totalInvestment <= 0 ? 0 : totalDamage / totalInvestment;
+    }
+    
     // Called when a wave ends
     public void OnWaveEnd()
     {
+        // First make sure current wave efficiency is up to date
+        UpdateCurrentWaveEfficiency();
+        
         // Move current wave stats to last wave stats
         foreach (TowerInfo.TowerType towerType in System.Enum.GetValues(typeof(TowerInfo.TowerType)))
         {
             lastWaveEffectiveDamage[towerType] = currentWaveEffectiveDamage[towerType];
+            
+            // Copy current efficiency values to last wave
+            lastWaveEfficiencyByTowerType[towerType] = currentWaveEfficiencyByTowerType[towerType];
         }
+        
+        // Copy total efficiency
+        lastWaveTotalEfficiencyValue = currentWaveTotalEfficiencyValue;
         
         UpdateInspectorValues();
     }
@@ -338,9 +451,162 @@ public class StatisticsTracker : MonoBehaviour
         return 0f;
     }
     
+    // Record an enemy kill by type
+    public void RecordEnemyKill(EnemyScript.EnemyType enemyType)
+    {
+        if (killsByEnemyType.ContainsKey(enemyType))
+        {
+            killsByEnemyType[enemyType]++;
+        }
+        else
+        {
+            killsByEnemyType[enemyType] = 1;
+        }
+        
+        // Update inspector values
+        UpdateInspectorValues();
+    }
+
+    // Get total kills for a specific enemy type
+    public int GetKillsByEnemyType(EnemyScript.EnemyType enemyType)
+    {
+        if (killsByEnemyType.ContainsKey(enemyType))
+        {
+            return killsByEnemyType[enemyType];
+        }
+        return 0;
+    }
+
+    // Get total kills across all enemy types
+    public int GetTotalEnemyKills()
+    {
+        int totalKills = 0;
+        foreach (var kills in killsByEnemyType.Values)
+        {
+            totalKills += kills;
+        }
+        return totalKills;
+    }
+    
+    // Flag to indicate recalculation is needed
+    private bool recalculationNeeded = false;
+    
+    // Public method to request recalculation
+    public void RequestTowerInvestmentRecalculation()
+    {
+        recalculationNeeded = true;
+    }
+    
+    // LateUpdate runs after all Update methods are called
+    private void LateUpdate()
+    {
+        // Only recalculate if needed
+        if (recalculationNeeded)
+        {
+            RecalculateTowerInvestment();
+            recalculationNeeded = false;
+        }
+
+        // Handle statistics reset if requested
+        if (statisticsResetRequested)
+        {
+            ResetStatistics();
+            statisticsResetRequested = false;
+        }
+    }
+    
+    // Method to recalculate total investment in all towers
+    public void RecalculateTowerInvestment()
+    {
+        // Reset investment counts
+        foreach (TowerInfo.TowerType towerType in System.Enum.GetValues(typeof(TowerInfo.TowerType)))
+        {
+            investmentByTowerType[towerType] = 0f;
+        }
+
+        // Find all towers in the scene
+        TowerInfo[] allTowers = GameObject.FindObjectsByType<TowerInfo>(FindObjectsSortMode.None);
+        
+        foreach (TowerInfo tower in allTowers)
+        {
+            TowerUpgrading towerUpgrading = tower.GetComponent<TowerUpgrading>();
+            if (towerUpgrading != null && towerUpgrading.towerUpgrades != null)
+            {
+                // Calculate total investment for this tower (initial cost + all upgrades)
+                float towerInvestment = 0f;
+                
+                // Get the tower type and current upgrade level
+                TowerInfo.TowerType towerType = tower.towerType;
+                int upgradeIndex = tower.upgradeIndex;
+                
+                // Find the initial cost and all upgrade costs up to the current level
+                TowerUpgradeData upgradeData = towerUpgrading.towerUpgrades.towerType.Find(t => t.Type == towerType);
+                if (upgradeData != null)
+                {
+                    // Add cost for each upgrade level up to the current one
+                    for (int i = 0; i <= upgradeIndex && i < upgradeData.upgradeLevels.Length; i++)
+                    {
+                        towerInvestment += upgradeData.upgradeLevels[i].upgradeCost;
+                    }
+                    
+                    // Add to the investment for this tower type
+                    investmentByTowerType[towerType] += towerInvestment;
+                }
+            }
+        }
+        
+        // Update inspector values
+        UpdateInspectorValues();
+    }
+
+    // Get total investment for a specific tower type
+    public float GetInvestmentByTowerType(TowerInfo.TowerType towerType)
+    {
+        if (investmentByTowerType.ContainsKey(towerType))
+        {
+            return investmentByTowerType[towerType];
+        }
+        return 0f;
+    }
+
+    // Get total investment across all tower types
+    public float GetTotalTowerInvestment()
+    {
+        float total = 0f;
+        foreach (var investment in investmentByTowerType.Values)
+        {
+            total += investment;
+        }
+        return total;
+    }
+    
+    // Getter methods for efficiency values
+    public float GetCurrentWaveDamageEfficiency(TowerInfo.TowerType towerType)
+    {
+        return currentWaveEfficiencyByTowerType.ContainsKey(towerType) ? 
+               currentWaveEfficiencyByTowerType[towerType] : 0f;
+    }
+    
+    public float GetLastWaveDamageEfficiency(TowerInfo.TowerType towerType)
+    {
+        return lastWaveEfficiencyByTowerType.ContainsKey(towerType) ? 
+               lastWaveEfficiencyByTowerType[towerType] : 0f;
+    }
+    
+    public float GetCurrentWaveTotalDamageEfficiency()
+    {
+        return currentWaveTotalEfficiencyValue;
+    }
+    
+    public float GetLastWaveTotalDamageEfficiency()
+    {
+        return lastWaveTotalEfficiencyValue;
+    }
+    
     // Update the inspector-visible values
     private void UpdateInspectorValues()
     {
+        
         // Update damage attempts
         basicTowerDamage = GetTotalDamageByTowerType(TowerInfo.TowerType.Basic);
         sniperTowerDamage = GetTotalDamageByTowerType(TowerInfo.TowerType.Sniper);
@@ -376,5 +642,31 @@ public class StatisticsTracker : MonoBehaviour
         lastWaveSniperEffectiveDamage = GetLastWaveEffectiveDamage(TowerInfo.TowerType.Sniper);
         lastWaveAoEEffectiveDamage = GetLastWaveEffectiveDamage(TowerInfo.TowerType.AOE);
         lastWaveTotalEffectiveDamage = GetLastWaveTotalEffectiveDamage();
+        
+        // Update kill statistics
+        basicEnemiesKilled = GetKillsByEnemyType(EnemyScript.EnemyType.Basic);
+        fastEnemiesKilled = GetKillsByEnemyType(EnemyScript.EnemyType.Fast);
+        tankyEnemiesKilled = GetKillsByEnemyType(EnemyScript.EnemyType.Tanky);
+        totalEnemiesKilled = GetTotalEnemyKills();
+
+        // Update tower investment
+        basicTowerInvestment = GetInvestmentByTowerType(TowerInfo.TowerType.Basic);
+        sniperTowerInvestment = GetInvestmentByTowerType(TowerInfo.TowerType.Sniper);
+        aoeTowerInvestment = GetInvestmentByTowerType(TowerInfo.TowerType.AOE);
+        totalTowerInvestment = GetTotalTowerInvestment();
+        
+        // Make sure efficiency values are up to date
+        UpdateCurrentWaveEfficiency();
+        
+        // Update efficiency values in inspector
+        currentWaveBasicEfficiency = GetCurrentWaveDamageEfficiency(TowerInfo.TowerType.Basic);
+        currentWaveSniperEfficiency = GetCurrentWaveDamageEfficiency(TowerInfo.TowerType.Sniper);
+        currentWaveAoEEfficiency = GetCurrentWaveDamageEfficiency(TowerInfo.TowerType.AOE);
+        currentWaveTotalEfficiency = GetCurrentWaveTotalDamageEfficiency();
+        
+        lastWaveBasicEfficiency = GetLastWaveDamageEfficiency(TowerInfo.TowerType.Basic);
+        lastWaveSniperEfficiency = GetLastWaveDamageEfficiency(TowerInfo.TowerType.Sniper);
+        lastWaveAoEEfficiency = GetLastWaveDamageEfficiency(TowerInfo.TowerType.AOE);
+        lastWaveTotalEfficiency = GetLastWaveTotalDamageEfficiency();
     }
 }
