@@ -23,7 +23,7 @@ public class SelectionWindow : MonoBehaviour
     {
         currentTowerInfo = towerInfo;
 
-        towerNameText.text = towerInfo.towerType.ToString();
+        UpdateNameText();
         
         upgradeLayoutScripts[(int)towerInfo.towerType].Init(towerInfo, this);
         upgradeLayoutScripts[(int)towerInfo.towerType].gameObject.SetActive(true);
@@ -86,6 +86,7 @@ public class SelectionWindow : MonoBehaviour
         if (bank.BuyUpgrade(price))
         {
             currentTowerInfo.upgradeIndex = upgradeNumber;
+            UpdateNameText();
             currentTowerInfo.gameObject.GetComponent<TowerUpgrading>().RunWhenTowerUpgrades();
             currentTowerInfo.gameObject.GetComponent<TowerShooting>().DisableShooting();
             float buildTime = towerUpgrades.towerType[(int)currentTowerInfo.towerType].upgradeLevels[upgradeNumber].buildTime;
@@ -102,5 +103,10 @@ public class SelectionWindow : MonoBehaviour
         bank.IncreasePlayerMoney(moneyBack);
 
         tpg.SelectedTowerWasSold(currentTowerInfo);
+    }
+
+    void UpdateNameText()
+    {
+        towerNameText.text = $"{currentTowerInfo.towerType} L{currentTowerInfo.upgradeIndex + 1}";
     }
 }

@@ -42,7 +42,7 @@ public class SelectionWindowItem : MonoBehaviour, IPointerEnterHandler, IPointer
         mouseIsHoveringOverThisItem = true;
         ChangeColor();
 
-        upgradeLayoutScript.HoverOverButtonEnter(gameObject);
+        upgradeLayoutScript.HoverOverButtonEnter(gameObject, upgradeIndex);
     }
 
     public void OnPointerExit(PointerEventData eventData)
