@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3937651984259435576}
   - component: {fileID: 1455521660867437875}
   - component: {fileID: 4185596415151580725}
+  - component: {fileID: 5579819750457968346}
   m_Layer: 0
   m_Name: Sparks
   m_TagString: Untagged
@@ -169,8 +170,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 80
-      minScalar: 2
+      scalar: 3
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4891,6 +4892,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5579819750457968346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454052945850406928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9242b3079ff85d942afd8c78aacf0e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &797075628852647211
 GameObject:
   m_ObjectHideFlags: 0
@@ -4900,6 +4913,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3019591669377400702}
+  - component: {fileID: 3674650674069837942}
+  - component: {fileID: -1457705381233524908}
   m_Layer: 0
   m_Name: ExplosionVFX
   m_TagString: Untagged
@@ -4925,6 +4940,30 @@ Transform:
   - {fileID: 3179352215704967647}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3674650674069837942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 797075628852647211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340cddcc9b0d5148faaf4d38ae21db46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1457705381233524908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 797075628852647211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d3891f84508c04ea31b1570b34b030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2591464128682158038
 GameObject:
   m_ObjectHideFlags: 0
@@ -4936,6 +4975,7 @@ GameObject:
   - component: {fileID: 3179352215704967647}
   - component: {fileID: 6793033209019503999}
   - component: {fileID: 4457502891845411270}
+  - component: {fileID: 6591874603721600478}
   m_Layer: 0
   m_Name: Flash
   m_TagString: Untagged
@@ -5212,7 +5252,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 22.42
+      scalar: 6
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -9816,6 +9856,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &6591874603721600478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2591464128682158038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9242b3079ff85d942afd8c78aacf0e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7355667529402363689
 GameObject:
   m_ObjectHideFlags: 0
@@ -9827,6 +9879,7 @@ GameObject:
   - component: {fileID: 6067717827060312586}
   - component: {fileID: 7876552707005728275}
   - component: {fileID: 8761875360137246324}
+  - component: {fileID: 4034604120669582974}
   m_Layer: 0
   m_Name: BigSparks
   m_TagString: Untagged
@@ -9985,8 +10038,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 80
-      minScalar: 2
+      scalar: 3
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -14707,3 +14760,15 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &4034604120669582974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7355667529402363689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9242b3079ff85d942afd8c78aacf0e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
