@@ -12,6 +12,7 @@ public class UpgradeLevelData
     public float projectileSpeed;
     public float fireRate;
     public float aoeRadius;
+    public float buildTime;
 }
 
 [System.Serializable]

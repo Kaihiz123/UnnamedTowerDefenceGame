@@ -28,6 +28,9 @@ public class AudioManager: MonoBehaviour
     public Transform soundEffectAudioSourceObjectPoolParent;
     public Transform uiSoundEffectAudioSourceObjectPoolParent;
 
+    public int soundEffectPoolSize;
+    public bool adaptivePoolSize;
+
     List<GameObject> soundEffectAudioSourceObjectPool = new List<GameObject>();
     List<GameObject> uiSoundEffectAudioSourceObjectPool = new List<GameObject>();
 
@@ -50,6 +53,8 @@ public class AudioManager: MonoBehaviour
     {
         // Log10 is used to convert linear 0...1 -> non linear -80dB...20dB
         // Log10(0) -> sets volume high so we prevent it by using Mathf.Max where -80 is the quietest
+
+        Debug.Log("" + type.ToString() + ", volume=" + volume);
 
         if(type == ISettings.Type.MASTERVOLUME || type == ISettings.Type.SOUNDEFFECTVOLUME 
             || type == ISettings.Type.MUSICVOLUME || type == ISettings.Type.UIVOLUME)
@@ -91,7 +96,7 @@ public class AudioManager: MonoBehaviour
     private void CreateAudioSourceObjectPool()
     {
         // create pool of objects with audio source component
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < soundEffectPoolSize; i++)
         {
             GameObject go1 = CreateSoundEffectNewAudioSourceObject(soundEffectAudioMixerGroup);
             go1.transform.SetParent(soundEffectAudioSourceObjectPoolParent);
@@ -101,8 +106,6 @@ public class AudioManager: MonoBehaviour
             go2.transform.SetParent(uiSoundEffectAudioSourceObjectPoolParent);
             uiSoundEffectAudioSourceObjectPool.Add(go2);
         }
-
-        
     }
 
     private GameObject CreateSoundEffectNewAudioSourceObject(AudioMixerGroup audioMixerGroup)
@@ -131,12 +134,21 @@ public class AudioManager: MonoBehaviour
                 }
             }
 
-            // no free ones so create a new. This makes the pool flexible but may cause stutter when pool is depleted. Needs testing to find good pool size.
-            GameObject go = CreateSoundEffectNewAudioSourceObject(soundEffectAudioMixerGroup);
-            go.transform.SetParent(soundEffectAudioSourceObjectPoolParent);
-            soundEffectAudioSourceObjectPool.Add(go);
-            go.SetActive(true);
-            return go.GetComponent<AudioSource>();
+            if (adaptivePoolSize)
+            {
+                // no free ones so create a new. This makes the pool flexible but may cause stutter when pool is depleted. Needs testing to find good pool size.
+                GameObject go = CreateSoundEffectNewAudioSourceObject(soundEffectAudioMixerGroup);
+                go.transform.SetParent(soundEffectAudioSourceObjectPoolParent);
+                soundEffectAudioSourceObjectPool.Add(go);
+                go.SetActive(true);
+                
+                return go.GetComponent<AudioSource>();
+            }
+            else
+            {
+                return null;
+            }
+                
         }
         else if(audioMixerGroup == uiSoundEffectAudioMixerGroup)
         {
@@ -149,12 +161,20 @@ public class AudioManager: MonoBehaviour
                 }
             }
 
-            // no free ones so create a new. This makes the pool flexible but may cause stutter when pool is depleted. Needs testing to find good pool size.
-            GameObject go = CreateSoundEffectNewAudioSourceObject(uiSoundEffectAudioMixerGroup);
-            go.transform.SetParent(uiSoundEffectAudioSourceObjectPoolParent);
-            uiSoundEffectAudioSourceObjectPool.Add(go);
-            go.SetActive(true);
-            return go.GetComponent<AudioSource>();
+            if (adaptivePoolSize)
+            {
+                // no free ones so create a new. This makes the pool flexible but may cause stutter when pool is depleted. Needs testing to find good pool size.
+                GameObject go = CreateSoundEffectNewAudioSourceObject(uiSoundEffectAudioMixerGroup);
+                go.transform.SetParent(uiSoundEffectAudioSourceObjectPoolParent);
+                uiSoundEffectAudioSourceObjectPool.Add(go);
+                go.SetActive(true);
+
+                return go.GetComponent<AudioSource>();
+            }
+            else
+            {
+                return null;
+            }
         }
         else
         {
@@ -167,6 +187,13 @@ public class AudioManager: MonoBehaviour
     {
         // find free object from pool
         AudioSource audioSource = GetFreeAudioSource(soundEffectAudioMixerGroup);
+        if(audioSource == null)
+        {
+            // audiosource pool size limit reached
+            Debug.Log("soundeffect audiosource pool size limit reached");
+            return;
+        }
+
         audioSource.PlayOneShot(clip);
         // deactivate object after the clip has been played
         StartCoroutine(DeactivateAfterTime(audioSource.gameObject, clip.length));
@@ -176,6 +203,13 @@ public class AudioManager: MonoBehaviour
     {
         // find free object from pool
         AudioSource audioSource = GetFreeAudioSource(uiSoundEffectAudioMixerGroup);
+        if(audioSource == null)
+        {
+            // audiosource pool size limit reached
+            Debug.Log("ui soundeffect audiosource pool size limit reached");
+            return;
+        }
+
         audioSource.PlayOneShot(clip);
         // deactivate object after the clip has been played
         StartCoroutine(DeactivateAfterTime(audioSource.gameObject, clip.length));

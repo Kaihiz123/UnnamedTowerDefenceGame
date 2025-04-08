@@ -325,16 +325,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWaveButton: {fileID: 1060625713205744055}
+  waveText: {fileID: 0}
   nextWaveTriggered: 0
   helperCurrentWave: 0
   debugMode: 0
   startFromWave: 1
+  waveBonusInterval: 5
+  waveBonusAmount: 200
+  enableWaveBonus: 1
   spawnPoint: {fileID: 0}
   enemyParent: {fileID: 0}
   waypointsParent: {fileID: 0}
   playerHealthSystem: {fileID: 0}
   bank: {fileID: 0}
-  infiniteWaveScalingIncrement: 0.2
+  infiniteWaveScalingIncrement: 0.1
   maxScalingMultiplier: 10
   globalInfiniteWaveReward: 100
   useGlobalInfiniteWaveReward: 1
@@ -346,24 +350,507 @@ MonoBehaviour:
     enemyScaling: 1
     enemies:
     - enemyType: 0
-      spawnDelay: 1
-      count: 5
+      spawnDelay: 4
+      count: 4
       shieldCharges: 0
   - waveReward: 100
     enemyScaling: 1
     enemies:
     - enemyType: 0
-      spawnDelay: 0.8
-      count: 10
+      spawnDelay: 2.5
+      count: 6
       shieldCharges: 0
-  repeatingWaves:
-  - waveReward: 0
+  - waveReward: 100
     enemyScaling: 1
     enemies:
     - enemyType: 0
-      spawnDelay: 0.8
-      count: 10
-      shieldCharges: 1
+      spawnDelay: 1.5
+      count: 4
+      shieldCharges: 2
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 0
+      spawnDelay: 1.5
+      count: 2
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1.5
+      count: 6
+      shieldCharges: 0
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 0
+      spawnDelay: 1
+      count: 8
+      shieldCharges: 2
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 2
+      spawnDelay: 1
+      count: 1
+      shieldCharges: 0
+    - enemyType: 0
+      spawnDelay: 1
+      count: 8
+      shieldCharges: 0
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+      shieldCharges: 0
+    - enemyType: 0
+      spawnDelay: 1
+      count: 8
+      shieldCharges: 0
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 2
+      spawnDelay: 2
+      count: 2
+      shieldCharges: 10
+    - enemyType: 0
+      spawnDelay: 1
+      count: 8
+      shieldCharges: 0
+    - enemyType: 2
+      spawnDelay: 2
+      count: 2
+      shieldCharges: 10
+    - enemyType: 0
+      spawnDelay: 1
+      count: 8
+      shieldCharges: 0
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 0
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+      shieldCharges: 10
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 0
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+      shieldCharges: 10
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 0
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+      shieldCharges: 10
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 0
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+      shieldCharges: 10
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+      shieldCharges: 20
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+      shieldCharges: 20
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+      shieldCharges: 20
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 0
+      count: 1
+      shieldCharges: 20
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 1
+      count: 1
+      shieldCharges: 20
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 1
+      count: 1
+      shieldCharges: 20
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 0
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 1
+      count: 1
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 0
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 0
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 1
+      count: 1
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 0
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 2
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 1
+      count: 1
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 2
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 2
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 2
+    - enemyType: 2
+      spawnDelay: 1
+      count: 1
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 2
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 1
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 1
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 4
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 1
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 1
+      shieldCharges: 20
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 1
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+  repeatingWaves:
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 1
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
 --- !u!1 &4554839958374596897
 GameObject:
   m_ObjectHideFlags: 0

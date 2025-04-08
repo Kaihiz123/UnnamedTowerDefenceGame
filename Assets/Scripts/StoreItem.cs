@@ -7,6 +7,7 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
     public StoreHandler storeHandler;
     public Image towerImageUI;
     public TMPro.TextMeshProUGUI towerText;
+    public TMPro.TextMeshProUGUI nameText;
     public TowerInfo.TowerType towerType;
 
     bool playerCanAffordThisItem = true;
@@ -21,6 +22,7 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
 
         // cost of the tower that is shown on the storeItem
         towerText.text = "" + price;
+        nameText.text = "" + towerType.ToString();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -78,17 +80,20 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
             {
                 towerImageUI.color = new Color(1f, 1f, 1f, hoverOverAlpha);
                 towerText.color = new Color(1f, 1f, 0.5f, 1f);
+                nameText.color = new Color(1f, 1f, 0.5f, 1f);
             }
             else
             {
                 towerImageUI.color = new Color(1f, 1f, 1f, defaultAlpha);
                 towerText.color = new Color(1f, 1f, 0.5f, 1f);
+                nameText.color = new Color(1f, 1f, 0.5f, 1f);
             }
         }
         else
         {
             towerImageUI.color = new Color(0.33f, 0.33f, 0.33f, defaultAlpha);
             towerText.color = new Color(0.6f, 0.6f, 0.6f, 1f);
+            nameText.color = new Color(0.6f, 0.6f, 0.6f, 1f);
         }
     }
 }

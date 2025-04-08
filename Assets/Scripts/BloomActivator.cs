@@ -12,6 +12,8 @@ public class BloomActivator : MonoBehaviour
     {
         Volume volume = GetComponent<Volume>();
         volume.profile.TryGet(out bloom);
+
+        bloom.active = PlayerPrefs.GetInt(ISettings.Type.BLOOM.ToString(), 1) == 1;
     }
 
     public void EnableBloom(bool enable)
@@ -27,6 +29,7 @@ public class BloomActivator : MonoBehaviour
     private void OnDisable()
     {
         GameManager.OnEnableBloom -= EnableBloom;
+        bloom = null;
     }
 
 }

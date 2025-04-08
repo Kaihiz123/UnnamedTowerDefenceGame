@@ -39,10 +39,16 @@ public class SelectionWindow : MonoBehaviour
         }
     }
 
-    private void UpdateUpgradeStatus()
+    public void UpdateUpgradeStatus()
     {
         // change the color of the upgrade buttons based on the level player has upgraded the selected tower.
         // blue button color indicates ownership and yellow indicates that it has not been purchased
+
+        if(currentTowerInfo == null)
+        {
+            return;
+        }
+
         SelectionWindowItem[] items = GetComponentsInChildren<SelectionWindowItem>(true);
         foreach(SelectionWindowItem item in items)
         {
@@ -50,10 +56,11 @@ public class SelectionWindow : MonoBehaviour
             {
                 if(currentTowerInfo.upgradeIndex >= item.upgradeIndex)
                 {
-                    item.PlayerOwns();
+                    item.PlayerOwns(true);
                 }
                 else
                 {
+                    item.PlayerOwns(false);
                     if(bank.GetPlayerMoney() >= towerUpgrades.towerType[(int)currentTowerInfo.towerType].upgradeLevels[item.upgradeIndex].upgradeCost)
                     {
                         item.PlayerCanAfford();
@@ -67,13 +74,24 @@ public class SelectionWindow : MonoBehaviour
         }
     }
 
-    public void UpgradeButtonPressed(int upgradeNumber, int price)
+    public void UpgradeButtonPressed(int upgradeNumber, int price, SelectionWindowItem selectionWindowItem)
     {
+        // block if already upgrading/building
+        if (!currentTowerInfo.gameObject.GetComponent<TowerShooting>().IsAvailableToUpgrade())
+        {
+            return;
+        }
+        
         // if player has enough money increment towerInfos upgradeIndex by 1 and updateUpgradeStatus
         if (bank.BuyUpgrade(price))
         {
             currentTowerInfo.upgradeIndex = upgradeNumber;
             currentTowerInfo.gameObject.GetComponent<TowerUpgrading>().RunWhenTowerUpgrades();
+            currentTowerInfo.gameObject.GetComponent<TowerShooting>().DisableShooting();
+            float buildTime = towerUpgrades.towerType[(int)currentTowerInfo.towerType].upgradeLevels[upgradeNumber].buildTime;
+            currentTowerInfo.gameObject.GetComponent<TowerShooting>().EnableShooting(buildTime);
+            UIRadialTimerManager.Instance.AddTimer(currentTowerInfo.transform.position, buildTime);
+            selectionWindowItem.PlayerOwns(true);
             UpdateUpgradeStatus();
         }
     }

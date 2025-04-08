@@ -13,7 +13,7 @@ public class TowerUpgrading : MonoBehaviour
     [Header("Tower Type Upgrades")]
     public TowerTypeUpgradeDataSO towerUpgrades;
 
-    void Start()
+    void Awake()
     {
         towerInfo = GetComponent<TowerInfo>();
         towerShooting = GetComponent<TowerShooting>();

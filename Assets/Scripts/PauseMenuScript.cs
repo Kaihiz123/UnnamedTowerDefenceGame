@@ -43,6 +43,10 @@ public class PauseMenuScript : MonoBehaviour, IConfirmation
         {
             AudioManager.Instance.PauseMusic(PauseWindow.activeInHierarchy);
         }
+        else
+        {
+            AudioManager.Instance.PauseMusic(false);
+        }
 
         if (PauseWindow.activeInHierarchy)
         {

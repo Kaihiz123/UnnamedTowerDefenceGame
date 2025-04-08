@@ -7,12 +7,13 @@ public class Bank : MonoBehaviour
     [SerializeField] private int playerMoney;
 
     public StoreItemHandler storeItemHandler;
+    public SelectionWindow selectionWindow;
 
-    int price;
+    int price; // the price of the tower that is being bought
 
     public TMPro.TextMeshProUGUI bankBalanceText;
 
-    public bool debug;
+    public bool debug; // debugMode
     public int playerStartMoneyIfDebugIsOn = 100;
 
     private void Awake()
@@ -87,6 +88,8 @@ public class Bank : MonoBehaviour
         bankBalanceText.text = "" + playerMoney;
         // update store towers color so it indicates if player has enough money
         storeItemHandler.ChangeUITowerColors();
+        // notify selectionView that money balance has been changed
+        selectionWindow.UpdateUpgradeStatus();
     }
 
     public void IncreasePlayerMoney(int money)

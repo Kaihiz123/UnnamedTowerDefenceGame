@@ -47,4 +47,14 @@ public class MenuPlayPanelScript : MonoBehaviour, ISettings
     {
         // this is used in MenuSettingsPanelScript
     }
+
+    public void MuteMusicOnPause(bool mute)
+    {
+        // this is used in pause menu
+    }
+
+    public void UpdateAllInfos()
+    {
+        // this is used in MenuSettingsPanelScript
+    }
 }

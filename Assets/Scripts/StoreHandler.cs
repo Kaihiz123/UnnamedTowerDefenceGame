@@ -108,6 +108,10 @@ public class StoreHandler : MonoBehaviour
             newTowerObject.transform.localScale = towerPlacementGrid.ElementSize;
             // Set the new tower child of ObjectsOnGrid
             newTowerObject.transform.SetParent(ObjectsOnGrid);
+            // update tower's attack, range, firerate, etc. values to match the upgrade index
+            newTowerObject.GetComponent<TowerUpgrading>().RunWhenTowerUpgrades();
+            // show area visual
+            newTowerObject.GetComponent<TowerShooting>().ShowAreaVisual(true);
             // pass the tower type from storeItem to towerInfo
             TowerInfo towerInfo = newTowerObject.GetComponent<TowerInfo>();
             towerInfo.towerType = pressedStoreItemObject.GetComponent<StoreItem>().towerType;

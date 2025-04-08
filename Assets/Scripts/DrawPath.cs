@@ -1,50 +1,42 @@
 using UnityEngine;
-using UnityEngine.U2D;
 
-// WIP DO NOT USE
 public class DrawPath : MonoBehaviour
 {
     [SerializeField] private string waypointsParentName = "Waypoints";
+    [SerializeField] private Material pathMaterial;    
     private Transform[] waypoints;
-    private SpriteShapeController spriteShape;
-
-    void Awake()
+    private LineRenderer lineRenderer;
+    
+    private void Awake()
     {
-        GameObject waypointsParent = GameObject.Find(waypointsParentName);
+        lineRenderer = GetComponent<LineRenderer>();
+        if (lineRenderer == null)
+            lineRenderer = gameObject.AddComponent<LineRenderer>();
         
+        lineRenderer.material = pathMaterial;
+        lineRenderer.startWidth = 1f;
+        lineRenderer.endWidth = 1f;
+        
+        Transform waypointsParent = GameObject.Find(waypointsParentName)?.transform;
         if (waypointsParent != null)
         {
-            int childCount = waypointsParent.transform.childCount;
-            waypoints = new Transform[childCount];
+            int waypointCount = waypointsParent.childCount;
+            waypoints = new Transform[waypointCount];
             
-            for (int i = 0; i < childCount; i++)
+            for (int i = 0; i < waypointCount; i++)
             {
-                waypoints[i] = waypointsParent.transform.GetChild(i);
+                waypoints[i] = waypointsParent.GetChild(i);
+            }
+
+            lineRenderer.positionCount = waypointCount;
+            for (int i = 0; i < waypointCount; i++)
+            {
+                lineRenderer.SetPosition(i, waypoints[i].position);
             }
         }
         else
         {
-            Debug.LogWarning("Waypoints parent not found: " + waypointsParentName);
-        }
-    }
-
-    void Start()
-    {
-        spriteShape = GetComponent<SpriteShapeController>();
-        DrawWaypointPath();        
-    }
-
-    void DrawWaypointPath()
-    {
-        if (waypoints == null || waypoints.Length == 0)
-            return;
-
-        Spline spline = spriteShape.spline;
-        spline.Clear();
-
-        for (int i = 0; i < waypoints.Length; i++)
-        {
-            spline.InsertPointAt(i, waypoints[i].position);
+            Debug.LogWarning($"Waypoints parent '{waypointsParentName}' not found!");
         }
     }
 }

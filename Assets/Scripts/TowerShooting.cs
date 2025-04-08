@@ -37,7 +37,7 @@ public class TowerShooting : MonoBehaviour
     private TowerShootingAoE towerShootingAoEScript;
     public TowerInfo towerInfo;
 
-    bool isShootingEnabled = true;
+    bool isShootingEnabled = false;
 
     void Start()
     {
@@ -74,16 +74,18 @@ public class TowerShooting : MonoBehaviour
         shootInterval = 1f / towerFireRate; // Calculate time between shots
     }
 
+    public void UpdateAreaVisualPosition(Vector2Int snapPosition)
+    {
+        theDebug_EnemyDetectAreaVisual.transform.position = new Vector3(snapPosition.x, snapPosition.y, 0f);
+    }
+
+    public void ShowAreaVisual(bool show)
+    {
+        theDebug_EnemyDetectAreaVisual.SetActive(show);
+    }
+
     void Update()
     {
-        if (SettingsManager.Instance.DebugON == true)
-        {
-            theDebug_EnemyDetectAreaVisual.SetActive(true);
-        }
-        else
-        {
-            theDebug_EnemyDetectAreaVisual.SetActive(false);
-        }
 
         if (isShootingEnabled)
         {
@@ -268,6 +270,11 @@ public class TowerShooting : MonoBehaviour
     public void DisableShooting()
     {
         isShootingEnabled = false;
+    }
+
+    public bool IsAvailableToUpgrade()
+    {
+        return isShootingEnabled;
     }
 
     private IEnumerator EnableShootingAfterCooldown(float cooldownTime)

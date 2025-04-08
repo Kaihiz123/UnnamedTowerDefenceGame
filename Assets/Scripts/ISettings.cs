@@ -35,7 +35,9 @@ public interface ISettings
 
         // gameplay
         SHOWPLAYERHEALTHBAR,
-        SHOWENEMYHEALTHBAR
+        SHOWENEMYHEALTHBAR,
+
+        DISPLAY
     }
 
     public void ValueChanged<T>(Type type, T newValue) where T : struct;
@@ -46,4 +48,8 @@ public interface ISettings
     public void ShowEnemyHealthBarInGameScene(bool show);
 
     public void EnableBloom(bool enable);
+
+    public void MuteMusicOnPause(bool mute);
+
+    public void UpdateAllInfos();
 }
