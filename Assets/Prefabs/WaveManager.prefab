@@ -329,7 +329,7 @@ MonoBehaviour:
   nextWaveTriggered: 0
   helperCurrentWave: 0
   debugMode: 1
-  startFromWave: 4
+  startFromWave: 3
   waveBonusInterval: 5
   waveBonusAmount: 200
   enableWaveBonus: 1
