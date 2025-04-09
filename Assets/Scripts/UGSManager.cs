@@ -6,12 +6,12 @@ using Unity.Services.Leaderboards;
 using UnityEngine.SocialPlatforms.Impl;
 using System;
 using System.Collections.Generic;
+using Unity.Services.Leaderboards.Models;
 
 public class UGSManager : MonoBehaviour
 {
-    public TMPro.TMP_InputField playerInputName;
-
     public Hiscore hiscore;
+    public GameOverScript gameOverScript;
 
     public static UGSManager Instance { get; private set; }
 
@@ -35,42 +35,41 @@ public class UGSManager : MonoBehaviour
         await UnityServices.InitializeAsync();
     }
 
-    public async void SetPlayerName()
+    public async void GetPlacementInTheLeaderboard(int score)
     {
-        if(playerInputName == null)
-        {
-            playerInputName = GameObject.Find("PlayerNameInputField").GetComponent<TMPro.TMP_InputField>();
-        }
-        string playerName = playerInputName.text;
-        
-        try
-        {
-            await AuthenticationService.Instance.UpdatePlayerNameAsync(playerName);
-            Debug.Log("Player name set to: " + playerName);
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError("Failed to submit score: " + e.Message);
-        }
-    }
+        // Force new player ID
+        AuthenticationService.Instance.SignOut();
+        PlayerPrefs.DeleteKey("unity.player_id");
+        PlayerPrefs.Save();
 
-    public async void SubmitScore(int score)
-    {
+        AuthenticationService.Instance.ClearSessionToken();
+
+        // Sign in anonymously (new player)
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
-        SetPlayerName();
-        
-        try
+        await LeaderboardsService.Instance.AddPlayerScoreAsync("Hiscore", score);
+
+        LeaderboardEntry myEntry = await LeaderboardsService.Instance.GetPlayerScoreAsync("Hiscore");
+        int rank = myEntry.Rank + 1; // +1 because UGS ranks are 0-based
+
+        if(gameOverScript == null)
         {
-            await LeaderboardsService.Instance.AddPlayerScoreAsync("Hiscore", score);
-            Debug.Log("Score submitted: " + score);
-            AuthenticationService.Instance.SignOut();
-            PlayerPrefs.DeleteKey("unity.player_id");
+            gameOverScript = FindFirstObjectByType<GameOverScript>();
         }
-        catch (System.Exception e)
+
+        string text = "";
+        bool placedInTheTop20 = false;
+        if(rank <= 20)
         {
-            Debug.LogError("Failed to submit score: " + e.Message);
-        }  
+            text = "You placed #" + rank + " in the world!";
+            placedInTheTop20 = true;
+        }
+        else
+        {
+            text = "You didn't place in the top20";
+        }
+        
+        gameOverScript.AddPlacementText(text, placedInTheTop20);
     }
 
     public async void GetTopScores()
@@ -80,17 +79,16 @@ public class UGSManager : MonoBehaviour
             if (!AuthenticationService.Instance.IsSignedIn)
             {
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
-                Debug.Log("Signed in as: " + AuthenticationService.Instance.PlayerId);
             }
 
-            var scoresResponse = await LeaderboardsService.Instance.GetScoresAsync("Hiscore", new GetScoresOptions { Limit = 10 });
+            var scoresResponse = await LeaderboardsService.Instance.GetScoresAsync("Hiscore", new GetScoresOptions { Limit = 20 });
 
             Dictionary<string, int> dict = new Dictionary<string, int>();
 
             foreach (var entry in scoresResponse.Results)
             {
-                Debug.Log($"{entry.Rank + 1}. {entry.PlayerName ?? "Anonymous"} - {entry.Score}");
-                dict.Add(entry.PlayerName, (int) entry.Score);
+                string playerName = entry.PlayerName.Split("#")[0];
+                dict.Add(playerName, (int) entry.Score);
             }
 
             if(hiscore == null)
@@ -106,34 +104,17 @@ public class UGSManager : MonoBehaviour
         }
     }
 
-    public async void SubmitScoreWithNewID(int score)
+    public async void SubmitScore(string playerName)
     {
-        if (playerInputName == null)
+        if (playerName.Equals(""))
         {
-            playerInputName = GameObject.Find("PlayerNameInputField").GetComponent<TMPro.TMP_InputField>();
+            playerName = "Anon";
         }
-        string playerName = playerInputName.text;
 
         try
         {
-            // Force new player ID
-            AuthenticationService.Instance.SignOut();
-            PlayerPrefs.DeleteKey("unity.player_id");
-            PlayerPrefs.Save();
-
-            AuthenticationService.Instance.ClearSessionToken();
-
-            // Sign in anonymously (new player)
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            Debug.Log("New Player ID: " + AuthenticationService.Instance.PlayerId);
-
             // Set the player name
             await AuthenticationService.Instance.UpdatePlayerNameAsync(playerName);
-
-            // Submit the score
-            await LeaderboardsService.Instance.AddPlayerScoreAsync("Hiscore", score);
-
-            Debug.Log($"Submitted score: {score} for {playerName}");
         }
         catch (Exception e)
         {

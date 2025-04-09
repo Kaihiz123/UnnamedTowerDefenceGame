@@ -28,6 +28,8 @@ public class Hiscore : MonoBehaviour
             }
         }
 
+        int runningNumber = 1;
+
         // instantiate prefabs
         foreach (KeyValuePair<string, int> entry in leaderboard)
         {
@@ -35,9 +37,10 @@ public class Hiscore : MonoBehaviour
             go.name = "HiscoreItem";
             go.transform.SetParent(hiscoreItemParent);
             MenuSettingsItemText msit = go.GetComponent<MenuSettingsItemText>();
-            msit.itemName1 = entry.Key;
+            msit.itemName1 = "#" + runningNumber + " " + entry.Key;
             msit.itemName2 = "" + entry.Value;
             msit.UpdateTexts();
+            runningNumber++;
         }
     }
 

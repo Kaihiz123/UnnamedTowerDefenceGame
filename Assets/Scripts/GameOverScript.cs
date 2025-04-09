@@ -5,6 +5,9 @@ public class GameOverScript : MonoBehaviour
 {
     [SerializeField] private TMPro.TextMeshProUGUI playerStatsText;
     [SerializeField] public GameObject GameOverScreen;
+    public TMPro.TextMeshProUGUI leaderboardPlacementText;
+    public HiscoreSubmitButton hiscoreSubmitButton;
+    public GameObject PauseMenuCanvasObject;
     private GameTimer gameTimer;
     private WaveManager waveManager;
     public int WavesReached { get; private set; }
@@ -22,6 +25,7 @@ public class GameOverScript : MonoBehaviour
     {
         gameTimer = FindFirstObjectByType<GameTimer>();
         waveManager = FindFirstObjectByType<WaveManager>();
+        leaderboardPlacementText.text = "";
     }
 
     public void ShowGameOverScreen()
@@ -40,6 +44,21 @@ public class GameOverScript : MonoBehaviour
         CollectGameStatistics();
         UpdatePlayerStatsText();        
         GameOverScreen.SetActive(true);
+
+        // prevent pause menu to show
+        PauseMenuCanvasObject.SetActive(false);
+
+        // Get placement in the leaderboards
+        UGSManager.Instance.GetPlacementInTheLeaderboard(WavesReached);
+    }
+
+    public void AddPlacementText(string text, bool placedInTheTop20)
+    {
+        leaderboardPlacementText.text = text;
+        if (!placedInTheTop20)
+        {
+            hiscoreSubmitButton.Disable();
+        }
     }
 
     private void CollectGameStatistics()

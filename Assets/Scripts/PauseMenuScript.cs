@@ -39,7 +39,7 @@ public class PauseMenuScript : MonoBehaviour, IConfirmation
     }
 
     private void Pause()
-    {
+    {   
         PauseWindow.SetActive(!PauseWindow.activeInHierarchy);
 
         if(PlayerPrefs.GetInt(ISettings.Type.MUTEMUSICONPAUSE.ToString()) == 1)
