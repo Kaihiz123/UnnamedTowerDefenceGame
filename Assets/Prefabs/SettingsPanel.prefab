@@ -1330,6 +1330,11 @@ MonoBehaviour:
   SettingsToggleGroup: {fileID: 4034829714254540107}
   FPSPanel: {fileID: 0}
   pauseMenuScript: {fileID: 0}
+  hideInWebGLBuild:
+  - {fileID: 6932430533613751446}
+  - {fileID: 5830145577640276953}
+  - {fileID: 7257151622144191696}
+  hideInWindowsBuild: []
 --- !u!1 &3108404953969356945
 GameObject:
   m_ObjectHideFlags: 0
@@ -3757,6 +3762,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4148215503210539579, guid: 687a1c000db43fd43848c224c621ab38, type: 3}
   m_PrefabInstance: {fileID: 896376929577605473}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5830145577640276953 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6672158241943988920, guid: 687a1c000db43fd43848c224c621ab38, type: 3}
+  m_PrefabInstance: {fileID: 896376929577605473}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &980047604458206414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5273,6 +5283,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5640745088993426119, guid: 74b7e4eb8ae76b545b9e0b44e2956e37, type: 3}
   m_PrefabInstance: {fileID: 6954350840540773684}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6932430533613751446 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 51265731978965410, guid: 74b7e4eb8ae76b545b9e0b44e2956e37, type: 3}
+  m_PrefabInstance: {fileID: 6954350840540773684}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7205958527482617202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5405,6 +5420,11 @@ PrefabInstance:
 --- !u!224 &3046481600175351733 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5640745088993426119, guid: 74b7e4eb8ae76b545b9e0b44e2956e37, type: 3}
+  m_PrefabInstance: {fileID: 7205958527482617202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7257151622144191696 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 51265731978965410, guid: 74b7e4eb8ae76b545b9e0b44e2956e37, type: 3}
   m_PrefabInstance: {fileID: 7205958527482617202}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7330941459467321313
