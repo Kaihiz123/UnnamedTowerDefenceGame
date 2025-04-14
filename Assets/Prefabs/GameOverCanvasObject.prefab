@@ -265,11 +265,11 @@ RectTransform:
   - {fileID: 2317878375220279756}
   m_Father: {fileID: 8204832070921434200}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -403}
-  m_SizeDelta: {x: 500.83, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -50, y: 50}
+  m_SizeDelta: {x: 500.82996, y: 100}
+  m_Pivot: {x: 1, y: 0}
 --- !u!222 &8101074386523108113
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -532,11 +532,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8204832070921434200}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -77.02496}
-  m_SizeDelta: {x: 1306.1274, y: -154.05}
-  m_Pivot: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50.4, y: -130.10013}
+  m_SizeDelta: {x: 1306.1274, y: -260.19977}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &5846972527948734072
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -594,8 +594,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55
-  m_fontSizeBase: 55
+  m_fontSize: 44
+  m_fontSizeBase: 44
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -755,6 +755,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStatsText: {fileID: 5524832788583258253}
   GameOverScreen: {fileID: 4417696715233209147}
+  leaderboardPlacementText: {fileID: 0}
+  hiscoreSubmitButton: {fileID: 0}
+  PauseMenuCanvasObject: {fileID: 0}
 --- !u!1 &7901510000903134394
 GameObject:
   m_ObjectHideFlags: 0
