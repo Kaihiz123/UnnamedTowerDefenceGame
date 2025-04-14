@@ -39,6 +39,15 @@ public class PauseMenuScript : MonoBehaviour, IConfirmation
     {
         PauseWindow.SetActive(!PauseWindow.activeInHierarchy);
 
+        if(PlayerPrefs.GetInt(ISettings.Type.MUTEMUSICONPAUSE.ToString()) == 1)
+        {
+            AudioManager.Instance.PauseMusic(PauseWindow.activeInHierarchy);
+        }
+        else
+        {
+            AudioManager.Instance.PauseMusic(false);
+        }
+
         if (PauseWindow.activeInHierarchy)
         {
             Time.timeScale = 0f;
@@ -89,6 +98,8 @@ public class PauseMenuScript : MonoBehaviour, IConfirmation
         }
         else if (whoAddressed.Equals("ExitToMainMenu"))
         {
+            Time.timeScale = 1f;
+            AudioManager.Instance.PauseMusic(false);
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         }
     }

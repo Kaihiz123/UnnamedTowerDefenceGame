@@ -11,14 +11,25 @@ public class PlayerHealthSystem : MonoBehaviour
 
     public GameOverScript GameOverScript;
 
+    public PlayerBaseHealthBar playerBaseHealthBar;
+
+    public PlayerBaseScript playerBaseScript;
+
     private void Start()
     {
+        playerHealth = PlayerPrefs.GetInt(ISettings.Type.STARTHEALTH.ToString(), 100);
+        maxPlayerHealth = PlayerPrefs.GetInt(ISettings.Type.MAXHEALTH.ToString(), 100);
+        SettingsManager.Instance.playerHealth = playerHealth; // So far only for PlayerBaseHealthBar
+        SettingsManager.Instance.playerMaxHealth = maxPlayerHealth; // So far only for PlayerBaseHealthBar
         UpdatePlayerHealthText();
     }
 
     private void UpdatePlayerHealthText()
     {
         healthText.text = "" + playerHealth + "/" + maxPlayerHealth;
+        SettingsManager.Instance.playerHealth = playerHealth; // So far only for PlayerBaseHealthBar
+        playerBaseHealthBar.UpdateHealthBar();
+        playerBaseScript.PlayerBaseHealthChange(playerHealth, maxPlayerHealth);
     }
 
     public void PlayerTookDamage(int damage)

@@ -8,6 +8,8 @@ public class MenuCustomToggleButton : MonoBehaviour, IPointerEnterHandler, IPoin
     public Color highlightSelectedColor;
     public Color defaultColor;
     public Color highlightDefaultColor;
+    public AudioClip soundHover;
+    public AudioClip soundClick;
     Toggle toggle;
 
     bool isSelected = false;
@@ -24,6 +26,8 @@ public class MenuCustomToggleButton : MonoBehaviour, IPointerEnterHandler, IPoin
 
     public void UpdateValue()
     {
+        Debug.Log("UpdateValue");
+
         isSelected = toggle.isOn;
         ChangeColor();
         overrideOnce = true;
@@ -41,7 +45,8 @@ public class MenuCustomToggleButton : MonoBehaviour, IPointerEnterHandler, IPoin
         {
             isSelected = isOn;
             ChangeColor();
-        }
+            AudioManager.Instance.PlayUISoundEffect(soundClick);
+        }        
     }
 
     private void ChangeColor()
@@ -52,6 +57,7 @@ public class MenuCustomToggleButton : MonoBehaviour, IPointerEnterHandler, IPoin
     public void OnPointerEnter(PointerEventData eventData)
     {
         targetImage.color = isSelected ? highlightSelectedColor : highlightDefaultColor;
+        AudioManager.Instance.PlayUISoundEffect(soundHover);
     }
 
     public void OnPointerExit(PointerEventData eventData)

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public enum TargetingStrategy
 {
@@ -32,16 +33,18 @@ public class TowerShooting : MonoBehaviour
     public float shootInterval; // Time between shots
     private float shootTimer = 0f; // Timer to track shooting
     public AudioClip soundShoot;
-    AudioSource audioSource;
 
     private TowerShootingAoE towerShootingAoEScript;
+    public TowerInfo towerInfo;
+
+    bool isShootingEnabled = false;
 
     void Start()
     {
         towerShootingAoEScript = GetComponent<TowerShootingAoE>();
-        audioSource = GetComponentInChildren<AudioSource>();
         UpdateFireRate();
         UpdateDebugCircleRadius();
+        towerInfo = GetComponent<TowerInfo>();
     }
 
     public void UpdateDebugCircleRadius()
@@ -71,41 +74,49 @@ public class TowerShooting : MonoBehaviour
         shootInterval = 1f / towerFireRate; // Calculate time between shots
     }
 
+    public void UpdateAreaVisualPosition(Vector2Int snapPosition)
+    {
+        theDebug_EnemyDetectAreaVisual.transform.position = new Vector3(snapPosition.x, snapPosition.y, 0f);
+    }
+
+    public void ShowAreaVisual(bool show)
+    {
+        theDebug_EnemyDetectAreaVisual.SetActive(show);
+    }
+
     void Update()
     {
-        if (SettingsManager.Instance.DebugON == true)
-        {
-            theDebug_EnemyDetectAreaVisual.SetActive(true);
-        }
-        else
-        {
-            theDebug_EnemyDetectAreaVisual.SetActive(false);
-        }
 
-        if (enemiesInRange.Count > 0)
+        if (isShootingEnabled)
         {
-            // Get target based on targeting strategy
-            GameObject targetEnemy = GetTargetEnemy();
-            
-            if (targetEnemy != null)
+            // Clean up destroyed enemies
+            enemiesInRange.RemoveAll(enemy => enemy == null);
+
+            if (enemiesInRange.Count > 0)
             {
-                // Rotate to look at the enemy (for 2D, using transform.up)
-                towerTurret.transform.up = targetEnemy.transform.position - transform.position;
+                // Get target based on targeting strategy
+                GameObject targetEnemy = GetTargetEnemy();
 
-                // Check if enough time has passed to shoot
-                shootTimer += Time.deltaTime;
-                if (shootTimer >= shootInterval)
+                if (targetEnemy != null)
                 {
-                    SpawnProjectile();
-                    audioSource.PlayOneShot(soundShoot);
-                    shootTimer = 0f;
+                    // Rotate to look at the enemy (for 2D, using transform.up)
+                    towerTurret.transform.up = targetEnemy.transform.position - transform.position;
+
+                    // Check if enough time has passed to shoot
+                    shootTimer += Time.deltaTime;
+                    if (shootTimer >= shootInterval)
+                    {
+                        SpawnProjectile();
+                        AudioManager.Instance.PlaySoundEffect(soundShoot);
+                        shootTimer = 0f;
+                    }
                 }
             }
-        }
-        else
-        {
-            // Clear current target when no enemies are in range
-            currentTarget = null;
+            else
+            {
+                // Clear current target when no enemies are in range
+                currentTarget = null;
+            }
         }
     }
 
@@ -146,7 +157,14 @@ public class TowerShooting : MonoBehaviour
     
     GameObject GetClosestEnemy()
     {
-        // Old closest enemy code reused as is
+        if (enemiesInRange.Count == 0)
+            return null;
+            
+        // Filter out any null references
+        enemiesInRange.RemoveAll(enemy => enemy == null);
+        if (enemiesInRange.Count == 0)
+            return null;
+            
         GameObject closestEnemy = enemiesInRange[0];
         foreach (GameObject enemy in enemiesInRange)
         {
@@ -163,6 +181,14 @@ public class TowerShooting : MonoBehaviour
 
     GameObject GetStrongestEnemy()
     {
+        if (enemiesInRange.Count == 0)
+            return null;
+            
+        // Filter out any null references
+        enemiesInRange.RemoveAll(enemy => enemy == null);
+        if (enemiesInRange.Count == 0)
+            return null;
+            
         GameObject strongestEnemy = enemiesInRange[0];
         float highestHealth = 0f;
         
@@ -202,6 +228,12 @@ public class TowerShooting : MonoBehaviour
                 projectileScript.projectileAttackDamage = projectileAttackDamage;
                 projectileScript.projectileSpeed = projectileSpeed;
 
+                // Get the TowerInfo component and set the tower type
+                if (towerInfo != null)
+                {
+                    projectileScript.sourceTowerType = towerInfo.towerType;
+                }
+
                 if (towerShootingAoEScript != null)
                 {
                     projectileScript.projectileAoEAttackRangeRadius = towerShootingAoEScript.projectileAoEAttackRangeRadius;
@@ -221,5 +253,33 @@ public class TowerShooting : MonoBehaviour
     public void UpdateEnemies(List<GameObject> updatedEnemies)
     {
         enemiesInRange = updatedEnemies;
+    }
+
+    public void EnableShooting(float cooldownTime)
+    {
+        if(cooldownTime == 0f)
+        {
+            isShootingEnabled = true;
+        }
+        else
+        {
+            StartCoroutine(EnableShootingAfterCooldown(cooldownTime));
+        }
+    }
+
+    public void DisableShooting()
+    {
+        isShootingEnabled = false;
+    }
+
+    public bool IsAvailableToUpgrade()
+    {
+        return isShootingEnabled;
+    }
+
+    private IEnumerator EnableShootingAfterCooldown(float cooldownTime)
+    {
+        yield return new WaitForSeconds(cooldownTime);
+        isShootingEnabled = true;
     }
 }

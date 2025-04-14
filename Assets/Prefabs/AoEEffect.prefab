@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3976066642190418147}
   - component: {fileID: 1596877938500037807}
   - component: {fileID: 8578679330100385091}
+  - component: {fileID: 6241372529661494129}
   m_Layer: 0
   m_Name: AoEEffect
   m_TagString: ProjectileAoE
@@ -130,9 +131,22 @@ MonoBehaviour:
   aoEAttackDamage: 0
   aoECollider: {fileID: 3976066642190418147}
   aoEAttackRangeRadius: 0
-  explosionPrefab: {fileID: 5912056139778002667, guid: 384c26ddf50024dd092fbf8d19d7c891, type: 3}
+  explosionPrefab: {fileID: 797075628852647211, guid: aee5d6be9bf46544ba9cec2c33d0489b, type: 3}
   DEBUGAoEAttackRangeCircleSprite: {fileID: 2417946038390359190}
   theDEBUGAoEAttackRangeCircleSprite: {fileID: 7998699053286580240}
+  sourceTowerType: 0
+--- !u!114 &6241372529661494129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33793741376937611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d3891f84508c04ea31b1570b34b030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7998699053286580240
 GameObject:
   m_ObjectHideFlags: 0

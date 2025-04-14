@@ -5,50 +5,122 @@ using UnityEngine.UI;
 
 public class SelectionWindowItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
 {
-    public SelectionWindow selectionWindow;
-    public int price;
-    public TowerInfo.TowerType towerType;
     public int upgradeIndex; // 0,1,2 are upgrades, -1 is sell
 
-    Image upgradeButtonImage;
-    float hoverOverAlpha = 1f; // when mouse is above button
-    float defaultAlpha = 0.7f; // when mouse is not above button
+    public TMPro.TextMeshProUGUI buttonText;
+    public Image upgradeButtonImage;
 
+    UpgradeLayoutScript upgradeLayoutScript;
+    
     private void Start()
     {
-        if(upgradeButtonImage == null)
+        if(upgradeLayoutScript == null)
         {
-            upgradeButtonImage = GetComponent<Image>();
+            upgradeLayoutScript = GetComponentInParent<UpgradeLayoutScript>();
+        }
+
+        if(upgradeIndex == 0)
+        {
+            playerOwnsThisItem = true;
+            ChangeColor();
         }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        selectionWindow.MouseButtonDown(gameObject);
+        upgradeLayoutScript.MouseButtonDown(gameObject);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        selectionWindow.MouseButtonUp(gameObject, upgradeIndex, price);
+        upgradeLayoutScript.MouseButtonUp(gameObject, upgradeIndex, this);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         // indicate that cursor is above the button
-        Color color = upgradeButtonImage.color;
-        color.a = hoverOverAlpha;
-        upgradeButtonImage.color = color;
+        mouseIsHoveringOverThisItem = true;
+        ChangeColor();
 
-        selectionWindow.HoverOverButtonEnter(gameObject);
+        upgradeLayoutScript.HoverOverButtonEnter(gameObject);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         // indicate that cursor is no longer above the button
-        Color color = upgradeButtonImage.color;
-        color.a = defaultAlpha;
-        upgradeButtonImage.color = color;
+        mouseIsHoveringOverThisItem = false;
+        ChangeColor();
 
-        selectionWindow.HoverOverButtonExit(gameObject);
+        upgradeLayoutScript.HoverOverButtonExit(gameObject);
     }
+
+    bool playerCanAffordThisItem;
+    bool mouseIsHoveringOverThisItem;
+    bool playerOwnsThisItem;
+
+    public void PlayerCanAfford()
+    {
+        playerCanAffordThisItem = true;
+        ChangeColor();
+    }
+
+    public void PlayerCannotAfford()
+    {
+        playerCanAffordThisItem = false;
+        ChangeColor();
+    }
+
+    public void PlayerOwns(bool owns)
+    {
+        playerOwnsThisItem = owns;
+        ChangeColor();
+    }
+
+    private void ChangeColor()
+    {
+        float hoverOverAlpha = 0.5f;
+        float defaultAlpha = 1f;
+
+        if(upgradeIndex == -1)
+        {
+            // this is sell button
+            if (mouseIsHoveringOverThisItem)
+            {
+                upgradeButtonImage.color = new Color(1f, 1f, 1f, hoverOverAlpha);
+                buttonText.color = new Color(1f, 1f, 0.5f, 1f);
+            }
+            else
+            {
+                upgradeButtonImage.color = new Color(1f, 1f, 1f, defaultAlpha);
+                buttonText.color = new Color(1f, 1f, 0.5f, 1f);
+            }
+        }
+        else if (playerOwnsThisItem)
+        {
+            // player owns this upgrade
+
+            upgradeButtonImage.color = new Color(1f, 1f, 1f, hoverOverAlpha);
+            buttonText.color = new Color(1f, 1f, 0.5f, 1f);
+        }
+        else if (playerCanAffordThisItem)
+        {
+            if (mouseIsHoveringOverThisItem)
+            {
+                upgradeButtonImage.color = new Color(1f, 1f, 1f, hoverOverAlpha);
+                buttonText.color = new Color(1f, 1f, 0.5f, 1f);
+            }
+            else
+            {
+                upgradeButtonImage.color = new Color(1f, 1f, 1f, defaultAlpha);
+                buttonText.color = new Color(1f, 1f, 0.5f, 1f);
+            }
+        }
+        else
+        {
+            // player doesnt own this and cannot afford it
+            upgradeButtonImage.color = new Color(0.33f, 0.33f, 0.33f, defaultAlpha);
+            buttonText.color = new Color(0.6f, 0.6f, 0.6f, 1f);
+        }
+    }
+
 }

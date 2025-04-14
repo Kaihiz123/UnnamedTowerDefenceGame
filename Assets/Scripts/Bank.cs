@@ -7,33 +7,46 @@ public class Bank : MonoBehaviour
     [SerializeField] private int playerMoney;
 
     public StoreItemHandler storeItemHandler;
+    public SelectionWindow selectionWindow;
 
-    // prices of the towers in store
-    List<int> prices = new List<int>();
+    int price; // the price of the tower that is being bought
 
     public TMPro.TextMeshProUGUI bankBalanceText;
 
-    private void Start()
+    public bool debug; // debugMode
+    public int playerStartMoneyIfDebugIsOn = 100;
+
+    private void Awake()
     {
+        // initialize player money
+
+        if (debug)
+        {
+            playerMoney = playerStartMoneyIfDebugIsOn;
+        }
+        else
+        {
+            playerMoney = PlayerPrefs.GetInt(ISettings.Type.STARTMONEY.ToString(), 4000);
+        }
+        
+
         // initialize storeItemHandler
         storeItemHandler.Init();
         
-        // get the prices of towers
-        prices = storeItemHandler.GetStoreItemPrices();
         // update the bank balance to show how much money the player has
         UpdateBankBalanceText();
     }
 
-    public bool BuyTower(int towerIndexInStore)
-    {   
+    public bool BuyTower(int price)
+    {
+        this.price = price;
+        
         // if the player has enough money to buy the tower
-        if(playerMoney >= prices[towerIndexInStore])
+        if (playerMoney >= price)
         {
             // players money isn't be reduced immediately because the player might try to place the tower on an unavailable area
             // money is reduced when the tower was placed successfully to the grid
 
-            newTowerIndex = towerIndexInStore;
-            
             return true;
         }
         else
@@ -60,13 +73,11 @@ public class Bank : MonoBehaviour
         }
     }
 
-    int newTowerIndex;
+    //int newTowerIndex;
     public void NewTowerWasPlacedSuccessfully()
     {
         // reduce players money
-        playerMoney -= prices[newTowerIndex];
-        // update store towers color so it indicates if player has enough money
-        storeItemHandler.ChangeUITowerColors();
+        playerMoney -= price;
         // update the bank balance to show how much money the player has
         UpdateBankBalanceText();
     }
@@ -75,6 +86,10 @@ public class Bank : MonoBehaviour
     {
         // change the text above the store
         bankBalanceText.text = "" + playerMoney;
+        // update store towers color so it indicates if player has enough money
+        storeItemHandler.ChangeUITowerColors();
+        // notify selectionView that money balance has been changed
+        selectionWindow.UpdateUpgradeStatus();
     }
 
     public void IncreasePlayerMoney(int money)

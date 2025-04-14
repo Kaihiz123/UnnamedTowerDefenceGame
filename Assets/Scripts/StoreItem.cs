@@ -5,39 +5,30 @@ using UnityEngine.UI;
 public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
 {
     public StoreHandler storeHandler;
-    public int index;
-    public int price;
     public Image towerImageUI;
     public TMPro.TextMeshProUGUI towerText;
+    public TMPro.TextMeshProUGUI nameText;
     public TowerInfo.TowerType towerType;
 
-    float hoverOverAlpha = 1f;
-    float defaultAlpha = 0.7f;
+    bool playerCanAffordThisItem = true;
+    bool mouseIsHoveringOverThisItem = false;
 
-    public void Init()
+    public void Init(int price)
     {
         if(storeHandler == null)
         {
             storeHandler = GetComponentInParent<StoreItemHandler>(true).storeHandler;
         }
 
-        // the index of the storeItem in the store
-        index = transform.parent.GetSiblingIndex();
-
-        // debug (if no price is given to storeItem)
-        if(price == 0)
-        {
-            price = 100 * index + 100;
-        }
-
-        // name of the tower that is shown on the storeItem
-        towerText.text = towerType.ToString();
+        // cost of the tower that is shown on the storeItem
+        towerText.text = "" + price;
+        nameText.text = "" + towerType.ToString();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         // Left button of the mouse was pressed down
-        storeHandler.MouseButtonDownOnStoreItem(gameObject, index);
+        storeHandler.MouseButtonDownOnStoreItem(gameObject, (int) towerType);
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -50,10 +41,8 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
     {
         // The cursor is hovering over the storeItem
 
-        // change button color alpha
-        Color color = towerImageUI.color;
-        color.a = hoverOverAlpha;
-        towerImageUI.color = color;
+        mouseIsHoveringOverThisItem = true;
+        ChangeColor();
 
         storeHandler.CursorEnterStoreItem(gameObject);
     }
@@ -61,24 +50,50 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
     public void OnPointerExit(PointerEventData eventData)
     {
         // The cursor left the storeItem area
-        
-        // change button color alpha
-        Color color = towerImageUI.color;
-        color.a = defaultAlpha;
-        towerImageUI.color = color;
+
+        mouseIsHoveringOverThisItem = false;
+        ChangeColor();
 
         storeHandler.CursorExitStoreItem(gameObject);
     }
 
     public void PlayerCanAfford()
     {
-        // change color to blue
-        towerImageUI.color = new Color(0f, 0f, 1f, defaultAlpha);
+        playerCanAffordThisItem = true;
+        ChangeColor();
     }
 
     public void PlayerCannotAfford()
     {
-        // change color to red
-        towerImageUI.color = new Color(1f, 0f, 0f, defaultAlpha);
+        playerCanAffordThisItem = false;
+        ChangeColor();
+    }
+
+    private void ChangeColor()
+    {
+        float hoverOverAlpha = 0.5f;
+        float defaultAlpha = 1f;
+
+        if (playerCanAffordThisItem)
+        {
+            if (mouseIsHoveringOverThisItem)
+            {
+                towerImageUI.color = new Color(1f, 1f, 1f, hoverOverAlpha);
+                towerText.color = new Color(1f, 1f, 0.5f, 1f);
+                nameText.color = new Color(1f, 1f, 0.5f, 1f);
+            }
+            else
+            {
+                towerImageUI.color = new Color(1f, 1f, 1f, defaultAlpha);
+                towerText.color = new Color(1f, 1f, 0.5f, 1f);
+                nameText.color = new Color(1f, 1f, 0.5f, 1f);
+            }
+        }
+        else
+        {
+            towerImageUI.color = new Color(0.33f, 0.33f, 0.33f, defaultAlpha);
+            towerText.color = new Color(0.6f, 0.6f, 0.6f, 1f);
+            nameText.color = new Color(0.6f, 0.6f, 0.6f, 1f);
+        }
     }
 }

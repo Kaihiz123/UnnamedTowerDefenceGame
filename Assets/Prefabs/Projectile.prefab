@@ -120,6 +120,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 0}
+  aoEEffectPrefab: {fileID: 0}
+  sparkEffectPrefab: {fileID: 1239500627973033316, guid: bb82f853aafe4f54ab27a28b9c049162, type: 3}
+  shieldHitEffectPrefab: {fileID: 1239500627973033316, guid: fbda4e79666b88a4f972585bf003f583, type: 3}
 --- !u!1 &6089980472827680049
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 609169812939532400}
   - component: {fileID: 733098180862068928}
+  - component: {fileID: 3639003149499670384}
   m_Layer: 20
   m_Name: Projectile
   m_TagString: Projectile
@@ -168,7 +172,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSpeed: 0
   projectileAttackDamage: 0
+  projectileAoEAttackRangeRadius: 0
   projectileLifetime: 3
+  sourceTowerType: 0
+--- !u!114 &3639003149499670384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6089980472827680049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b98e482b5e64fa478a6294be8b18653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7255409649651968958
 GameObject:
   m_ObjectHideFlags: 0

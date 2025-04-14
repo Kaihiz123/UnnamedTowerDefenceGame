@@ -22,12 +22,14 @@ public class StoreHandler : MonoBehaviour
 
     bool isDragging = false; // if tower is being dragged
 
-    TowerPlacementGrid tpg;
+    public TowerPlacementGrid towerPlacementGrid;
     Camera mainCamera;
+
+    [Header("Tower Type Upgrades")]
+    public TowerTypeUpgradeDataSO towerUpgrades;
 
     private void Start()
     {
-        tpg = GetComponent<TowerPlacementGrid>();
         mainCamera = Camera.main;
         ScreenSpaceOverlayCanvasObject.SetActive(true);
     }
@@ -59,12 +61,12 @@ public class StoreHandler : MonoBehaviour
                     previousPosition = currentPosition;
 
                     // move the grid
-                    transform.position += delta;
+                    towerPlacementGrid.transform.position += delta;
                     // move the canvas with visible grid
                     WorldSpaceCanvasObject.transform.position += delta;
 
                     // notify how the grid has been moved
-                    tpg.movement += delta;
+                    towerPlacementGrid.movement += delta;
                 }
             }
             else if (Input.GetMouseButtonUp(2)) // if mouse middle button is released
@@ -90,10 +92,12 @@ public class StoreHandler : MonoBehaviour
     {
         // Left mouse button was pressed down above a certain storeItem
 
-        // Does the player have enough money
-        if (bank.BuyTower(index))
-        {
+        // cost of the tower
+        int cost = towerUpgrades.towerType[index].upgradeLevels[0].upgradeCost;
 
+        // Does the player have enough money
+        if (bank.BuyTower(cost))
+        {
             // Hide store 
             //ScreenSpaceOverlayCanvasObject.SetActive(false);
 
@@ -101,9 +105,13 @@ public class StoreHandler : MonoBehaviour
             // the towerPlacementGrid know that we are dragging the new tower
 
             GameObject newTowerObject = Instantiate(towerPrefabs[index]);
-            newTowerObject.transform.localScale = tpg.ElementSize;
+            newTowerObject.transform.localScale = towerPlacementGrid.ElementSize;
             // Set the new tower child of ObjectsOnGrid
             newTowerObject.transform.SetParent(ObjectsOnGrid);
+            // update tower's attack, range, firerate, etc. values to match the upgrade index
+            newTowerObject.GetComponent<TowerUpgrading>().RunWhenTowerUpgrades();
+            // show area visual
+            newTowerObject.GetComponent<TowerShooting>().ShowAreaVisual(true);
             // pass the tower type from storeItem to towerInfo
             TowerInfo towerInfo = newTowerObject.GetComponent<TowerInfo>();
             towerInfo.towerType = pressedStoreItemObject.GetComponent<StoreItem>().towerType;
@@ -112,7 +120,7 @@ public class StoreHandler : MonoBehaviour
             // Set the position of the new tower into cursor position
             newTowerObject.transform.position = mousePosition;
             // Notify the towerPlacementGrid of the new tower
-            tpg.NewTower(newTowerObject);
+            towerPlacementGrid.NewTower(newTowerObject);
         }
     }
 
