@@ -80,6 +80,7 @@ public class WaveManager : MonoBehaviour
     // To track the scaling for infinite waves
     private float currentScalingMultiplier = 1f;
     private int infiniteWavesCompleted = 0;
+    private Cleanup cleanup;
 
     // Returns the correct enemy prefab based on the enemy type
     private GameObject GetEnemyPrefab(EnemyType type)
@@ -99,6 +100,11 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    public int GetWavesReached()
+    {
+        return helperCurrentWave;
+    }
+
     void Start()
     {
         // if bank reference is not set, find it in the scene
@@ -113,6 +119,7 @@ public class WaveManager : MonoBehaviour
             enemyParent = GameObject.Find("EnemiesParent").transform;
         }
 
+        cleanup = new Cleanup();
         UpdateWaveText(1);
         StartCoroutine(Spawning());
     }
@@ -122,6 +129,14 @@ public class WaveManager : MonoBehaviour
         if (waveText != null)
         {
                 waveText.text = $"Wave: {waveNumber}";
+        }
+    }
+
+    public void DisableWaveText()
+    {
+        if (waveText != null)
+        {
+            waveText.gameObject.SetActive(false);
         }
     }
 
@@ -315,7 +330,8 @@ public class WaveManager : MonoBehaviour
             // Lets do unspeakable things to other systems now that the wave is over
             bank.IncreasePlayerMoney(currentActiveWave.waveReward);
             Debug.Log("Wave " + (waveIndex + 1) + " completed!" + " Money earned: " + currentActiveWave.waveReward);
-            
+            cleanup.ForceCleanup();
+
             if (enableWaveBonus && (waveIndex + 1) % waveBonusInterval == 0)
             {
                 bank.IncreasePlayerMoney(waveBonusAmount);

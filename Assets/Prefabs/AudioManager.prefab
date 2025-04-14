@@ -115,6 +115,8 @@ MonoBehaviour:
   uiSoundEffectAudioMixerGroup: {fileID: 7000482159382304742, guid: a03e88add21a77a41ab58aae0d59fce0, type: 2}
   soundEffectAudioSourceObjectPoolParent: {fileID: 8278204177847974606}
   uiSoundEffectAudioSourceObjectPoolParent: {fileID: 3342632830281542282}
+  soundEffectPoolSize: 40
+  adaptivePoolSize: 0
 --- !u!1 &8783897034358158495
 GameObject:
   m_ObjectHideFlags: 0

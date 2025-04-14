@@ -14,6 +14,9 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
 
     public PauseMenuScript pauseMenuScript;
 
+    public List<GameObject> hideInWebGLBuild = new List<GameObject>();
+    public List<GameObject> hideInWindowsBuild = new List<GameObject>();
+
     // Declare a delegate and event
     public delegate void ResetSettingsToDefault();
     public static event ResetSettingsToDefault OnResetSettingsToDefault;
@@ -32,6 +35,25 @@ public class MenuSettingsPanelScript : MonoBehaviour, ISettings
 
     private void Start()
     {
+        // hide some of the settings based on build type
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            // web build
+            foreach(GameObject go in hideInWebGLBuild)
+            {
+                go.SetActive(false);
+            }
+        }
+        else
+        {
+            // windows build
+            foreach(GameObject go in hideInWindowsBuild)
+            {
+                go.SetActive(false);
+            }
+        }
+
+
         SettingsTabChanged(panels[0]);
     }
 

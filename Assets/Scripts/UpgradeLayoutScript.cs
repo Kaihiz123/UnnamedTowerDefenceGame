@@ -21,6 +21,7 @@ public class UpgradeLayoutScript : MonoBehaviour
         currentTowerInfo = towerInfo;
         this.selectionWindow = selectionWindow;
         UpdateTexts();
+        DisplayTowerStatsTooltip(-1, false); // this is new
     }
 
     public void UpdateTexts()
@@ -77,13 +78,45 @@ public class UpgradeLayoutScript : MonoBehaviour
     }
 
     GameObject hoverOverButton = null;
-    public void HoverOverButtonEnter(GameObject go)
+    public void HoverOverButtonEnter(GameObject go, int upgradeIndex)
     {
         hoverOverButton = go;
+        DisplayTowerStatsTooltip(upgradeIndex, true);
     }
 
     public void HoverOverButtonExit(GameObject go)
     {
         hoverOverButton = null;
+        // Return to showing current tower stats
+        DisplayTowerStatsTooltip(-1, false);
+    }
+
+    // Shoehorning in a temporary tooltip system, and nothing is as permanent as a temporary solution.
+    public TMPro.TextMeshProUGUI statsTooltipText;
+
+    public void DisplayTowerStatsTooltip(int upgradeIndex, bool isHovering)
+    {
+        if (!statsTooltipText)
+            return;
+        
+        if (!isHovering)
+        {
+            upgradeIndex = currentTowerInfo.upgradeIndex;
+        }
+        
+        if (upgradeIndex == -1 && isHovering)
+        {
+            statsTooltipText.text = "SELL";
+            return;
+        }
+        
+        if (upgradeIndex >= 0 && upgradeIndex < towerUpgrades.towerType[(int)towerType].upgradeLevels.Length)
+        {
+            var upgradeLevel = towerUpgrades.towerType[(int)towerType].upgradeLevels[upgradeIndex];
+            
+            string tooltipText = $"DMG: {upgradeLevel.attackDamage} RNG: {upgradeLevel.range} ROF: {upgradeLevel.fireRate}";
+            
+            statsTooltipText.text = tooltipText;
+        }
     }
 }

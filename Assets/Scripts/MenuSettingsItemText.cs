@@ -11,6 +11,11 @@ public class MenuSettingsItemText : MonoBehaviour
 
     private void Awake()
     {
+        UpdateTexts();
+    }
+
+    public void UpdateTexts()
+    {
         itemText1.text = itemName1;
         itemText2.text = itemName2;
     }
