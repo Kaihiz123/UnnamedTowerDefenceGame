@@ -7,6 +7,9 @@ public class MenuPlayPanelScript : MonoBehaviour, ISettings
     public delegate void ResetSettingsToDefault();
     public static event ResetSettingsToDefault OnResetSettingsToDefault;
 
+    public GameObject notEligibleToLeaderboardsTextPanel;
+    public DefaultPlayerValues defaultPlayerValues;
+
     public void ResetToDefaultButtonClicked()
     {
         Debug.Log("ResetSettings");
@@ -26,6 +29,14 @@ public class MenuPlayPanelScript : MonoBehaviour, ISettings
             PlayerPrefs.SetInt(type.ToString(), intValue);
             PlayerPrefs.Save();
         }
+
+        
+
+        bool playerEligibleToLeaderboards = PlayerPrefs.GetInt(ISettings.Type.STARTMONEY.ToString()) <= defaultPlayerValues.defaultPlayerStartMoney 
+            && PlayerPrefs.GetInt(ISettings.Type.STARTHEALTH.ToString()) <= defaultPlayerValues.defaultPlayerStartHealth
+            && PlayerPrefs.GetInt(ISettings.Type.MAXHEALTH.ToString()) <= defaultPlayerValues.defaultPlayerMaxHealth;
+        notEligibleToLeaderboardsTextPanel.SetActive(!playerEligibleToLeaderboards);
+        PlayerPrefs.SetInt("PlayerEligibleToLeaderboards", playerEligibleToLeaderboards ? 1 : 0);
     }
 
     public void ShowFPSPanel(bool show)
