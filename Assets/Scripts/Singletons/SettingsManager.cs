@@ -7,7 +7,7 @@ public class SettingsManager
 
     // Globally access/change any of the variables here. Handy!
 
-    public bool DebugON = true;
+    public bool DebugON = false;
     public float playerHealth;
     public float playerMaxHealth;
 

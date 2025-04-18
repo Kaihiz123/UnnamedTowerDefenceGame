@@ -6960,6 +6960,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1167585704}
     - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
+      propertyPath: debugMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 1620251799}
@@ -6968,9 +6972,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2127850252}
     - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
+      propertyPath: startFromWave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: waypointsParent
       value: 
       objectReference: {fileID: 1735434989}
+    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
+      propertyPath: helperCurrentWave
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
+      propertyPath: nextWaveTriggered
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: playerHealthSystem
       value: 
@@ -17822,8 +17838,8 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 0.9986901
+    width: 0.999645
+    height: 0.99999994
   near clip plane: 0.3
   far clip plane: 100
   field of view: 60
