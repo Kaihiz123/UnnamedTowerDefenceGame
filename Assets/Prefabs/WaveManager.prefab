@@ -342,6 +342,8 @@ MonoBehaviour:
   maxScalingMultiplier: 10
   globalInfiniteWaveReward: 100
   useGlobalInfiniteWaveReward: 1
+  useRandomRepeatingWaves: 1
+  selectedRepeatingWaveIndex: 0
   basicEnemy: {fileID: 1401652412983515288, guid: b02be7594cead5e4baed89952494b068, type: 3}
   fastEnemy: {fileID: 1401652412983515288, guid: 4d3ede04a195b8441bdcce93e1749489, type: 3}
   tankEnemy: {fileID: 1401652412983515288, guid: 6637d77568c7e094eb3f24d69491438f, type: 3}
@@ -796,6 +798,61 @@ MonoBehaviour:
       count: 4
       shieldCharges: 4
   repeatingWaves:
+  - waveReward: 100
+    enemyScaling: 1
+    enemies:
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 1
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 2
+      spawnDelay: 1
+      count: 2
+      shieldCharges: 20
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 1
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 1
+      spawnDelay: 1
+      count: 3
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
+    - enemyType: 0
+      spawnDelay: 1
+      count: 4
+      shieldCharges: 4
   - waveReward: 100
     enemyScaling: 1
     enemies:

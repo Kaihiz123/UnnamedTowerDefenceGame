@@ -6991,6 +6991,14 @@ PrefabInstance:
       propertyPath: playerHealthSystem
       value: 
       objectReference: {fileID: 927863054}
+    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
+      propertyPath: useRandomRepeatingWaves
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
+      propertyPath: selectedRepeatingWaveIndex
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4282547272630411687, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: m_Name
       value: WaveManager
@@ -23641,8 +23649,12 @@ PrefabInstance:
       value: -238.79976
       objectReference: {fileID: 0}
     - target: {fileID: 5778367083469620920, guid: 672eaeb8a269b6e4aa8d2f46f1132ff0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50.399902
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778367083469620920, guid: 672eaeb8a269b6e4aa8d2f46f1132ff0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -119.40012
+      value: -119.40015
       objectReference: {fileID: 0}
     - target: {fileID: 6425526538383040291, guid: 672eaeb8a269b6e4aa8d2f46f1132ff0, type: 3}
       propertyPath: m_Color.b

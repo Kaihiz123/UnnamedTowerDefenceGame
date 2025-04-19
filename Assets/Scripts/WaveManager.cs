@@ -15,8 +15,9 @@ public class WaveManager : MonoBehaviour
     [Header("Debug Settings")]
     [SerializeField] private bool debugMode = false;
     [SerializeField] private int startFromWave = 1;
-    [Header("Spawn Settings")] 
-
+    [SerializeField] private bool useRandomRepeatingWaves = true;
+    [SerializeField] private int selectedRepeatingWaveIndex = 0;
+    
     [Header("Bonus Settings")]
     [SerializeField] private int waveBonusInterval = 5;
     [SerializeField] private int waveBonusAmount = 200;
@@ -34,7 +35,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float maxScalingMultiplier = 5f;
     [SerializeField] private int globalInfiniteWaveReward = 100;
     [SerializeField] private bool useGlobalInfiniteWaveReward = true;
-
+    
     // Defines the different types of enemies that can be spawned
     public enum EnemyType
     {
@@ -140,6 +141,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    // Tää on ihan hirvee mörkö minkä vois pilkkoo osiin jos uskaltaa
     // Main spawning coroutine that handles wave progression
     public IEnumerator Spawning()
     {
@@ -256,10 +258,21 @@ public class WaveManager : MonoBehaviour
                     currentScalingMultiplier = 1f;
                 }
                 
-                // Select a random wave from repeating waves
-                int randomIndex = Random.Range(0, repeatingWaves.Count);
+                int randomIndex;
+
+                if (useRandomRepeatingWaves)
+                {
+                    // Select a random wave from repeating waves
+                    randomIndex = Random.Range(0, repeatingWaves.Count);
+                }
+                else
+                {
+                    // Use selected wave from the repeating pool for testing
+                    randomIndex = Mathf.Clamp(selectedRepeatingWaveIndex, 0, repeatingWaves.Count - 1);
+                }
+
                 currentActiveWave = repeatingWaves[randomIndex];
-                
+
                 // Apply scaling multiplier to the infinite wave
                 // Clone of the wave to modify its scaling without affecting the original
                 Wave modifiedWave = new Wave();
@@ -274,7 +287,14 @@ public class WaveManager : MonoBehaviour
                 // Set the modified wave as current active wave
                 currentActiveWave = modifiedWave;
                 
-                Debug.Log($"Selected repeating wave pattern {randomIndex + 1} with scaling multiplier {currentScalingMultiplier:F2} and reward {modifiedWave.waveReward}");
+                if (useRandomRepeatingWaves)
+                {
+                    Debug.Log($"Selected wave pattern {randomIndex + 1} with scaling multiplier {currentScalingMultiplier:F2} and reward {modifiedWave.waveReward}");
+                }
+                else
+                {
+                    Debug.Log($"Forced wave pattern {randomIndex + 1} with scaling multiplier {currentScalingMultiplier:F2} and reward {modifiedWave.waveReward}");
+                }           
             }
             
             helperCurrentWave = waveIndex + 1; // update current wave for inspector
