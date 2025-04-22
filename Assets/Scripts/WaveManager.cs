@@ -141,6 +141,13 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    // Add this new method near the other utility methods
+    private int CalculateIncomeRaise(int waveNumber)
+    {
+        // +10 money for each completed 10 waves
+        return (waveNumber / 10) * 10;
+    }
+
     // Tää on ihan hirvee mörkö minkä vois pilkkoo osiin jos uskaltaa
     // Main spawning coroutine that handles wave progression
     public IEnumerator Spawning()
@@ -151,63 +158,64 @@ public class WaveManager : MonoBehaviour
             if (debugMode && startWaveIndex > 0)
             {
                 int accumulatedMoney = 0;
-            
-                // Calculate money from main waves
-                for (int i = 0; i < Mathf.Min(startWaveIndex, waves.Count); i++)
-                {
-                    accumulatedMoney += waves[i].waveReward;
-                
-                    // Add wave bonus if applicable
-                    if (enableWaveBonus && (i + 1) % waveBonusInterval == 0)
+                    // Calculate money from main waves
+                    for (int i = 0; i < Mathf.Min(startWaveIndex, waves.Count); i++)
                     {
-                        accumulatedMoney += waveBonusAmount;
-                        Debug.Log($"Debug mode: Added wave bonus of {waveBonusAmount} for wave {i + 1}");
-                    }
+                        int waveNumber = i + 1;
+                        int baseReward = waves[i].waveReward;
+                        int incomeRaise = CalculateIncomeRaise(waveNumber);
+                    
+                        accumulatedMoney += baseReward + incomeRaise;
+                    
+                        if (incomeRaise > 0)
+                        {
+                            Debug.Log($"Debug mode: Added income raise of {incomeRaise} for wave {waveNumber}");
+                        }
+                    
+                        // Add wave bonus if applicable
+                        if (enableWaveBonus && waveNumber % waveBonusInterval == 0)
+                        {
+                            accumulatedMoney += waveBonusAmount;
+                            Debug.Log($"Debug mode: Added wave bonus of {waveBonusAmount} for wave {waveNumber}");
+                        }
                 }
             
                 // Calculate money for repeating waves
                 if (startWaveIndex > waves.Count && repeatingWaves.Count > 0)
                 {
                     int repeatingWavesSkipped = startWaveIndex - waves.Count;
-                
+                    
                     // Initialize infinite waves completed and scaling multiplier when starting from repeating waves
                     infiniteWavesCompleted = repeatingWavesSkipped;
                     currentScalingMultiplier = Mathf.Min(
                         1f + (infiniteWavesCompleted * infiniteWaveScalingIncrement), 
                         maxScalingMultiplier
                     );
-                
+                    
                     Debug.Log($"Debug mode: Starting at infinite wave {infiniteWavesCompleted} with scaling multiplier {currentScalingMultiplier:F2}");
-                
-                    accumulatedMoney += repeatingWavesSkipped * globalInfiniteWaveReward;
-                
-                    // Add wave bonuses for repeating waves if applicable
-                    if (enableWaveBonus)
+                    
+                    for (int waveNumber = waves.Count + 1; waveNumber <= waves.Count + repeatingWavesSkipped; waveNumber++)
                     {
-                        int totalWavesWithMainWaves = waves.Count + repeatingWavesSkipped;
-                        int bonusesInRepeatingWaves = 0;
-                    
-                        // Calculate how many bonus intervals were in the repeating waves
-                        for (int waveNum = waves.Count + 1; waveNum <= totalWavesWithMainWaves; waveNum++)
+                        // Add base infinite wave reward
+                        accumulatedMoney += globalInfiniteWaveReward;
+                        
+                        // Add income raise
+                        int incomeRaise = CalculateIncomeRaise(waveNumber);
+                        if (incomeRaise > 0)
                         {
-                            if (waveNum % waveBonusInterval == 0)
-                            {
-                                bonusesInRepeatingWaves++;
-                            }
+                            accumulatedMoney += incomeRaise;
+                            Debug.Log($"Debug mode: Added income raise of {incomeRaise} for infinite wave {waveNumber}");
                         }
-                    
-                        int bonusRewards = bonusesInRepeatingWaves * waveBonusAmount;
-                        accumulatedMoney += bonusRewards;
-                    
-                        if (bonusesInRepeatingWaves > 0)
+                        
+                        // Add wave bonuses if applicable
+                        if (enableWaveBonus && waveNumber % waveBonusInterval == 0)
                         {
-                            Debug.Log($"Debug mode: Added {bonusesInRepeatingWaves} wave bonuses for repeating waves: {bonusRewards}");
+                            accumulatedMoney += waveBonusAmount;
                         }
                     }
-                
+                    
                     Debug.Log($"Debug mode: Added rewards for {repeatingWavesSkipped} skipped repeating waves");
-                }
-            
+                }            
                 // Add the accumulated money to the player's bank
                 if (accumulatedMoney > 0)
                 {
@@ -348,8 +356,10 @@ public class WaveManager : MonoBehaviour
             }
 
             // Lets do unspeakable things to other systems now that the wave is over
-            bank.IncreasePlayerMoney(currentActiveWave.waveReward);
-            Debug.Log("Wave " + (waveIndex + 1) + " completed!" + " Money earned: " + currentActiveWave.waveReward);
+            int waveNumber = waveIndex + 1;
+            int incomeRaise = CalculateIncomeRaise(waveNumber);
+            bank.IncreasePlayerMoney(currentActiveWave.waveReward + incomeRaise);
+            Debug.Log("Wave " + (waveIndex + 1) + " completed!" + " Money earned: " + currentActiveWave.waveReward + " + " + incomeRaise + " raise");
             cleanup.ForceCleanup();
 
             if (enableWaveBonus && (waveIndex + 1) % waveBonusInterval == 0)
