@@ -100,7 +100,6 @@ public class EnemyScript : MonoBehaviour
 
     private void UpdateShieldVisual()
     {
-
         // If we have shield charges but no active shield visual, create one
         if (hasShield && activeShieldVisual == null && shieldVisualPrefab != null)
         {
@@ -114,6 +113,23 @@ public class EnemyScript : MonoBehaviour
         {
             Destroy(activeShieldVisual);
             activeShieldVisual = null;
+        }
+        UpdateShieldColor();
+    }
+
+    private void UpdateShieldColor()
+    {
+        if (hasShield && shieldCharges <= 4)
+        {
+            activeShieldVisual.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        }
+        else if (hasShield && shieldCharges >= 5 && shieldCharges <= 20)
+        {
+            activeShieldVisual.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 1f, 1f);
+        }
+        else if (hasShield && shieldCharges >= 20)
+        {
+            activeShieldVisual.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, 1f);
         }
     }
 

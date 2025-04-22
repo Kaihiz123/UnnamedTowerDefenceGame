@@ -846,7 +846,7 @@ MonoBehaviour:
       count: 3
       shieldCharges: 4
   - waveReward: 100
-    enemyScaling: 2
+    enemyScaling: 1.5
     enemies:
     - enemyType: 2
       spawnDelay: 0.5
