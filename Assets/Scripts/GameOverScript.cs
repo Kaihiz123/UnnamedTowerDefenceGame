@@ -54,9 +54,17 @@ public class GameOverScript : MonoBehaviour
 
     public void AddPlacementText(string text, bool placedInTheTop20)
     {
-        leaderboardPlacementText.text = text;
-        if (!placedInTheTop20)
+        if(PlayerPrefs.GetInt("PlayerEligibleToLeaderboards", 1) == 1)
         {
+            leaderboardPlacementText.text = text;
+            if (!placedInTheTop20)
+            {
+                hiscoreSubmitButton.Disable();
+            }
+        }
+        else
+        {
+            leaderboardPlacementText.text = "You are not eligible to leaderboards!";
             hiscoreSubmitButton.Disable();
         }
     }

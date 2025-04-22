@@ -17,8 +17,8 @@ public class PlayerHealthSystem : MonoBehaviour
 
     private void Start()
     {
-        playerHealth = PlayerPrefs.GetInt(ISettings.Type.STARTHEALTH.ToString(), 100);
-        maxPlayerHealth = PlayerPrefs.GetInt(ISettings.Type.MAXHEALTH.ToString(), 100);
+        playerHealth = PlayerPrefs.GetInt(ISettings.Type.STARTHEALTH.ToString(), 200);
+        maxPlayerHealth = PlayerPrefs.GetInt(ISettings.Type.MAXHEALTH.ToString(), 200);
         SettingsManager.Instance.playerHealth = playerHealth; // So far only for PlayerBaseHealthBar
         SettingsManager.Instance.playerMaxHealth = maxPlayerHealth; // So far only for PlayerBaseHealthBar
         UpdatePlayerHealthText();
