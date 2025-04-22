@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject, projectileLifetime);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // Move forward
         transform.Translate(Vector3.up * projectileSpeed * Time.deltaTime);

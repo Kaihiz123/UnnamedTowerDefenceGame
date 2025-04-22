@@ -6960,10 +6960,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1167585704}
     - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
-      propertyPath: debugMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 1620251799}
@@ -6972,33 +6968,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2127850252}
     - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
-      propertyPath: startFromWave
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: waypointsParent
       value: 
       objectReference: {fileID: 1735434989}
     - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
-      propertyPath: helperCurrentWave
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
-      propertyPath: nextWaveTriggered
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: playerHealthSystem
       value: 
       objectReference: {fileID: 927863054}
-    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
-      propertyPath: useRandomRepeatingWaves
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2804571506116731535, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
-      propertyPath: selectedRepeatingWaveIndex
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4282547272630411687, guid: e2981123fc6fb58409bb7f4102429da7, type: 3}
       propertyPath: m_Name
       value: WaveManager
@@ -17846,8 +17822,8 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.999645
-    height: 0.99999994
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 100
   field of view: 60
@@ -22929,7 +22905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2843431714127288932, guid: 9c4276a371f690542a33174fb09f389c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2880333207996180819, guid: 9c4276a371f690542a33174fb09f389c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -23649,12 +23625,8 @@ PrefabInstance:
       value: -238.79976
       objectReference: {fileID: 0}
     - target: {fileID: 5778367083469620920, guid: 672eaeb8a269b6e4aa8d2f46f1132ff0, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 50.399902
-      objectReference: {fileID: 0}
-    - target: {fileID: 5778367083469620920, guid: 672eaeb8a269b6e4aa8d2f46f1132ff0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -119.40015
+      value: -119.40012
       objectReference: {fileID: 0}
     - target: {fileID: 6425526538383040291, guid: 672eaeb8a269b6e4aa8d2f46f1132ff0, type: 3}
       propertyPath: m_Color.b
