@@ -37,7 +37,8 @@ public class Hiscore : MonoBehaviour
             go.name = "HiscoreItem";
             go.transform.SetParent(hiscoreItemParent);
             MenuSettingsItemText msit = go.GetComponent<MenuSettingsItemText>();
-            msit.itemName1 = "#" + runningNumber + " " + entry.Key;
+            string playerName = entry.Key.Split("#")[0];
+            msit.itemName1 = "#" + runningNumber + " " + playerName;
             msit.itemName2 = "" + entry.Value;
             msit.UpdateTexts();
             runningNumber++;

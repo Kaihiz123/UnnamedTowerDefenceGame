@@ -87,8 +87,7 @@ public class UGSManager : MonoBehaviour
 
             foreach (var entry in scoresResponse.Results)
             {
-                string playerName = entry.PlayerName.Split("#")[0];
-                dict.Add(playerName, (int) entry.Score);
+                dict.Add(entry.PlayerName, (int) entry.Score);
             }
 
             if(hiscore == null)
