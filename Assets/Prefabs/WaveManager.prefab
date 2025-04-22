@@ -329,7 +329,7 @@ MonoBehaviour:
   nextWaveTriggered: 0
   helperCurrentWave: 0
   debugMode: 0
-  startFromWave: 0
+  startFromWave: 20
   useRandomRepeatingWaves: 1
   selectedRepeatingWaveIndex: 0
   waveBonusInterval: 5

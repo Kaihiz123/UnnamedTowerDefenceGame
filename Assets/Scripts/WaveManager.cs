@@ -225,20 +225,27 @@ public class WaveManager : MonoBehaviour
             }
         int waveIndex = startWaveIndex;
         
+        // Add a flag to track if this is the first wave being executed in this session
+        bool isFirstWaveExecution = true;
+        
         while (true)
         {
-            if (waveIndex < waves.Count)
+            // Modified condition: Wait for player input if it's a main wave OR if it's the first wave being executed in debug mode
+            if (waveIndex < waves.Count || isFirstWaveExecution)
             {
-                // Wait for player to trigger wave (only for main waves)
+                // Wait for player to trigger wave
                 nextWaveButton.gameObject.SetActive(true);
                 UpdateWaveText(waveIndex + 1);
                 yield return new WaitUntil(() => nextWaveTriggered);
                 nextWaveButton.gameObject.SetActive(false);
                 nextWaveTriggered = false;
+                
+                // We've now executed the first wave
+                isFirstWaveExecution = false;
             }
             else
             {
-                // No button for repeating waves
+                // No button for repeating waves (except for the first one in debug mode)
                 yield return new WaitForSeconds(2f);
             }
             

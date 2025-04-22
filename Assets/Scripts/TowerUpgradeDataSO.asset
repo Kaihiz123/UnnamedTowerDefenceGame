@@ -28,18 +28,18 @@ MonoBehaviour:
       towerTurretSprite: {fileID: 359988316741786400, guid: 2bc373a86611fd1479cbcefabb483b0f, type: 3}
       upgradeCost: 100
       range: 3
-      attackDamage: 5
+      attackDamage: 4
       projectileSpeed: 18
-      fireRate: 4.5
+      fireRate: 5.5
       aoeRadius: 0
       buildTime: 2
     - towerBaseSprite: {fileID: -7108797985038833940, guid: fe7e144b60d191942bf2c807f69cd1cd, type: 3}
       towerTurretSprite: {fileID: -3952989975384369875, guid: 03c82115c1382584ca4ba06cc0ac0f10, type: 3}
       upgradeCost: 200
       range: 3
-      attackDamage: 8
+      attackDamage: 5
       projectileSpeed: 18
-      fireRate: 5
+      fireRate: 8
       aoeRadius: 0
       buildTime: 2
   - Type: 1
