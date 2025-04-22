@@ -27,14 +27,20 @@ public class StoreItem : MonoBehaviour, IPointerEnterHandler, IPointerDownHandle
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        // Left button of the mouse was pressed down
-        storeHandler.MouseButtonDownOnStoreItem(gameObject, (int) towerType);
+        // Added left button check to fix bug when interacting with any other mouse button
+        if(eventData.button == PointerEventData.InputButton.Left)
+        {
+            storeHandler.MouseButtonDownOnStoreItem(gameObject, (int) towerType);
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        // Left button of the mouse was released
-        storeHandler.MouseButtonUpOnStoreItem(gameObject);
+        // Added left button check to fix bug when interacting with any other mouse button
+        if(eventData.button == PointerEventData.InputButton.Left)
+        {
+            storeHandler.MouseButtonUpOnStoreItem(gameObject);
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
