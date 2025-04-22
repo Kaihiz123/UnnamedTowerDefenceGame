@@ -39,7 +39,7 @@ public class EnemyPathing : MonoBehaviour
         RotateSprite();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (waypoints == null || waypoints.Length == 0 || HasReachedEnd)
             return;
